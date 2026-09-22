@@ -14,7 +14,9 @@
 //             "wishlist" 想玩
 //             "dropped"  弃了
 //   tags    标签数组，随便写，只作为卡片上的展示标签（筛选栏按厂商，不按标签）
-//   cover   封面图片路径，留空 "" 会自动生成色块封面
+//   cover   封面图片路径，留空 "" 会自动生成色块封面。
+//             仓库根目录的 cover-*.webp 是这三部作品的官方封面图，**版权归原厂商所有**
+//             （きゃべつそふと / まどそふと），此处仅作个人收藏展示用。
 //   note    一句话感想，可以留空
 //   sample  可选。写 true 会在卡片角上标「示例」（用来标临时占位的条目）；正式条目不要写这一行
 // ============================================================
@@ -30,7 +32,7 @@ window.GALGAMES = [
     year: 2022,
     score: null,
     tags: [],
-    cover: "",
+    cover: "cover-jewelry-hearts.webp",
     note: "",
   },
   {
@@ -39,7 +41,7 @@ window.GALGAMES = [
     year: 2025,
     score: null,
     tags: [],
-    cover: "",
+    cover: "cover-jewelry-nights.webp",
     note: "",
   },
   {
@@ -48,7 +50,7 @@ window.GALGAMES = [
     year: 2020,
     score: null,
     tags: [],
-    cover: "",
+    cover: "cover-hamidashi.webp",
     note: "",
   },
 ];
