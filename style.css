@@ -159,6 +159,7 @@ a:hover { text-shadow: 0 0 10px var(--accent-glow); }
 .contact-list li { margin: 0.4rem 0; color: var(--text); }
 .contact-item { display: flex; justify-content: center; align-items: center; gap: 0.45rem; }
 .icon { width: 1.25em; height: 1.25em; flex-shrink: 0; vertical-align: -0.25em; }
+.icon-badge { background: #fff; border-radius: 50%; padding: 0.12em; box-sizing: border-box; }
 .placeholder { color: var(--text-dim); font-style: italic; }
 
 /* 页脚 */
