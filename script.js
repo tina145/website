@@ -273,12 +273,8 @@ if (copyBtn) {
       stats.innerHTML = '';
       return;
     }
-    const scored = all.map((g) => num(g.score)).filter((n) => n >= 0);
-    const avg = scored.length ? (scored.reduce((a, b) => a + b, 0) / scored.length).toFixed(1) : '—';
-
-    let html =
-      '<span class="gal-stat"><b>' + all.length + '</b>部收藏</span>' +
-      '<span class="gal-stat"><b>' + avg + '</b>平均分</span>';
+    // 统计条不显示平均分（2026-09-23 按 tina 要求删除）；作品自己的评分仍在卡片上显示
+    let html = '<span class="gal-stat"><b>' + all.length + '</b>部收藏</span>';
     if (shown !== all.length) {
       html += '<span class="gal-stat">筛选出 <b>' + shown + '</b>部</span>';
     }
@@ -367,8 +363,8 @@ if (copyBtn) {
 
   let queued = false;
 
-  // 点了哪一项就先钉住哪一项。页面底部两个区块挤在一起，
-  // 点「现在」和点「联系」最后会停在完全相同的位置，光看滚动位置分不出来
+  // 点了哪一项就先钉住哪一项。页面底部区块和视口差不多高，
+  // 光看滚动位置分不出来，所以点击后要钉住
   let pinned = null;
 
   function activate(current) {
