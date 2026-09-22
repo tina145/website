@@ -152,12 +152,35 @@
       </div>
     </section>
 
-    <!-- 小游戏：先占位，想好玩什么再往这个区块里加 -->
+    <!-- 小游戏：2048（逻辑在 game2048.js，样式在 style.css 的「小游戏 · 2048」段） -->
     <section class="section" id="minigames">
       <div class="container">
         <h2 class="section-title">小游戏 <span class="title-star">✦</span></h2>
-        <div class="card reveal">
-          <p>正在施工</p>
+        <p class="section-lead">第一个小游戏：2048。合并出 2048 就算赢，输了可以重来，进度会自动保存。</p>
+
+        <div class="g2048" id="game2048">
+          <div class="g2048-head">
+            <div class="g2048-scores">
+              <div class="g2048-score"><span>得分</span><b id="g2048Score">0</b></div>
+              <div class="g2048-score"><span>最高</span><b id="g2048Best">0</b></div>
+            </div>
+            <button class="btn btn-ghost g2048-restart" id="g2048Restart" type="button">重新开始</button>
+          </div>
+
+          <div class="g2048-board" id="g2048Board" tabindex="0" role="group"
+               aria-label="2048 棋盘：先点一下这里，再用方向键或 WASD 移动；手机上直接滑动">
+            <div class="g2048-grid" id="g2048Grid" aria-hidden="true"></div>
+            <div class="g2048-tiles" id="g2048Tiles" aria-hidden="true"></div>
+            <div class="g2048-overlay" id="g2048Overlay" hidden>
+              <p class="g2048-overlay-text" id="g2048OverlayText" role="status"></p>
+              <div class="g2048-overlay-actions">
+                <button class="btn btn-glow" id="g2048Again" type="button">再来一局</button>
+                <button class="btn btn-ghost" id="g2048Keep" type="button" hidden>继续玩</button>
+              </div>
+            </div>
+          </div>
+
+          <p class="g2048-hint">点一下棋盘，用 ↑ ↓ ← → 或 WASD 移动；手机上在棋盘上滑动。进度会自动保存。</p>
         </div>
       </div>
     </section>
@@ -199,5 +222,6 @@
   <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9dbc39219d9144c998ec463622b964f8"}'></script><!-- End Cloudflare Web Analytics -->
   <script src="games.js"></script>
   <script src="script.js"></script>
+  <script src="game2048.js"></script>
 </body>
 </html>

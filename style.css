@@ -340,6 +340,143 @@ a:hover { text-shadow: 0 0 10px var(--accent-glow); }
 .gal-empty { margin-top: 0.5rem; padding: 2.2rem 0; text-align: center; color: var(--text-dim); }
 .gal-empty button { margin-top: 0.8rem; }
 
+/* ================= 小游戏 · 2048 ================= */
+.g2048 { max-width: 420px; margin: 0 auto; }
+
+.g2048-head {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem;
+}
+.g2048-scores { display: flex; gap: 0.6rem; }
+.g2048-score {
+  min-width: 84px; padding: 0.35rem 0.9rem; text-align: center;
+  background: rgba(111, 168, 255, 0.1);
+  border: 1px solid rgba(111, 168, 255, 0.25);
+  border-radius: 10px;
+}
+.g2048-score span { display: block; font-size: 0.7rem; color: var(--text-dim); letter-spacing: 0.08em; }
+.g2048-score b { font-size: 1.15rem; color: var(--accent); text-shadow: 0 0 12px var(--accent-glow); }
+.g2048-restart { padding: 0.5rem 1.1rem; font-size: 0.88rem; }
+
+/* 棋盘：格子大小由 game2048.js 量出宽度后写进 --g-cell / --g-gap */
+.g2048-board {
+  --g-gap: 12px;
+  --g-cell: 80px;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: rgba(20, 20, 50, 0.55);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(111, 168, 255, 0.22);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  touch-action: none; /* 手机上在棋盘里滑动是操作，别同时滚页面 */
+  user-select: none;
+  -webkit-user-select: none;
+}
+.g2048-board:focus { outline: none; }
+/* 焦点在棋盘上时给个光圈提示「现在方向键是操作」 */
+.g2048-board:focus-visible {
+  border-color: var(--accent);
+  box-shadow: var(--shadow), 0 0 0 2px rgba(111, 168, 255, 0.55), 0 0 22px var(--accent-glow);
+}
+
+/* 底格层和方块层都贴着棋盘的 padding box，格子位置两边用同一套算法算，所以能对齐 */
+.g2048-grid {
+  position: absolute; inset: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: var(--g-gap);
+  padding: var(--g-gap);
+}
+.g2048-grid > div { background: rgba(255, 255, 255, 0.05); border-radius: 10px; }
+
+.g2048-tiles { position: absolute; inset: 0; }
+.g2048-tile {
+  position: absolute; top: var(--g-gap); left: var(--g-gap);
+  width: var(--g-cell); height: var(--g-cell);
+  z-index: 2;
+  /* 位置全靠这两个自定义属性推：game2048.js 只改变量，位移交给 CSS 过渡 */
+  transform: translate(
+    calc((var(--g-cell) + var(--g-gap)) * var(--g-c, 0)),
+    calc((var(--g-cell) + var(--g-gap)) * var(--g-r, 0))
+  );
+  transition: transform 0.12s ease-in-out;
+  will-change: transform;
+}
+.g2048-tile.is-dead { z-index: 1; } /* 被吃掉的那个要压在存活方块下面 */
+.g2048-tile.is-dead .g2048-tile-inner { opacity: 0; transition: opacity 0.12s ease 0.06s; }
+
+.g2048-tile-inner {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 10px;
+  font-weight: 700; line-height: 1;
+  font-size: calc(var(--g-cell) * 0.42);
+  color: #dfe6ff;
+  background: rgba(111, 168, 255, 0.12);
+  border: 1px solid rgba(111, 168, 255, 0.22);
+  transition: background 0.12s, color 0.12s;
+}
+/* 位数多了就把字缩小，别撑出格子 */
+.g2048-tile[data-len="3"] .g2048-tile-inner { font-size: calc(var(--g-cell) * 0.33); }
+.g2048-tile[data-len="4"] .g2048-tile-inner { font-size: calc(var(--g-cell) * 0.26); }
+.g2048-tile[data-len="5"] .g2048-tile-inner,
+.g2048-tile[data-len="6"] .g2048-tile-inner { font-size: calc(var(--g-cell) * 0.21); }
+
+/* 数值越大越亮：2/4/8 是半透明蓝，之后顺着 蓝→紫→粉→金 往上爬 */
+.g2048-tile[data-val="4"] .g2048-tile-inner { background: rgba(111, 168, 255, 0.2); }
+.g2048-tile[data-val="8"] .g2048-tile-inner { background: rgba(111, 168, 255, 0.34); color: #f2f6ff; }
+.g2048-tile[data-val="16"] .g2048-tile-inner { background: linear-gradient(150deg, #2c4a86, #4a6fd8); color: #f2f6ff; }
+.g2048-tile[data-val="32"] .g2048-tile-inner { background: linear-gradient(150deg, #3a3a7a, #6f4fa8); color: #f2f6ff; }
+.g2048-tile[data-val="64"] .g2048-tile-inner { background: linear-gradient(150deg, #4a2f6b, #a05fd0); color: #f6f2ff; }
+.g2048-tile[data-val="128"] .g2048-tile-inner { background: linear-gradient(150deg, #5a2f7a, #b06fb0); color: #fff; }
+.g2048-tile[data-val="256"] .g2048-tile-inner { background: linear-gradient(150deg, #6b2f6b, #c96f9f); color: #fff; }
+.g2048-tile[data-val="512"] .g2048-tile-inner { background: linear-gradient(150deg, #7a2f5a, #e07f8f); color: #fff; }
+.g2048-tile[data-val="1024"] .g2048-tile-inner { background: linear-gradient(150deg, #a8563a, #f0a06f); color: #241a00; }
+.g2048-tile[data-val="2048"] .g2048-tile-inner {
+  background: linear-gradient(150deg, #c9922f, #ffd479);
+  color: #241a00;
+  box-shadow: 0 0 26px rgba(255, 212, 121, 0.5);
+}
+/* 比 2048 还大的（is-huge 由 game2048.js 挂上），统一用更亮的金 */
+.g2048-tile.is-huge .g2048-tile-inner {
+  background: linear-gradient(150deg, #d4a83f, #ffe9a8);
+  color: #241a00;
+  box-shadow: 0 0 26px rgba(255, 233, 168, 0.55);
+}
+
+/* 出现 / 合并的小动画：作用在里面那层，外层 transform 要留给滑动 */
+@keyframes g2048-appear { from { transform: scale(0.35); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+@keyframes g2048-pop { 0% { transform: scale(1); } 55% { transform: scale(1.16); } 100% { transform: scale(1); } }
+.g2048-tile.is-new .g2048-tile-inner { animation: g2048-appear 0.16s ease-out; }
+.g2048-tile.is-merged .g2048-tile-inner { animation: g2048-pop 0.18s ease-out; }
+
+/* 赢了 / 输了盖在棋盘上的那一层 */
+@keyframes g2048-fade { from { opacity: 0; } to { opacity: 1; } }
+.g2048-overlay {
+  position: absolute; inset: 0; z-index: 5;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 1rem; padding: 1.5rem; text-align: center;
+  background: rgba(16, 16, 44, 0.84);
+  backdrop-filter: blur(6px);
+  border-radius: var(--radius);
+  animation: g2048-fade 0.2s ease-out;
+}
+/* 这句不能省：上面的 display:flex 会盖掉 hidden 自带的 display:none */
+.g2048-overlay[hidden] { display: none; }
+.g2048-overlay-text { color: var(--text); font-weight: 600; }
+.g2048-overlay-actions { display: flex; gap: 0.7rem; flex-wrap: wrap; justify-content: center; }
+
+.g2048-hint { margin-top: 0.9rem; font-size: 0.82rem; color: var(--text-dim); text-align: center; }
+
+@media (prefers-reduced-motion: reduce) {
+  .g2048-tile { transition: none; }
+  .g2048-tile-inner { animation: none; transition: none; }
+  .g2048-overlay { animation: none; }
+}
+
 /* ================= 左侧索引 ================= */
 /* 桌面端的主导航：贴在左上角，不参与排版，所以正文列宽（960px）不动
    占位 = 宽 132px + 间距 38px = 170px，两边留白不够时见下面的媒体查询 */
