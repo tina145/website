@@ -9,6 +9,16 @@
   --text-dim: #b9bde0;
   --radius: 16px;
   --shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+  /* 整页背景照片。默认是原始横图，竖屏在下面那个媒体查询里换成竖版裁切图 */
+  --bg-photo: url("bg.webp");
+}
+
+/* 竖屏（手机）换用竖版裁切图 bg-mobile.webp：
+   横图在竖屏下被 cover 从中间横裁一条（只露出全宽的 26%），人物正好被切到框外。
+   判据用屏幕比例而不是宽度，这样窄高的桌面窗口也能吃到同一份图。
+   竖版取景见 MEMORY「手机端竖版背景」一节：成品与源图竖带往返 PSNR 50.3 dB */
+@media (max-aspect-ratio: 1/1) {
+  :root { --bg-photo: url("bg-mobile.webp"); }
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -23,7 +33,7 @@ body {
 }
 
 /* 整页共用的固定背景层：钉在视口上，拖动进度条时完全不动
-   层次自上而下 = 压暗渐变 → 两团光晕 → 星空图
+   层次自上而下 = 压暗渐变 → 两团光晕 → 星空图（图片本身由 --bg-photo 决定：横屏横图 / 竖屏竖版裁切图）
    用 position: fixed 而不是 background-attachment: fixed，是为了手机 Safari（它不支持后者） */
 body::before {
   content: "";
@@ -38,7 +48,7 @@ body::before {
       rgba(16, 16, 44, 0.74) 100%),
     radial-gradient(ellipse 80% 50% at 70% -10%, rgba(90, 70, 180, 0.30), transparent),
     radial-gradient(ellipse 60% 40% at 20% 110%, rgba(60, 80, 200, 0.22), transparent),
-    url("bg.webp") center 30% / cover no-repeat;
+    var(--bg-photo) center 30% / cover no-repeat;
 }
 
 .container { width: min(960px, 92%); margin: 0 auto; }
@@ -72,7 +82,9 @@ a:hover { text-shadow: 0 0 10px var(--accent-glow); }
 .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 /* ================= 首屏 ================= */
-/* 背景图 bg.webp 由原图 bg.png 用 Pillow 转出（quality=85，97KB，约原图 7.5%）；bg.png 留在仓库当原图备份，页面不再引用 */
+/* 背景图 bg.webp 由原图 bg.png 用 Pillow 转出（quality=85，97KB，约原图 7.5%）；bg.png 留在仓库当原图备份，页面不再引用
+   竖屏另有一张 bg-mobile.webp（1181x2556，q85，98.6KB）：从 bg.png 的 x305..615 裁成竖条后放大 3.81 倍，
+   人物落在画面中间；由上面的 --bg-photo 媒体查询决定用哪张，两张都由 body::before 引用 */
 .hero {
   position: relative;
   min-height: 100vh;
