@@ -323,7 +323,7 @@ if (copyBtn) {
             });
           }
         } else {
-          empty.textContent = '清单还是空的：打开 games.js，照着里面的示例往里加作品就行。';
+          empty.textContent = '清单还是空的：打开 games.js 往里加作品就行。';
         }
       }
     }

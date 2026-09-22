@@ -16,7 +16,7 @@
 //   tags    标签数组，随便写，只作为卡片上的展示标签（筛选栏按厂商，不按标签）
 //   cover   封面图片路径，留空 "" 会自动生成色块封面
 //   note    一句话感想，可以留空
-//   sample  true 表示这是示例数据，卡片上会标「示例」；换成自己的条目时删掉这一行
+//   sample  可选。写 true 会在卡片角上标「示例」（用来标临时占位的条目）；正式条目不要写这一行
 // ============================================================
 
 // 筛选栏里固定显示的厂商按钮：即使暂时还没有对应作品，这几个按钮也会一直摆在那儿。
@@ -25,36 +25,21 @@ window.GAL_BRAND_PRESETS = ["卷心菜社", "窗社"];
 
 window.GALGAMES = [
   {
-    title: "CLANNAD",
-    brand: "Key",
-    year: 2004,
-    score: 9.5,
-    status: "cleared",
-    tags: ["泣きゲー", "学园", "纯爱", "ADV"],
+    title: "霞流宝石心 -壮志凌云振寰宇-",
+    brand: "卷心菜社",
+    year: 2022,
+    score: null,
+    tags: [],
     cover: "",
-    note: "示例条目。把这条删掉，换成你自己真正玩过的作品吧。",
-    sample: true,
+    note: "",
   },
   {
-    title: "STEINS;GATE",
-    brand: "5pb. / Nitroplus",
-    year: 2009,
-    score: 10,
-    status: "cleared",
-    tags: ["SF", "悬疑", "多周目", "ADV"],
+    title: "月映宝石乡 -星沈碧落万物喑-",
+    brand: "卷心菜社",
+    year: 2025,
+    score: null,
+    tags: [],
     cover: "",
-    note: "示例条目。注意这里的感想别照抄，写自己的话才有意思。",
-    sample: true,
-  },
-  {
-    title: "Fate/stay night",
-    brand: "TYPE-MOON",
-    year: 2004,
-    score: 8.5,
-    status: "cleared",
-    tags: ["奇幻", "战斗", "NVL"],
-    cover: "",
-    note: "示例条目。brand 里写什么，上面厂商栏就会多出哪个按钮。",
-    sample: true,
+    note: "",
   },
 ];
