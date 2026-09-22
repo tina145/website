@@ -115,6 +115,9 @@ a:hover { text-shadow: 0 0 10px var(--accent-glow); }
 /* ================= 区块与卡片 ================= */
 .section { padding: 4.5rem 0; }
 
+/* 点锚点跳转时，给吸顶导航留出高度，标题不会被压住 */
+.section, .hero { scroll-margin-top: 80px; }
+
 .section-title {
   font-size: 1.7rem; margin-bottom: 1.6rem;
   text-shadow: 0 0 12px var(--accent-glow);
@@ -337,6 +340,71 @@ a:hover { text-shadow: 0 0 10px var(--accent-glow); }
 .gal-empty { margin-top: 0.5rem; padding: 2.2rem 0; text-align: center; color: var(--text-dim); }
 .gal-empty button { margin-top: 0.8rem; }
 
+/* ================= 左侧索引 ================= */
+/* 桌面端的主导航：贴在左上角，不参与排版，所以正文列宽（960px）不动
+   占位 = 宽 132px + 间距 38px = 170px，两边留白不够时见下面的媒体查询 */
+.side-index {
+  position: fixed;
+  top: 1.2rem;
+  left: max(0.9rem, calc((100vw - 960px) / 2 - 170px));
+  z-index: 90;
+  width: 132px;
+  /* 窗口很矮时不能顶出屏幕，改成卡片内部滚动 */
+  max-height: calc(100vh - 2.4rem);
+  overflow-y: auto;
+  padding: 0.85rem 0.7rem;
+  background: rgba(20, 20, 50, 0.55);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(111, 168, 255, 0.22);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+/* 站名：顶栏在宽屏是隐藏的，所以站名搬到侧栏顶部 */
+.side-index-logo {
+  display: block;
+  margin: 0 0 0.7rem;
+  padding: 0 0.35rem 0.7rem;
+  font-size: 0.9rem; font-weight: 700; color: var(--text);
+  border-bottom: 1px solid rgba(111, 168, 255, 0.18);
+}
+
+.side-index-list { display: flex; flex-direction: column; gap: 0.1rem; list-style: none; }
+
+.side-index-link {
+  position: relative; display: block;
+  padding: 0.32rem 0.5rem 0.32rem 0.85rem;
+  font-size: 0.86rem; color: var(--text-dim);
+  border-radius: 8px;
+  transition: color 0.2s, background 0.2s, text-shadow 0.2s;
+}
+/* 左边那根小竖条：常态暗淡，当前区块亮起来 */
+.side-index-link::before {
+  content: ""; position: absolute; left: 0; top: 50%;
+  width: 2px; height: 0.85em; border-radius: 2px;
+  transform: translateY(-50%);
+  background: rgba(111, 168, 255, 0.3);
+  transition: background 0.2s, box-shadow 0.2s, height 0.2s;
+}
+.side-index-link:hover { color: var(--text); background: rgba(111, 168, 255, 0.1); }
+.side-index-link.is-active { color: var(--text); text-shadow: 0 0 12px var(--accent-glow); }
+.side-index-link.is-active::before {
+  height: 1.15em; background: var(--accent); box-shadow: 0 0 10px var(--accent-glow);
+}
+
+/* 两条媒体查询是互补的，中间不留缝：
+   宽屏 → 只留侧栏（顶栏整条收掉，站名在侧栏顶部）
+   窄屏 → 只留顶栏 + 汉堡菜单（侧栏放不下，硬留会压到正文） */
+@media (min-width: 1300px) {
+  .site-header { display: none; }
+  /* 宽屏没有顶栏挡着，锚点跳转不用留那么高的空档 */
+  .section, .hero { scroll-margin-top: 24px; }
+}
+
+@media (max-width: 1299px) {
+  .side-index { display: none; }
+}
+
 /* ================= 移动端 ================= */
 @media (max-width: 640px) {
   .nav-toggle { display: block; }
@@ -350,7 +418,8 @@ a:hover { text-shadow: 0 0 10px var(--accent-glow); }
     max-height: 0; overflow: hidden;
     transition: max-height 0.3s ease;
   }
-  .nav-links.open { max-height: 320px; }
+  /* 7 个菜单项，每项约 52px，留够高度别把最后一项裁掉 */
+  .nav-links.open { max-height: 420px; }
   .nav-links li { padding: 0.9rem 1.5rem; border-top: 1px solid rgba(111, 168, 255, 0.12); }
 
   /* 移动端：整页固定背景层的星空图会被放大裁切，把取景挪到偏右（角色在图的右侧） */

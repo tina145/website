@@ -30,6 +30,7 @@
 </head>
 <body>
 
+  <!-- 顶栏：只在窄屏出现（宽屏由左侧导航接管），窄屏保留汉堡菜单 -->
   <header class="site-header">
     <nav class="nav container">
       <a class="nav-logo" href="#hero">✦ <span>tina的小窝</span></a>
@@ -41,11 +42,27 @@
         <li><a href="#about">关于我</a></li>
         <li><a href="#interests">兴趣</a></li>
         <li><a href="#gal">galgame</a></li>
+        <li><a href="#minigames">小游戏</a></li>
         <li><a href="#now">现在</a></li>
         <li><a href="#contact">联系</a></li>
       </ul>
     </nav>
   </header>
+
+  <!-- 左侧导航：桌面端就是全站的主导航（顶栏只在窄屏出现，见 style.css）
+       滚动时高亮当前区块 -->
+  <nav class="side-index" id="sideIndex" aria-label="站点导航">
+    <a class="side-index-logo" href="#hero">✦ <span>tina的小窝</span></a>
+    <ul class="side-index-list">
+      <li><a class="side-index-link" href="#hero">主页</a></li>
+      <li><a class="side-index-link" href="#about">关于我</a></li>
+      <li><a class="side-index-link" href="#interests">兴趣</a></li>
+      <li><a class="side-index-link" href="#gal">galgame</a></li>
+      <li><a class="side-index-link" href="#minigames">小游戏</a></li>
+      <li><a class="side-index-link" href="#now">现在</a></li>
+      <li><a class="side-index-link" href="#contact">联系</a></li>
+    </ul>
+  </nav>
 
   <main>
     <!-- 首屏：星空插画背景 -->
@@ -132,6 +149,16 @@
 
         <div class="gal-grid" id="galGrid"></div>
         <p class="gal-empty" id="galEmpty" hidden></p>
+      </div>
+    </section>
+
+    <!-- 小游戏：先占位，想好玩什么再往这个区块里加 -->
+    <section class="section" id="minigames">
+      <div class="container">
+        <h2 class="section-title">小游戏 <span class="title-star">✦</span></h2>
+        <div class="card reveal">
+          <p>正在施工</p>
+        </div>
       </div>
     </section>
 
