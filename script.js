@@ -87,3 +87,305 @@ if (copyBtn) {
     showToast(ok ? '已复制QQ号' : '复制失败，请手动记下：' + text);
   });
 }
+
+// 4. galgame 收藏清单（数据手写在 games.js，改那个文件即更新本区块）
+(function initGalgameList() {
+  const grid = document.getElementById('galGrid');
+  if (!grid) return;
+
+  const stats = document.getElementById('galStats');
+  const empty = document.getElementById('galEmpty');
+  const tagRow = document.getElementById('galTagChips');
+  const statusRow = document.getElementById('galStatusChips');
+  const search = document.getElementById('galSearch');
+  const sortSel = document.getElementById('galSort');
+  const controls = document.querySelector('.gal-controls');
+
+  const all = (window.GALGAMES || []).filter((g) => g && g.title);
+
+  const STATUS = {
+    cleared: { label: '已通关', cls: 'st-cleared' },
+    playing: { label: '在玩', cls: 'st-playing' },
+    paused: { label: '搁置', cls: 'st-paused' },
+    wishlist: { label: '想玩', cls: 'st-wishlist' },
+    dropped: { label: '弃了', cls: 'st-dropped' },
+  };
+  const STATUS_ORDER = ['cleared', 'playing', 'paused', 'wishlist', 'dropped'];
+
+  // 没填 cover 时用的渐变封面
+  const COVER_STYLES = [
+    'linear-gradient(150deg, #3a3a7a, #6f4fa8)',
+    'linear-gradient(150deg, #2c4a86, #6fa8ff)',
+    'linear-gradient(150deg, #4a2f6b, #b06fb0)',
+    'linear-gradient(150deg, #1f4b5e, #4fa8a8)',
+    'linear-gradient(150deg, #5a3a5a, #b06f7f)',
+    'linear-gradient(150deg, #2e3a6b, #7f8fd8)',
+  ];
+
+  const state = { tag: null, status: null, q: '', sort: 'default' };
+
+  function num(v) {
+    return typeof v === 'number' && isFinite(v) ? v : -1;
+  }
+
+  function hashCode(str) {
+    let h = 0;
+    for (let i = 0; i < str.length; i++) h = (h * 31 + str.charCodeAt(i)) >>> 0;
+    return h;
+  }
+
+  function initialOf(title) {
+    return (String(title).trim().charAt(0) || '★').toUpperCase();
+  }
+
+  const SORTERS = {
+    default: null,
+    yearDesc: (a, b) => (b.year || 0) - (a.year || 0),
+    yearAsc: (a, b) => (a.year || 9999) - (b.year || 9999),
+    scoreDesc: (a, b) => num(b.score) - num(a.score),
+    titleAsc: (a, b) => String(a.title).localeCompare(String(b.title), 'ja'),
+  };
+
+  // ---- 筛选按钮：只在初始化时建一次，render 里只改按下状态 ----
+  const tagChips = new Map();
+  const statusChips = new Map();
+  let allTagChip = null;
+  let allStatusChip = null;
+
+  function makeChip(text, onClick) {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'chip';
+    b.textContent = text;
+    b.setAttribute('aria-pressed', 'false');
+    b.addEventListener('click', onClick);
+    return b;
+  }
+
+  if (all.length && tagRow) {
+    // 标签按出现次数从多到少排
+    const counts = new Map();
+    all.forEach((g) => (g.tags || []).forEach((t) => counts.set(t, (counts.get(t) || 0) + 1)));
+    const tags = [...counts.keys()].sort(
+      (a, b) => counts.get(b) - counts.get(a) || String(a).localeCompare(String(b), 'ja')
+    );
+
+    allTagChip = makeChip('全部标签', () => {
+      state.tag = null;
+      render();
+    });
+    tagRow.appendChild(allTagChip);
+
+    tags.forEach((t) => {
+      const chip = makeChip(t, () => {
+        state.tag = state.tag === t ? null : t;
+        render();
+      });
+      tagChips.set(t, chip);
+      tagRow.appendChild(chip);
+    });
+  }
+
+  const usedStatuses = STATUS_ORDER.filter((s) => all.some((g) => g.status === s));
+  if (usedStatuses.length && statusRow) {
+    allStatusChip = makeChip('全部状态', () => {
+      state.status = null;
+      render();
+    });
+    statusRow.appendChild(allStatusChip);
+
+    usedStatuses.forEach((s) => {
+      const chip = makeChip(STATUS[s].label, () => {
+        state.status = state.status === s ? null : s;
+        render();
+      });
+      statusChips.set(s, chip);
+      statusRow.appendChild(chip);
+    });
+  } else if (statusRow) {
+    statusRow.hidden = true;
+  }
+
+  // 一条数据都没有时，筛选条没必要显示
+  if (!all.length && controls) controls.hidden = true;
+
+  // ---- 单张卡片 ----
+  function makeCard(g) {
+    const card = document.createElement('article');
+    card.className = 'gal-card';
+
+    const cover = document.createElement('div');
+    cover.className = 'gal-cover';
+
+    if (g.cover) {
+      const img = document.createElement('img');
+      img.src = g.cover;
+      img.alt = g.title + ' 封面';
+      img.loading = 'lazy';
+      cover.appendChild(img);
+    } else {
+      cover.style.background = COVER_STYLES[hashCode(g.title) % COVER_STYLES.length];
+      const init = document.createElement('span');
+      init.className = 'gal-cover-init';
+      init.textContent = initialOf(g.title);
+      cover.appendChild(init);
+    }
+
+    const badges = document.createElement('div');
+    badges.className = 'gal-badge-row';
+    const st = STATUS[g.status];
+    if (st) {
+      const badge = document.createElement('span');
+      badge.className = 'gal-status ' + st.cls;
+      badge.textContent = st.label;
+      badges.appendChild(badge);
+    }
+    if (g.sample) {
+      const sp = document.createElement('span');
+      sp.className = 'gal-sample';
+      sp.textContent = '示例';
+      badges.appendChild(sp);
+    }
+    if (badges.childNodes.length) cover.appendChild(badges);
+    card.appendChild(cover);
+
+    const body = document.createElement('div');
+    body.className = 'gal-body';
+
+    const title = document.createElement('h3');
+    title.className = 'gal-title';
+    title.textContent = g.title;
+    body.appendChild(title);
+
+    const meta = document.createElement('div');
+    meta.className = 'gal-meta';
+    const brand = document.createElement('span');
+    brand.className = 'gal-brand';
+    brand.textContent = [g.brand, g.year].filter(Boolean).join(' · ');
+    if (g.brand) brand.title = g.brand;
+    const score = document.createElement('span');
+    if (num(g.score) >= 0) {
+      score.className = 'gal-score';
+      score.textContent = '★ ' + g.score;
+    } else {
+      score.className = 'gal-score gal-score--none';
+      score.textContent = '未评分';
+    }
+    meta.append(brand, score);
+    body.appendChild(meta);
+
+    if (g.tags && g.tags.length) {
+      const wrap = document.createElement('div');
+      wrap.className = 'gal-tags';
+      g.tags.forEach((t) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'gal-tag';
+        b.textContent = t;
+        b.title = '只看「' + t + '」';
+        b.addEventListener('click', () => {
+          state.tag = state.tag === t ? null : t;
+          render();
+          const section = document.getElementById('gal');
+          if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+        wrap.appendChild(b);
+      });
+      body.appendChild(wrap);
+    }
+
+    if (g.note) {
+      const note = document.createElement('p');
+      note.className = 'gal-note';
+      note.textContent = g.note;
+      body.appendChild(note);
+    }
+
+    card.appendChild(body);
+    return card;
+  }
+
+  function renderStats(shown) {
+    if (!stats) return;
+    if (!all.length) {
+      stats.innerHTML = '';
+      return;
+    }
+    const cleared = all.filter((g) => g.status === 'cleared').length;
+    const scored = all.map((g) => num(g.score)).filter((n) => n >= 0);
+    const avg = scored.length ? (scored.reduce((a, b) => a + b, 0) / scored.length).toFixed(1) : '—';
+
+    let html =
+      '<span class="gal-stat"><b>' + all.length + '</b>部收藏</span>' +
+      '<span class="gal-stat"><b>' + cleared + '</b>部通关</span>' +
+      '<span class="gal-stat"><b>' + avg + '</b>平均分</span>';
+    if (shown !== all.length) {
+      html += '<span class="gal-stat">筛选出 <b>' + shown + '</b>部</span>';
+    }
+    stats.innerHTML = html;
+  }
+
+  function render() {
+    if (allTagChip) allTagChip.setAttribute('aria-pressed', String(state.tag === null));
+    tagChips.forEach((chip, t) => chip.setAttribute('aria-pressed', String(state.tag === t)));
+    if (allStatusChip) allStatusChip.setAttribute('aria-pressed', String(state.status === null));
+    statusChips.forEach((chip, s) => chip.setAttribute('aria-pressed', String(state.status === s)));
+
+    let list = all.filter((g) => {
+      if (state.tag && !(g.tags || []).includes(state.tag)) return false;
+      if (state.status && g.status !== state.status) return false;
+      if (state.q) {
+        const hay = [g.title, g.brand, (g.tags || []).join(' ')].join(' ').toLowerCase();
+        if (hay.indexOf(state.q) === -1) return false;
+      }
+      return true;
+    });
+
+    const cmp = SORTERS[state.sort];
+    if (cmp) list = list.slice().sort(cmp);
+
+    grid.innerHTML = '';
+    list.forEach((g) => grid.appendChild(makeCard(g)));
+
+    if (empty) {
+      if (list.length) {
+        empty.hidden = true;
+      } else {
+        empty.hidden = false;
+        if (all.length) {
+          empty.innerHTML =
+            '没有符合条件的作品。<button type="button" class="chip" id="galReset">清空筛选</button>';
+          const reset = document.getElementById('galReset');
+          if (reset) {
+            reset.addEventListener('click', () => {
+              state.tag = null;
+              state.status = null;
+              state.q = '';
+              if (search) search.value = '';
+              render();
+            });
+          }
+        } else {
+          empty.textContent = '清单还是空的：打开 games.js，照着里面的示例往里加作品就行。';
+        }
+      }
+    }
+
+    renderStats(list.length);
+  }
+
+  if (search) {
+    search.addEventListener('input', () => {
+      state.q = search.value.trim().toLowerCase();
+      render();
+    });
+  }
+  if (sortSel) {
+    sortSel.addEventListener('change', () => {
+      state.sort = sortSel.value;
+      render();
+    });
+  }
+
+  render();
+})();

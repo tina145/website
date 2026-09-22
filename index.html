@@ -40,6 +40,7 @@
         <li><a href="#hero">首页</a></li>
         <li><a href="#about">关于我</a></li>
         <li><a href="#interests">兴趣</a></li>
+        <li><a href="#gal">galgame</a></li>
         <li><a href="#now">现在</a></li>
         <li><a href="#contact">联系</a></li>
       </ul>
@@ -100,6 +101,40 @@
       </div>
     </section>
 
+    <!-- galgame 收藏：数据手写在 games.js 里，改那个文件即更新本区块 -->
+    <section class="section" id="gal">
+      <div class="container">
+        <h2 class="section-title">galgame 收藏 <span class="title-star">✦</span></h2>
+        <p class="section-lead">玩过的作品，附上我的评分和随手写的标签。点标签可以筛选。</p>
+
+        <div class="gal-stats" id="galStats"></div>
+
+        <div class="gal-controls">
+          <div class="gal-chip-row" id="galTagChips" role="group" aria-label="按标签筛选"></div>
+          <div class="gal-chip-row" id="galStatusChips" role="group" aria-label="按状态筛选"></div>
+          <div class="gal-toolbar">
+            <label class="gal-search">
+              <span class="sr-only">搜索作品</span>
+              <input type="search" id="galSearch" placeholder="搜索作品名 / 品牌 / 标签…" autocomplete="off" />
+            </label>
+            <label class="gal-sort">
+              <span>排序</span>
+              <select id="galSort">
+                <option value="default">默认顺序</option>
+                <option value="yearDesc">年份 新→旧</option>
+                <option value="yearAsc">年份 旧→新</option>
+                <option value="scoreDesc">我的评分 高→低</option>
+                <option value="titleAsc">作品名</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <div class="gal-grid" id="galGrid"></div>
+        <p class="gal-empty" id="galEmpty" hidden></p>
+      </div>
+    </section>
+
     <!-- 现在 -->
     <section class="section" id="now">
       <div class="container">
@@ -135,6 +170,7 @@
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9dbc39219d9144c998ec463622b964f8"}'></script><!-- End Cloudflare Web Analytics -->
+  <script src="games.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
