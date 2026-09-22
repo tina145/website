@@ -162,15 +162,12 @@ a:hover { text-shadow: 0 0 10px var(--accent-glow); }
 .icon-badge { background: #fff; border-radius: 50%; padding: 0.12em; box-sizing: border-box; }
 .placeholder { color: var(--text-dim); font-style: italic; }
 
-/* QQ 号：点击复制 + 次要的临时会话链接 */
+/* QQ 号：点击复制（不加下划线，靠鼠标手型和悬停微光提示可点） */
 .copy-qq {
   background: none; border: 0; padding: 0;
   font: inherit; color: var(--accent); cursor: pointer;
-  border-bottom: 1px dashed rgba(111, 168, 255, 0.5);
 }
 .copy-qq:hover { text-shadow: 0 0 10px var(--accent-glow); }
-.qq-session { margin-left: 0.35rem; font-size: 0.85rem; color: var(--text-dim); }
-.qq-session:hover { color: var(--accent); }
 
 /* 复制成功提示 */
 .toast {
