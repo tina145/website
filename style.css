@@ -471,6 +471,15 @@ a:hover { text-shadow: 0 0 10px var(--accent-glow); }
 
 .g2048-hint { margin-top: 0.9rem; font-size: 0.82rem; color: var(--text-dim); text-align: center; }
 
+/* 站上的最高纪录。写在 index.html 里（站点是纯静态的），要让它自动更新得配后端。
+   注意：棋盘上那两个数字是「本机最高分」，存在访客自己的 localStorage 里，跟这条不是一回事 */
+.g2048-record {
+  margin-top: 0.9rem; padding-top: 0.75rem; text-align: center;
+  font-size: 0.84rem; color: var(--text-dim);
+  border-top: 1px dashed rgba(111, 168, 255, 0.22);
+}
+.g2048-record b { color: var(--accent); font-size: 1rem; text-shadow: 0 0 12px var(--accent-glow); }
+
 @media (prefers-reduced-motion: reduce) {
   .g2048-tile { transition: none; }
   .g2048-tile-inner { animation: none; transition: none; }
