@@ -42,4 +42,13 @@ window.GALGAMES = [
     cover: "",
     note: "",
   },
+  {
+    title: "常轨脱离Creative",
+    brand: "窗社",
+    year: 2020,
+    score: null,
+    tags: [],
+    cover: "",
+    note: "",
+  },
 ];
