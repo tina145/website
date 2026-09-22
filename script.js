@@ -96,21 +96,11 @@ if (copyBtn) {
   const stats = document.getElementById('galStats');
   const empty = document.getElementById('galEmpty');
   const brandRow = document.getElementById('galBrandChips');
-  const statusRow = document.getElementById('galStatusChips');
   const search = document.getElementById('galSearch');
   const sortSel = document.getElementById('galSort');
   const controls = document.querySelector('.gal-controls');
 
   const all = (window.GALGAMES || []).filter((g) => g && g.title);
-
-  const STATUS = {
-    cleared: { label: '已通关', cls: 'st-cleared' },
-    playing: { label: '在玩', cls: 'st-playing' },
-    paused: { label: '搁置', cls: 'st-paused' },
-    wishlist: { label: '想玩', cls: 'st-wishlist' },
-    dropped: { label: '弃了', cls: 'st-dropped' },
-  };
-  const STATUS_ORDER = ['cleared', 'playing', 'paused', 'wishlist', 'dropped'];
 
   // 没填 cover 时用的渐变封面
   const COVER_STYLES = [
@@ -122,7 +112,7 @@ if (copyBtn) {
     'linear-gradient(150deg, #2e3a6b, #7f8fd8)',
   ];
 
-  const state = { brand: null, status: null, q: '', sort: 'default' };
+  const state = { brand: null, q: '', sort: 'default' };
 
   function num(v) {
     return typeof v === 'number' && isFinite(v) ? v : -1;
@@ -148,9 +138,7 @@ if (copyBtn) {
 
   // ---- 筛选按钮：只在初始化时建一次，render 里只改按下状态 ----
   const brandChips = new Map();
-  const statusChips = new Map();
   let allBrandChip = null;
-  let allStatusChip = null;
 
   function makeChip(text, onClick) {
     const b = document.createElement('button');
@@ -194,26 +182,6 @@ if (copyBtn) {
     });
   }
 
-  const usedStatuses = STATUS_ORDER.filter((s) => all.some((g) => g.status === s));
-  if (usedStatuses.length && statusRow) {
-    allStatusChip = makeChip('全部状态', () => {
-      state.status = null;
-      render();
-    });
-    statusRow.appendChild(allStatusChip);
-
-    usedStatuses.forEach((s) => {
-      const chip = makeChip(STATUS[s].label, () => {
-        state.status = state.status === s ? null : s;
-        render();
-      });
-      statusChips.set(s, chip);
-      statusRow.appendChild(chip);
-    });
-  } else if (statusRow) {
-    statusRow.hidden = true;
-  }
-
   // 一条数据都没有时，筛选条没必要显示
   if (!all.length && controls) controls.hidden = true;
 
@@ -241,13 +209,6 @@ if (copyBtn) {
 
     const badges = document.createElement('div');
     badges.className = 'gal-badge-row';
-    const st = STATUS[g.status];
-    if (st) {
-      const badge = document.createElement('span');
-      badge.className = 'gal-status ' + st.cls;
-      badge.textContent = st.label;
-      badges.appendChild(badge);
-    }
     if (g.sample) {
       const sp = document.createElement('span');
       sp.className = 'gal-sample';
@@ -312,13 +273,11 @@ if (copyBtn) {
       stats.innerHTML = '';
       return;
     }
-    const cleared = all.filter((g) => g.status === 'cleared').length;
     const scored = all.map((g) => num(g.score)).filter((n) => n >= 0);
     const avg = scored.length ? (scored.reduce((a, b) => a + b, 0) / scored.length).toFixed(1) : '—';
 
     let html =
       '<span class="gal-stat"><b>' + all.length + '</b>部收藏</span>' +
-      '<span class="gal-stat"><b>' + cleared + '</b>部通关</span>' +
       '<span class="gal-stat"><b>' + avg + '</b>平均分</span>';
     if (shown !== all.length) {
       html += '<span class="gal-stat">筛选出 <b>' + shown + '</b>部</span>';
@@ -329,12 +288,9 @@ if (copyBtn) {
   function render() {
     if (allBrandChip) allBrandChip.setAttribute('aria-pressed', String(state.brand === null));
     brandChips.forEach((chip, b) => chip.setAttribute('aria-pressed', String(state.brand === b)));
-    if (allStatusChip) allStatusChip.setAttribute('aria-pressed', String(state.status === null));
-    statusChips.forEach((chip, s) => chip.setAttribute('aria-pressed', String(state.status === s)));
 
     let list = all.filter((g) => {
       if (state.brand && String(g.brand || '').trim() !== state.brand) return false;
-      if (state.status && g.status !== state.status) return false;
       if (state.q) {
         const hay = [g.title, g.brand, (g.tags || []).join(' ')].join(' ').toLowerCase();
         if (hay.indexOf(state.q) === -1) return false;
@@ -360,7 +316,7 @@ if (copyBtn) {
           if (reset) {
             reset.addEventListener('click', () => {
               state.brand = null;
-              state.status = null;
+              state.brand = null;
               state.q = '';
               if (search) search.value = '';
               render();

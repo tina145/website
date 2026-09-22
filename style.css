@@ -301,20 +301,14 @@ a:hover { text-shadow: 0 0 10px var(--accent-glow); }
   position: absolute; top: 0.5rem; left: 0.5rem; right: 0.5rem;
   display: flex; gap: 0.4rem;
 }
-.gal-status, .gal-sample {
-  padding: 0.12rem 0.6rem; border-radius: 999px;
-  font-size: 0.72rem; font-weight: 600; line-height: 1.7;
-  backdrop-filter: blur(6px); border: 1px solid; white-space: nowrap;
-}
-.st-cleared  { color: #8ee6a8; background: rgba(142, 230, 168, 0.16); border-color: rgba(142, 230, 168, 0.5); }
-.st-playing  { color: #6fa8ff; background: rgba(111, 168, 255, 0.16); border-color: rgba(111, 168, 255, 0.5); }
-.st-paused   { color: #e0c57f; background: rgba(224, 197, 127, 0.16); border-color: rgba(224, 197, 127, 0.5); }
-.st-wishlist { color: #c9a6ff; background: rgba(201, 166, 255, 0.16); border-color: rgba(201, 166, 255, 0.5); }
-.st-dropped  { color: #9aa0c4; background: rgba(154, 160, 196, 0.16); border-color: rgba(154, 160, 196, 0.5); }
+/* 封面右上角的「示例」角标（原来这里还有状态徽章 .gal-status / .st-*，2026-09-23 已随状态信息一起移除） */
 .gal-sample {
   margin-left: auto;
+  padding: 0.12rem 0.6rem; border-radius: 999px;
+  font-size: 0.72rem; font-weight: 500; line-height: 1.7;
+  backdrop-filter: blur(6px); border: 1px solid; white-space: nowrap;
   color: var(--text-dim); background: rgba(20, 20, 50, 0.7);
-  border-color: rgba(185, 189, 224, 0.4); font-weight: 500;
+  border-color: rgba(185, 189, 224, 0.4);
 }
 
 .gal-body { flex: 1; display: flex; flex-direction: column; gap: 0.35rem; padding: 0.85rem 0.9rem 1rem; }
