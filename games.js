@@ -53,4 +53,13 @@ window.GALGAMES = [
     cover: "cover-hamidashi.webp",
     note: "",
   },
+  {
+    title: "越界恋人！！",
+    brand: "水晶社",
+    year: 2026,
+    score: null,
+    tags: [],
+    cover: "cover-totsu-lovers.webp",
+    note: "",
+  },
 ];
