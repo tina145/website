@@ -97,7 +97,6 @@ if (copyBtn) {
   const empty = document.getElementById('galEmpty');
   const brandRow = document.getElementById('galBrandChips');
   const search = document.getElementById('galSearch');
-  const sortSel = document.getElementById('galSort');
   const controls = document.querySelector('.gal-controls');
 
   const all = (window.GALGAMES || []).filter((g) => g && g.title);
@@ -112,7 +111,7 @@ if (copyBtn) {
     'linear-gradient(150deg, #2e3a6b, #7f8fd8)',
   ];
 
-  const state = { brand: null, q: '', sort: 'default' };
+  const state = { brand: null, q: '' };
 
   function num(v) {
     return typeof v === 'number' && isFinite(v) ? v : -1;
@@ -128,13 +127,7 @@ if (copyBtn) {
     return (String(title).trim().charAt(0) || '★').toUpperCase();
   }
 
-  const SORTERS = {
-    default: null,
-    yearDesc: (a, b) => (b.year || 0) - (a.year || 0),
-    yearAsc: (a, b) => (a.year || 9999) - (b.year || 9999),
-    scoreDesc: (a, b) => num(b.score) - num(a.score),
-    titleAsc: (a, b) => String(a.title).localeCompare(String(b.title), 'ja'),
-  };
+  // 排序功能 2026-09-23 按 tina 要求整个删除，列表固定按 games.js 里书写的顺序显示
 
   // ---- 筛选按钮：只在初始化时建一次，render 里只改按下状态 ----
   const brandChips = new Map();
@@ -293,9 +286,6 @@ if (copyBtn) {
       return true;
     });
 
-    const cmp = SORTERS[state.sort];
-    if (cmp) list = list.slice().sort(cmp);
-
     grid.innerHTML = '';
     list.forEach((g) => grid.appendChild(makeCard(g)));
 
@@ -329,12 +319,6 @@ if (copyBtn) {
   if (search) {
     search.addEventListener('input', () => {
       state.q = search.value.trim().toLowerCase();
-      render();
-    });
-  }
-  if (sortSel) {
-    sortSel.addEventListener('change', () => {
-      state.sort = sortSel.value;
       render();
     });
   }
