@@ -232,15 +232,14 @@ if (copyBtn) {
     brand.className = 'gal-brand';
     brand.textContent = [g.brand, g.year].filter(Boolean).join(' · ');
     if (g.brand) brand.title = g.brand;
-    const score = document.createElement('span');
+    // 没打分就完全不显示评分块（原来会显示一个「未评分」占位，2026-09-23 按 tina 要求删掉）
+    meta.appendChild(brand);
     if (num(g.score) >= 0) {
+      const score = document.createElement('span');
       score.className = 'gal-score';
       score.textContent = '★ ' + g.score;
-    } else {
-      score.className = 'gal-score gal-score--none';
-      score.textContent = '未评分';
+      meta.appendChild(score);
     }
-    meta.append(brand, score);
     body.appendChild(meta);
 
     if (g.tags && g.tags.length) {
