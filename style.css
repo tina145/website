@@ -57,11 +57,12 @@ a:hover { text-shadow: 0 0 10px var(--accent-glow); }
 .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 /* ================= 首屏 ================= */
+/* 背景图 bg.webp 由原图 bg.png 用 Pillow 转出（quality=85，97KB，约原图 7.5%）；bg.png 留在仓库当原图备份，页面不再引用 */
 .hero {
   position: relative;
   min-height: 100vh;
   display: flex; align-items: center;
-  background: url("bg.png") right center / cover no-repeat var(--bg-deep);
+  background: url("bg.webp") right center / cover no-repeat var(--bg-deep);
 }
 
 .hero-overlay {
