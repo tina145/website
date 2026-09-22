@@ -95,7 +95,7 @@
         <h2 class="section-title">找到我 <span class="title-star">✦</span></h2>
         <div class="card reveal contact-card">
           <ul class="contact-list">
-            <li class="contact-item"><img class="icon" src="icon-qq.png" alt="QQ 图标" />QQ：<a href="https://wpa.qq.com/msgrd?v=3&uin=743709338&site=qq&menu=yes" target="_blank" rel="noopener">743709338</a></li>
+            <li class="contact-item"><img class="icon" src="icon-qq.png" alt="QQ 图标" />QQ：<button class="copy-qq" type="button" data-copy="743709338" title="点击复制 QQ 号">743709338</button><a class="qq-session" href="https://wpa.qq.com/msgrd?v=3&uin=743709338&site=qq&menu=yes" target="_blank" rel="noopener" title="尝试发起临时会话（需对方开启权限）">发起会话</a></li>
             <li class="contact-item"><img class="icon" src="icon-bilibili.ico" alt="B站图标" />B站：<a href="https://space.bilibili.com/106756702" target="_blank" rel="noopener">ティナOfficial</a></li>
             <li class="contact-item"><img class="icon icon-badge" src="icon-github.png" alt="GitHub 图标" />GitHub：<a href="https://github.com/tina145" target="_blank" rel="noopener">tina145</a></li>
           </ul>
@@ -109,6 +109,9 @@
       <p>© 2026 tina · Made with ✦ under a starry night</p>
     </div>
   </footer>
+
+  <!-- 复制成功提示 -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9dbc39219d9144c998ec463622b964f8"}'></script><!-- End Cloudflare Web Analytics -->
   <script src="script.js"></script>

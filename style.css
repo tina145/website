@@ -162,6 +162,30 @@ a:hover { text-shadow: 0 0 10px var(--accent-glow); }
 .icon-badge { background: #fff; border-radius: 50%; padding: 0.12em; box-sizing: border-box; }
 .placeholder { color: var(--text-dim); font-style: italic; }
 
+/* QQ 号：点击复制 + 次要的临时会话链接 */
+.copy-qq {
+  background: none; border: 0; padding: 0;
+  font: inherit; color: var(--accent); cursor: pointer;
+  border-bottom: 1px dashed rgba(111, 168, 255, 0.5);
+}
+.copy-qq:hover { text-shadow: 0 0 10px var(--accent-glow); }
+.qq-session { margin-left: 0.35rem; font-size: 0.85rem; color: var(--text-dim); }
+.qq-session:hover { color: var(--accent); }
+
+/* 复制成功提示 */
+.toast {
+  position: fixed; left: 50%; bottom: 2rem; z-index: 200;
+  transform: translate(-50%, 1rem);
+  padding: 0.6rem 1.3rem; border-radius: 999px;
+  background: rgba(20, 20, 50, 0.94);
+  border: 1px solid rgba(111, 168, 255, 0.45);
+  color: var(--text); font-size: 0.9rem;
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.45), 0 0 18px var(--accent-glow);
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
 /* 页脚 */
 .site-footer {
   padding: 1.8rem 0; text-align: center;
