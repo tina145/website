@@ -95,7 +95,7 @@ if (copyBtn) {
 
   const stats = document.getElementById('galStats');
   const empty = document.getElementById('galEmpty');
-  const tagRow = document.getElementById('galTagChips');
+  const brandRow = document.getElementById('galBrandChips');
   const statusRow = document.getElementById('galStatusChips');
   const search = document.getElementById('galSearch');
   const sortSel = document.getElementById('galSort');
@@ -122,7 +122,7 @@ if (copyBtn) {
     'linear-gradient(150deg, #2e3a6b, #7f8fd8)',
   ];
 
-  const state = { tag: null, status: null, q: '', sort: 'default' };
+  const state = { brand: null, status: null, q: '', sort: 'default' };
 
   function num(v) {
     return typeof v === 'number' && isFinite(v) ? v : -1;
@@ -147,9 +147,9 @@ if (copyBtn) {
   };
 
   // ---- 筛选按钮：只在初始化时建一次，render 里只改按下状态 ----
-  const tagChips = new Map();
+  const brandChips = new Map();
   const statusChips = new Map();
-  let allTagChip = null;
+  let allBrandChip = null;
   let allStatusChip = null;
 
   function makeChip(text, onClick) {
@@ -162,27 +162,35 @@ if (copyBtn) {
     return b;
   }
 
-  if (all.length && tagRow) {
-    // 标签按出现次数从多到少排
-    const counts = new Map();
-    all.forEach((g) => (g.tags || []).forEach((t) => counts.set(t, (counts.get(t) || 0) + 1)));
-    const tags = [...counts.keys()].sort(
-      (a, b) => counts.get(b) - counts.get(a) || String(a).localeCompare(String(b), 'ja')
-    );
+  // 厂商栏：先摆 games.js 里写死的预设厂商，再补上作品数据里出现的其它厂商
+  const brandPresets = Array.isArray(window.GAL_BRAND_PRESETS) ? window.GAL_BRAND_PRESETS : [];
 
-    allTagChip = makeChip('全部标签', () => {
-      state.tag = null;
+  if (all.length && brandRow) {
+    // 作品数据里出现过的厂商，按作品数量从多到少
+    const counts = new Map();
+    all.forEach((g) => {
+      const b = String(g.brand || '').trim();
+      if (b) counts.set(b, (counts.get(b) || 0) + 1);
+    });
+    // 预设厂商排在最前（保持写死时的先后顺序），剩下的按数量排
+    const fromData = [...counts.keys()]
+      .filter((b) => !brandPresets.includes(b))
+      .sort((a, b) => counts.get(b) - counts.get(a) || String(a).localeCompare(String(b), 'ja'));
+    const brands = [...brandPresets, ...fromData];
+
+    allBrandChip = makeChip('全部厂商', () => {
+      state.brand = null;
       render();
     });
-    tagRow.appendChild(allTagChip);
+    brandRow.appendChild(allBrandChip);
 
-    tags.forEach((t) => {
-      const chip = makeChip(t, () => {
-        state.tag = state.tag === t ? null : t;
+    brands.forEach((b) => {
+      const chip = makeChip(b, () => {
+        state.brand = state.brand === b ? null : b;
         render();
       });
-      tagChips.set(t, chip);
-      tagRow.appendChild(chip);
+      brandChips.set(b, chip);
+      brandRow.appendChild(chip);
     });
   }
 
@@ -277,19 +285,12 @@ if (copyBtn) {
     if (g.tags && g.tags.length) {
       const wrap = document.createElement('div');
       wrap.className = 'gal-tags';
+      // 标签现在只是卡片上的展示标签，不再点击筛选（筛选栏已改成按厂商）
       g.tags.forEach((t) => {
-        const b = document.createElement('button');
-        b.type = 'button';
-        b.className = 'gal-tag';
-        b.textContent = t;
-        b.title = '只看「' + t + '」';
-        b.addEventListener('click', () => {
-          state.tag = state.tag === t ? null : t;
-          render();
-          const section = document.getElementById('gal');
-          if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        });
-        wrap.appendChild(b);
+        const span = document.createElement('span');
+        span.className = 'gal-tag';
+        span.textContent = t;
+        wrap.appendChild(span);
       });
       body.appendChild(wrap);
     }
@@ -326,13 +327,13 @@ if (copyBtn) {
   }
 
   function render() {
-    if (allTagChip) allTagChip.setAttribute('aria-pressed', String(state.tag === null));
-    tagChips.forEach((chip, t) => chip.setAttribute('aria-pressed', String(state.tag === t)));
+    if (allBrandChip) allBrandChip.setAttribute('aria-pressed', String(state.brand === null));
+    brandChips.forEach((chip, b) => chip.setAttribute('aria-pressed', String(state.brand === b)));
     if (allStatusChip) allStatusChip.setAttribute('aria-pressed', String(state.status === null));
     statusChips.forEach((chip, s) => chip.setAttribute('aria-pressed', String(state.status === s)));
 
     let list = all.filter((g) => {
-      if (state.tag && !(g.tags || []).includes(state.tag)) return false;
+      if (state.brand && String(g.brand || '').trim() !== state.brand) return false;
       if (state.status && g.status !== state.status) return false;
       if (state.q) {
         const hay = [g.title, g.brand, (g.tags || []).join(' ')].join(' ').toLowerCase();
@@ -358,7 +359,7 @@ if (copyBtn) {
           const reset = document.getElementById('galReset');
           if (reset) {
             reset.addEventListener('click', () => {
-              state.tag = null;
+              state.brand = null;
               state.status = null;
               state.q = '';
               if (search) search.value = '';

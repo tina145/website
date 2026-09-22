@@ -325,15 +325,14 @@ a:hover { text-shadow: 0 0 10px var(--accent-glow); }
 .gal-score--none { color: rgba(185, 189, 224, 0.7); font-weight: 400; }
 
 .gal-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.15rem; }
+/* 卡片上的标签：纯展示用的标签，不可点（筛选栏已改成按厂商） */
 .gal-tag {
-  font: inherit; font-size: 0.7rem; line-height: 1.6;
-  padding: 0.1rem 0.55rem; border-radius: 999px; cursor: pointer;
+  font-size: 0.7rem; line-height: 1.6;
+  padding: 0.1rem 0.55rem; border-radius: 999px;
   background: rgba(111, 168, 255, 0.12);
   border: 1px solid rgba(111, 168, 255, 0.28);
   color: var(--accent);
-  transition: background 0.2s, border-color 0.2s;
 }
-.gal-tag:hover { background: rgba(111, 168, 255, 0.26); border-color: var(--accent); }
 
 .gal-note { margin-top: auto; padding-top: 0.5rem; font-size: 0.8rem; color: var(--text-dim); }
 
