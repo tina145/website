@@ -157,6 +157,8 @@ a:hover { text-shadow: 0 0 10px var(--accent-glow); }
 .contact-card p { color: var(--text-dim); }
 .contact-list { list-style: none; margin-top: 0.8rem; }
 .contact-list li { margin: 0.4rem 0; color: var(--text); }
+.contact-item { display: inline-flex; align-items: center; gap: 0.45rem; }
+.icon { width: 1.25em; height: 1.25em; flex-shrink: 0; vertical-align: -0.25em; }
 .placeholder { color: var(--text-dim); font-style: italic; }
 
 /* 页脚 */
