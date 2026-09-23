@@ -225,8 +225,20 @@ if (copyBtn) {
     brand.className = 'gal-brand';
     brand.textContent = [g.brand, g.year].filter(Boolean).join(' · ');
     if (g.brand) brand.title = g.brand;
-    // 没打分就完全不显示评分块（原来会显示一个「未评分」占位，2026-09-23 按 tina 要求删掉）
     meta.appendChild(brand);
+    // 官网链接：可选字段 site，没填就完全不渲染（字段说明见 games.js）
+    if (g.site) {
+      const site = document.createElement('a');
+      site.className = 'gal-site';
+      site.href = String(g.site);
+      site.target = '_blank';
+      site.rel = 'noopener';
+      site.title = '打开官网（新窗口）';
+      site.setAttribute('aria-label', '打开《' + g.title + '》官网（新窗口）');
+      site.textContent = '官网 ↗';
+      meta.appendChild(site);
+    }
+    // 没打分就完全不显示评分块（原来会显示一个「未评分」占位，2026-09-23 按 tina 要求删掉）
     if (num(g.score) >= 0) {
       const score = document.createElement('span');
       score.className = 'gal-score';

@@ -263,8 +263,7 @@ a:hover { text-shadow: 0 0 10px var(--accent-glow); }
 .gal-toolbar { display: flex; flex-wrap: wrap; gap: 0.8rem; align-items: center; }
 
 .gal-search { flex: 1; min-width: 190px; display: flex; }
-.gal-search input,
-.gal-sort select {
+.gal-search input {
   font: inherit; font-size: 0.88rem; color: var(--text);
   background: rgba(20, 20, 50, 0.6);
   border: 1px solid rgba(111, 168, 255, 0.28);
@@ -273,10 +272,7 @@ a:hover { text-shadow: 0 0 10px var(--accent-glow); }
 }
 .gal-search input { width: 100%; }
 .gal-search input::placeholder { color: rgba(185, 189, 224, 0.6); }
-.gal-search input:focus,
-.gal-sort select:focus { border-color: var(--accent); box-shadow: 0 0 12px var(--accent-glow); }
-.gal-sort { display: flex; align-items: center; gap: 0.5rem; color: var(--text-dim); font-size: 0.88rem; }
-.gal-sort select { cursor: pointer; }
+.gal-search input:focus { border-color: var(--accent); box-shadow: 0 0 12px var(--accent-glow); }
 
 /* 卡片网格 */
 .gal-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 1.1rem; }
@@ -325,10 +321,12 @@ a:hover { text-shadow: 0 0 10px var(--accent-glow); }
 
 .gal-body { flex: 1; display: flex; flex-direction: column; gap: 0.35rem; padding: 0.85rem 0.9rem 1rem; }
 .gal-title { font-size: 0.98rem; font-weight: 700; line-height: 1.4; }
-.gal-meta { display: flex; justify-content: space-between; gap: 0.5rem; font-size: 0.78rem; color: var(--text-dim); }
+.gal-meta { display: flex; justify-content: flex-start; gap: 0.5rem; font-size: 0.78rem; color: var(--text-dim); }
 .gal-brand { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.gal-score { color: #ffd479; font-weight: 700; flex-shrink: 0; }
-.gal-score--none { color: rgba(185, 189, 224, 0.7); font-weight: 400; }
+/* 官网链接：紧跟在「厂商 · 年份」右边；没填 site 的条目根本不会渲染它 */
+.gal-site { color: var(--accent); flex-shrink: 0; white-space: nowrap; transition: text-shadow 0.2s; }
+.gal-site:hover { text-shadow: 0 0 10px var(--accent-glow); }
+.gal-score { color: #ffd479; font-weight: 700; flex-shrink: 0; margin-left: auto; padding-left: 0.4rem; }
 
 .gal-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.15rem; }
 /* 卡片上的标签：纯展示用的标签，不可点（筛选栏已改成按厂商） */
