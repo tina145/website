@@ -30,7 +30,14 @@ body {
   color: var(--text);
   background: var(--bg-deep); /* 兜底底色；真正的画面在下面那层固定背景里 */
   line-height: 1.7;
+  /* 2026-09-24 站点拆成分页后：内容少的页面（比如「联系」）页脚会吊在半空，
+     让 body 竖排撑满视口、main 吃掉剩余高度，页脚就自然贴到底部 */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
+
+main { flex: 1 0 auto; }
 
 /* 整页共用的固定背景层：钉在视口上，拖动进度条时完全不动
    层次自上而下 = 压暗渐变 → 两团光晕 → 星空图（图片本身由 --bg-photo 决定：横屏横图 / 竖屏竖版裁切图）
@@ -154,6 +161,16 @@ a:hover { text-shadow: 0 0 10px var(--accent-glow); }
 .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; }
 .card h3 { margin-bottom: 0.5rem; color: var(--text); }
 .card p { color: var(--text-dim); }
+
+/* 首页概览：整张卡片就是一个链接。
+   必须把 a 默认的蓝色和 a:hover 的发光按掉，否则卡片里每个字都在发光 */
+.card-link { display: block; color: var(--text); }
+.card-link:hover { text-shadow: none; }
+.card-more {
+  display: inline-block; margin-top: 0.75rem;
+  font-size: 0.85rem; font-weight: 600; color: var(--accent);
+}
+.card-link:hover .card-more { text-shadow: 0 0 10px var(--accent-glow); }
 /* 关于我 */
 .about-grid { display: flex; gap: 1.8rem; align-items: center; flex-wrap: wrap; }
 .avatar {
@@ -622,7 +639,7 @@ a:hover { text-shadow: 0 0 10px var(--accent-glow); }
   border-radius: 8px;
   transition: color 0.2s, background 0.2s, text-shadow 0.2s;
 }
-/* 左边那根小竖条：常态暗淡，当前区块亮起来 */
+/* 左边那根小竖条：常态暗淡，当前页面亮起来（分页后由 HTML 里的 is-active 决定，不靠 JS） */
 .side-index-link::before {
   content: ""; position: absolute; left: 0; top: 50%;
   width: 2px; height: 0.85em; border-radius: 2px;

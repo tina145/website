@@ -1,4 +1,8 @@
-// 移动端导航折叠 + 滚动淡入（轻量交互）
+// 移动端导航折叠 + 滚动淡入 + 点击复制（轻量交互）
+//
+// 2026-09-24：站点从「单页滚动」拆成「每个分区一个页面」，
+// 原来末尾那段 initSideIndex（滚动时高亮当前区块 + 点击钉住）整段删掉了 ——
+// 现在「在哪一页」由每个 HTML 里的 is-active / aria-current 写死，不需要 JS 判断。
 
 // 1. 汉堡菜单
 const toggle = document.getElementById('navToggle');
@@ -336,97 +340,4 @@ if (copyBtn) {
   }
 
   render();
-})();
-
-// 5. 左侧索引：滚动时高亮当前区块（点索引跳转时以点击的那一项为准）
-(function initSideIndex() {
-  const box = document.getElementById('sideIndex');
-  if (!box) return;
-
-  // 判定线：视口顶端往下 96px（比锚点跳转留白 80px 更低一点，才不会判漏）
-  const LINE = 96;
-
-  // 只收「href 指向的区块真的存在」的条目，写错 id 不会把整块拖垮
-  const items = [];
-  box.querySelectorAll('.side-index-link').forEach((link) => {
-    const href = link.getAttribute('href') || '';
-    if (href.charAt(0) !== '#') return;
-    const section = document.getElementById(href.slice(1));
-    if (section) items.push({ link, section });
-  });
-  if (!items.length) return;
-
-  let queued = false;
-
-  // 点了哪一项就先钉住哪一项。页面底部区块和视口差不多高，
-  // 光看滚动位置分不出来，所以点击后要钉住
-  let pinned = null;
-
-  function activate(current) {
-    items.forEach((it) => {
-      const on = it === current;
-      it.link.classList.toggle('is-active', on);
-      if (on) it.link.setAttribute('aria-current', 'true');
-      else it.link.removeAttribute('aria-current');
-    });
-  }
-
-  function update() {
-    queued = false;
-
-    // 钉住期间不用管位置，点了谁就亮谁
-    if (pinned) {
-      activate(pinned);
-      return;
-    }
-
-    // 拖到底时最后一屏露不全，判定线走不到「联系」，直接点亮最后一项，
-    // 否则那一项永远高亮不起来
-    const atBottom =
-      window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
-    if (atBottom) {
-      activate(items[items.length - 1]);
-      return;
-    }
-
-    // 判定线放在顶栏下沿附近：区块顶端越过这条线，才算「进入」这个区块
-    // 值必须比 scroll-margin-top 大，否则刚好停在锚点位置时判不出来
-    const line = window.scrollY + LINE;
-    let current = items[0];
-    items.forEach((it) => {
-      if (it.section.getBoundingClientRect().top + window.scrollY <= line) current = it;
-    });
-    activate(current);
-  }
-
-  function onScroll() {
-    if (queued) return;
-    queued = true;
-    requestAnimationFrame(update);
-  }
-
-  items.forEach((it) => {
-    it.link.addEventListener('click', () => {
-      pinned = it;
-      activate(it);
-    });
-  });
-
-  // 自己动了页面就取消钉住，交回给位置判断（滚轮 / 触摸 / 拖滚动条 / 翻页键）
-  function unpin() {
-    if (!pinned) return;
-    pinned = null;
-    onScroll();
-  }
-  const SCROLL_KEYS = ['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '];
-  window.addEventListener('wheel', unpin, { passive: true });
-  window.addEventListener('touchstart', unpin, { passive: true });
-  window.addEventListener('mousedown', unpin, { passive: true });
-  window.addEventListener('keydown', (e) => {
-    if (SCROLL_KEYS.indexOf(e.key) !== -1) unpin();
-  });
-
-  window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onScroll);
-  update();
 })();

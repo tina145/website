@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>小游戏 · tina的小窝</title>
+  <meta name="description" content="2048 和五子棋（人机对战），在浏览器里直接玩，进度自动保存。" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- 站点图标（由 avatar.png 缩放生成） -->
+  <link rel="icon" href="favicon.ico" sizes="16x16 32x32 48x48" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+
+  <!-- 分享卡片：QQ / 微信 / B站 / 微博 抓的就是这些 -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="tina的小窝" />
+  <meta property="og:title" content="小游戏 · tina的小窝" />
+  <meta property="og:description" content="2048 和五子棋（人机对战），在浏览器里直接玩，进度自动保存。" />
+  <meta property="og:url" content="https://tina-9yg.pages.dev/minigames" />
+  <meta property="og:image" content="https://tina-9yg.pages.dev/og-image.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="星空下的兽耳娘插画" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- 顶栏：只在窄屏出现（宽屏由左侧导航接管），窄屏保留汉堡菜单 -->
+  <header class="site-header">
+    <nav class="nav container">
+      <a class="nav-logo" href="index.html">✦ <span>tina的小窝</span></a>
+      <button class="nav-toggle" id="navToggle" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">首页</a></li>
+        <li><a href="about.html">关于我</a></li>
+        <li><a href="gal.html">galgame</a></li>
+        <li><a href="minigames.html">小游戏</a></li>
+        <li><a href="contact.html">联系</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- 左侧导航：桌面端就是全站的主导航（顶栏只在窄屏出现，见 style.css）
+       2026-09-24 起站点拆成分页，每个页面是独立文件，
+       所以「当前是哪一页」直接写死在 HTML 里（is-active + aria-current），不再靠滚动位置判断 -->
+  <nav class="side-index" id="sideIndex" aria-label="站点导航">
+    <a class="side-index-logo" href="index.html">✦ <span>tina的小窝</span></a>
+    <ul class="side-index-list">
+      <li><a class="side-index-link" href="index.html">主页</a></li>
+      <li><a class="side-index-link" href="about.html">关于我</a></li>
+      <li><a class="side-index-link" href="gal.html">galgame</a></li>
+      <li><a class="side-index-link is-active" href="minigames.html" aria-current="page">小游戏</a></li>
+      <li><a class="side-index-link" href="contact.html">联系</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <!-- 小游戏：2048 和五子棋（逻辑分别在 game2048.js / gamegomoku.js，样式在 style.css 的小游戏段） -->
+    <section class="section" id="minigames">
+      <div class="container">
+        <h2 class="section-title">小游戏 <span class="title-star">✦</span></h2>
+        <p class="section-lead">两个小游戏：2048 和五子棋（人机对战）。合并出 2048、连成五颗棋子就算赢，输了可以重来，进度都会自动保存。</p>
+
+        <div class="g2048" id="game2048">
+          <div class="g2048-head">
+            <div class="g2048-scores">
+              <div class="g2048-score"><span>得分</span><b id="g2048Score">0</b></div>
+              <div class="g2048-score"><span>最高</span><b id="g2048Best">0</b></div>
+            </div>
+            <button class="btn btn-ghost g2048-restart" id="g2048Restart" type="button">重新开始</button>
+          </div>
+
+          <div class="g2048-board" id="g2048Board" tabindex="0" role="group"
+               aria-label="2048 棋盘：先点一下这里，再用方向键或 WASD 移动；手机上直接滑动">
+            <div class="g2048-grid" id="g2048Grid" aria-hidden="true"></div>
+            <div class="g2048-tiles" id="g2048Tiles" aria-hidden="true"></div>
+            <div class="g2048-overlay" id="g2048Overlay" hidden>
+              <p class="g2048-overlay-text" id="g2048OverlayText" role="status"></p>
+              <div class="g2048-overlay-actions">
+                <button class="btn btn-glow" id="g2048Again" type="button">再来一局</button>
+                <button class="btn btn-ghost" id="g2048Keep" type="button" hidden>继续玩</button>
+              </div>
+            </div>
+          </div>
+
+          <p class="g2048-record">本站纪录 <b>25256</b> 分</p>
+
+          <p class="g2048-hint">点一下棋盘，用 ↑ ↓ ← → 或 WASD 移动；手机上在棋盘上滑动。进度会自动保存。</p>
+        </div>
+
+        <!-- 五子棋：逻辑在 gamegomoku.js，样式在 style.css 的「小游戏 · 五子棋」段 -->
+        <div class="gg" id="gameGomoku">
+          <h3 class="gg-name">五子棋 · 人机对战</h3>
+
+          <div class="gg-head">
+            <div class="gg-scores">
+              <div class="gg-score"><span>你胜</span><b id="ggWinYou">0</b></div>
+              <div class="gg-score"><span>电脑胜</span><b id="ggWinAi">0</b></div>
+              <div class="gg-score"><span>和棋</span><b id="ggWinDraw">0</b></div>
+            </div>
+            <div class="gg-actions">
+              <button class="btn btn-ghost gg-btn" id="ggUndo" type="button" disabled>悔棋</button>
+              <button class="btn btn-ghost gg-btn" id="ggRestart" type="button">重新开始</button>
+            </div>
+          </div>
+
+          <div class="gg-levels" id="ggLevels" role="group" aria-label="电脑难度">
+            <span class="gg-levels-label">难度</span>
+            <button class="chip" type="button" data-level="easy" aria-pressed="false">简单</button>
+            <button class="chip" type="button" data-level="normal" aria-pressed="true">普通</button>
+            <button class="chip" type="button" data-level="hard" aria-pressed="false">困难</button>
+          </div>
+
+          <div class="gg-board" id="ggBoard">
+            <canvas class="gg-canvas" id="ggCanvas" tabindex="0" role="img"
+                    aria-label="五子棋棋盘：15 乘 15，点交叉点落子；也可以用方向键选位置、回车落子"></canvas>
+            <div class="gg-overlay" id="ggOverlay" hidden>
+              <p class="gg-overlay-text" id="ggOverlayText" role="status"></p>
+              <div class="gg-overlay-actions">
+                <button class="btn btn-glow" id="ggAgain" type="button">再来一局</button>
+                <button class="btn btn-ghost" id="ggLook" type="button">看看棋盘</button>
+              </div>
+            </div>
+          </div>
+
+          <p class="gg-status" id="ggStatus" role="status">轮到你（黑）</p>
+          <p class="gg-hint">你执黑先手，横竖斜连成五颗就赢。点棋盘落子；也可以点一下棋盘后用方向键选位置、回车落子。进度会自动保存。</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 tina · Made with ✦ under a starry night</p>
+    </div>
+  </footer>
+
+  <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9dbc39219d9144c998ec463622b964f8"}'></script><!-- End Cloudflare Web Analytics -->
+  <script src="script.js"></script>
+  <script src="game2048.js"></script>
+  <script src="gamegomoku.js"></script>
+</body>
+</html>

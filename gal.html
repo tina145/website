@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>tina的小窝</title>
-  <meta name="description" content="tina 的个人小窝" />
+  <title>galgame 收藏 · tina的小窝</title>
+  <meta name="description" content="tina 玩过的 galgame 作品收藏清单，可按厂商筛选、按名字搜索。" />
   <meta name="robots" content="index, follow" />
 
   <!-- 站点图标（由 avatar.png 缩放生成） -->
@@ -15,9 +15,9 @@
   <!-- 分享卡片：QQ / 微信 / B站 / 微博 抓的就是这些 -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="tina的小窝" />
-  <meta property="og:title" content="tina的小窝" />
-  <meta property="og:description" content="tina 的个人小窝：LLM（大语言模型）、TCG 卡牌、galgame。" />
-  <meta property="og:url" content="https://tina-9yg.pages.dev/" />
+  <meta property="og:title" content="galgame 收藏 · tina的小窝" />
+  <meta property="og:description" content="tina 玩过的 galgame 作品收藏清单，可按厂商筛选、按名字搜索。" />
+  <meta property="og:url" content="https://tina-9yg.pages.dev/gal" />
   <meta property="og:image" content="https://tina-9yg.pages.dev/og-image.jpg" />
   <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:image:width" content="1200" />
@@ -53,55 +53,35 @@
   <nav class="side-index" id="sideIndex" aria-label="站点导航">
     <a class="side-index-logo" href="index.html">✦ <span>tina的小窝</span></a>
     <ul class="side-index-list">
-      <li><a class="side-index-link is-active" href="index.html" aria-current="page">主页</a></li>
+      <li><a class="side-index-link" href="index.html">主页</a></li>
       <li><a class="side-index-link" href="about.html">关于我</a></li>
-      <li><a class="side-index-link" href="gal.html">galgame</a></li>
+      <li><a class="side-index-link is-active" href="gal.html" aria-current="page">galgame</a></li>
       <li><a class="side-index-link" href="minigames.html">小游戏</a></li>
       <li><a class="side-index-link" href="contact.html">联系</a></li>
     </ul>
   </nav>
 
   <main>
-    <!-- 首屏：星空插画背景 -->
-    <section class="hero" id="hero">
-      <div class="hero-overlay"></div>
-      <div class="container hero-inner">
-        <p class="hero-kicker">✦ 欢迎来到我的小站 ✦</p>
-        <h1 class="hero-title">tina的小窝</h1>
-        <div class="hero-actions">
-          <a class="btn btn-glow" href="about.html">关于我 →</a>
-          <a class="btn btn-ghost" href="contact.html">联系我</a>
-        </div>
-      </div>
-      <div class="hero-scroll-hint" aria-hidden="true">▼</div>
-    </section>
-
-    <!-- 概览：首页往下的四个入口，每个入口都是一个独立页面 -->
-    <section class="section" id="overview">
+    <!-- galgame 收藏：数据手写在 games.js 里，改那个文件即更新本页（games.js 必须排在 script.js 之前） -->
+    <section class="section" id="gal">
       <div class="container">
-        <h2 class="section-title">逛逛小窝 <span class="title-star">✦</span></h2>
-        <div class="card-grid">
-          <a class="card card-link reveal" href="about.html">
-            <h3>✦ 关于我</h3>
-            <p>我是谁，还有 LLM、TCG 卡牌、galgame 这三个坑。</p>
-            <span class="card-more">进去看看 →</span>
-          </a>
-          <a class="card card-link reveal" href="gal.html">
-            <h3>✦ galgame</h3>
-            <p>玩过的作品收藏，能按厂商筛、按名字搜。</p>
-            <span class="card-more">进去看看 →</span>
-          </a>
-          <a class="card card-link reveal" href="minigames.html">
-            <h3>✦ 小游戏</h3>
-            <p>2048 和五子棋（人机对战），进度自动保存。</p>
-            <span class="card-more">进去看看 →</span>
-          </a>
-          <a class="card card-link reveal" href="contact.html">
-            <h3>✦ 联系</h3>
-            <p>QQ、B站、GitHub，都在这一页。</p>
-            <span class="card-more">进去看看 →</span>
-          </a>
+        <h2 class="section-title">galgame 收藏 <span class="title-star">✦</span></h2>
+        <p class="section-lead">玩过的作品。点厂商可以筛选。</p>
+
+        <div class="gal-stats" id="galStats"></div>
+
+        <div class="gal-controls">
+          <div class="gal-chip-row" id="galBrandChips" role="group" aria-label="按厂商筛选"></div>
+          <div class="gal-toolbar">
+            <label class="gal-search">
+              <span class="sr-only">搜索作品</span>
+              <input type="search" id="galSearch" placeholder="搜索作品名 / 品牌 / 标签…" autocomplete="off" />
+            </label>
+          </div>
         </div>
+
+        <div class="gal-grid" id="galGrid"></div>
+        <p class="gal-empty" id="galEmpty" hidden></p>
       </div>
     </section>
   </main>
@@ -113,6 +93,7 @@
   </footer>
 
   <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9dbc39219d9144c998ec463622b964f8"}'></script><!-- End Cloudflare Web Analytics -->
+  <script src="games.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

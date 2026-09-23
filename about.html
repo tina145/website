@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>tina的小窝</title>
-  <meta name="description" content="tina 的个人小窝" />
+  <title>关于我 · tina的小窝</title>
+  <meta name="description" content="tina 是谁：喜欢 LLM（大语言模型）、TCG 卡牌和 galgame。" />
   <meta name="robots" content="index, follow" />
 
   <!-- 站点图标（由 avatar.png 缩放生成） -->
@@ -15,9 +15,9 @@
   <!-- 分享卡片：QQ / 微信 / B站 / 微博 抓的就是这些 -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="tina的小窝" />
-  <meta property="og:title" content="tina的小窝" />
-  <meta property="og:description" content="tina 的个人小窝：LLM（大语言模型）、TCG 卡牌、galgame。" />
-  <meta property="og:url" content="https://tina-9yg.pages.dev/" />
+  <meta property="og:title" content="关于我 · tina的小窝" />
+  <meta property="og:description" content="tina 是谁：喜欢 LLM（大语言模型）、TCG 卡牌和 galgame。" />
+  <meta property="og:url" content="https://tina-9yg.pages.dev/about" />
   <meta property="og:image" content="https://tina-9yg.pages.dev/og-image.jpg" />
   <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:image:width" content="1200" />
@@ -53,8 +53,8 @@
   <nav class="side-index" id="sideIndex" aria-label="站点导航">
     <a class="side-index-logo" href="index.html">✦ <span>tina的小窝</span></a>
     <ul class="side-index-list">
-      <li><a class="side-index-link is-active" href="index.html" aria-current="page">主页</a></li>
-      <li><a class="side-index-link" href="about.html">关于我</a></li>
+      <li><a class="side-index-link" href="index.html">主页</a></li>
+      <li><a class="side-index-link is-active" href="about.html" aria-current="page">关于我</a></li>
       <li><a class="side-index-link" href="gal.html">galgame</a></li>
       <li><a class="side-index-link" href="minigames.html">小游戏</a></li>
       <li><a class="side-index-link" href="contact.html">联系</a></li>
@@ -62,45 +62,41 @@
   </nav>
 
   <main>
-    <!-- 首屏：星空插画背景 -->
-    <section class="hero" id="hero">
-      <div class="hero-overlay"></div>
-      <div class="container hero-inner">
-        <p class="hero-kicker">✦ 欢迎来到我的小站 ✦</p>
-        <h1 class="hero-title">tina的小窝</h1>
-        <div class="hero-actions">
-          <a class="btn btn-glow" href="about.html">关于我 →</a>
-          <a class="btn btn-ghost" href="contact.html">联系我</a>
+    <!-- 关于我（「兴趣」原来是独立一页，2026-09-24 按 tina 要求合并到本页，两块内容没动） -->
+    <section class="section" id="about">
+      <div class="container">
+        <h2 class="section-title">关于我 <span class="title-star">✦</span></h2>
+        <div class="about-grid card reveal">
+          <div class="avatar"><img src="avatar.png" alt="头像（截取自首页插画）" /></div>
+          <div class="about-text">
+            <p>大家好，这里是 <strong>tina</strong> 的个人主页。</p>
+            <ul class="tag-list">
+              <li class="tag"># LLM</li>
+              <li class="tag"># TCG卡牌</li>
+              <li class="tag"># galgame</li>
+            </ul>
+          </div>
         </div>
       </div>
-      <div class="hero-scroll-hint" aria-hidden="true">▼</div>
     </section>
 
-    <!-- 概览：首页往下的四个入口，每个入口都是一个独立页面 -->
-    <section class="section" id="overview">
+    <!-- 兴趣 -->
+    <section class="section" id="interests">
       <div class="container">
-        <h2 class="section-title">逛逛小窝 <span class="title-star">✦</span></h2>
+        <h2 class="section-title">我的兴趣 <span class="title-star">✦</span></h2>
         <div class="card-grid">
-          <a class="card card-link reveal" href="about.html">
-            <h3>✦ 关于我</h3>
-            <p>我是谁，还有 LLM、TCG 卡牌、galgame 这三个坑。</p>
-            <span class="card-more">进去看看 →</span>
-          </a>
-          <a class="card card-link reveal" href="gal.html">
-            <h3>✦ galgame</h3>
-            <p>玩过的作品收藏，能按厂商筛、按名字搜。</p>
-            <span class="card-more">进去看看 →</span>
-          </a>
-          <a class="card card-link reveal" href="minigames.html">
-            <h3>✦ 小游戏</h3>
-            <p>2048 和五子棋（人机对战），进度自动保存。</p>
-            <span class="card-more">进去看看 →</span>
-          </a>
-          <a class="card card-link reveal" href="contact.html">
-            <h3>✦ 联系</h3>
-            <p>QQ、B站、GitHub，都在这一页。</p>
-            <span class="card-more">进去看看 →</span>
-          </a>
+          <article class="card reveal">
+            <h3>⭐ LLM</h3>
+            <p>喜欢研究LLM（大语言模型）的发展</p>
+          </article>
+          <article class="card reveal">
+            <h3>⭐ TCG卡牌</h3>
+            <p>平时喜欢玩玩游戏王等各类TCG卡牌</p>
+          </article>
+          <article class="card reveal">
+            <h3>⭐ galgame</h3>
+            <p>最厨的是卷心菜社的梅亚</p>
+          </article>
         </div>
       </div>
     </section>
