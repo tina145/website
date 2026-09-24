@@ -28,11 +28,13 @@ window.KARAOKE = [
     title: '耀 上 圣 素',
     artist: 'Luminous_J',          // 视频作者 = 简介里写「填词：我 / 翻唱：我」的那个人
     source: '游戏王 填词翻唱（原曲：YOASOBI「アドレナ」）',
-    collection: '',                // 还没定这条归哪个合集；填了页面就会多一个筛选按钮
+    collection: '游戏王',          // 合集：页面顶部「全部合集」旁边会多一个「游戏王」筛选按钮
     url: 'https://www.bilibili.com/video/BV1W1ec6cE8K/',
     tags: ['游戏王', '填词翻唱'],
   },
 ];
 
 // 合集筛选栏里排在最前、且保持这里写的先后顺序（留空数组就按数据里的数量从多到少排）
-window.KARAOKE_COLLECTION_PRESETS = [];
+// 这里写的合集名，只有在歌单里真有条目用它时才会生成按钮；
+// 没写进这里、但条目用到的合集，会自动排在后面。
+window.KARAOKE_COLLECTION_PRESETS = ['游戏王'];
