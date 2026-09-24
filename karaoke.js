@@ -118,9 +118,35 @@ window.KARAOKE = [
     url: 'https://www.bilibili.com/video/BV1j8RHYNEaK/',
     tags: ['月映宝石乡', '卷心菜社', '纯K投屏'],
   },
+  {
+    // tina 2026-09-24 给的地址。这条是「カラオケ/卡拉OK」投屏（页面分 P 里有 on/off vocal 两轨），
+    // 放的是原唱 fripSide 的版本；UP主「Tsuki-岭月」只是做投屏的人，所以 artist 写歌手。
+    // 作品 ティンクルスターナイツ（B站 标签里的中文名是「闪耀星骑士」）。
+    // ⚠️ 它**不是 PC galgame**：是 DMM GAMES 的网页游戏（变身前女主×战斗 RPG，开发 クリエイティブチーム くまさん，
+    // 发行 DMM GAMES・EXNOA）。**2026-09-24 按 tina 要求单开了一个分类「闪耀星骑士」**，不跟 galgame 混。
+    // 「Twinkle Star Nights」就是它的主題歌 —— 歌ネット页面标着「ティンクルスターナイツ 主題歌」，
+    // 作詞/作曲 八木沼悟志、編曲 八木沼悟志・齋藤真也，2024/10/09 发行。
+    title: '【カラオケ/卡拉OK】Twinkle Star Nights - ティンクルスターナイツ 1周年記念PV',
+    artist: 'fripSide',
+    source: '闪耀星骑士 主题歌（原唱：fripSide「Twinkle Star Nights」）',
+    collection: '闪耀星骑士',
+    url: 'https://www.bilibili.com/video/BV1TYXCBNE1a/',
+    tags: ['闪耀星骑士', '纯K投屏'],
+  },
+  {
+    // tina 2026-09-24 给的地址。上一条的 2 周年纪念曲，同样是 fripSide。
+    // 曲名「Echoes of the Stars」只写在简介里（视频标题写的是「2周年纪念曲」），
+    // 所以标题照抄、曲名放进 source —— 搜「Echoes」或「Stars」都能搜到这条。
+    title: '【纯k投屏】ティンクルスターナイツ2周年纪念曲',
+    artist: 'fripSide',
+    source: '闪耀星骑士 2周年主题歌（原唱：fripSide「Echoes of the Stars」）',
+    collection: '闪耀星骑士',
+    url: 'https://www.bilibili.com/video/BV1S1GnzxEz9/',
+    tags: ['闪耀星骑士', '纯K投屏'],
+  },
 ];
 
 // 合集筛选栏里排在最前、且保持这里写的先后顺序（留空数组就按数据里的数量从多到少排）
 // 这里写的合集名，只有在歌单里真有条目用它时才会生成按钮；
 // 没写进这里、但条目用到的合集，会自动排在后面。
-window.KARAOKE_COLLECTION_PRESETS = ['游戏王', 'galgame'];
+window.KARAOKE_COLLECTION_PRESETS = ['游戏王', 'galgame', '闪耀星骑士'];
