@@ -494,10 +494,13 @@ if (copyBtn) {
     const shown = all.filter((k) => {
       if (state.collection && String(k.collection || '').trim() !== state.collection) return false;
       if (state.q) {
+        // 曲名里常有排版空格（B站 上很常见，比如「耀 上 圣 素」），所以两边都把空格去掉再比，
+        // 这样搜「圣素」「耀上圣素」都能命中（只影响匹配，显示还是原样）
         const hay = [k.title, k.artist, k.source, k.collection, (k.tags || []).join(' ')]
           .join(' ')
-          .toLowerCase();
-        if (hay.indexOf(state.q) === -1) return false;
+          .toLowerCase()
+          .replace(/\s+/g, '');
+        if (hay.indexOf(state.q.replace(/\s+/g, '')) === -1) return false;
       }
       return true;
     });
