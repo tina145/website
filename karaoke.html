@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>关于我 · tina的小窝</title>
-  <meta name="description" content="tina 是谁：喜欢 LLM（大语言模型）、TCG 卡牌和 galgame。" />
+  <title>卡拉OK · tina的小窝</title>
+  <meta name="description" content="tina 的卡拉OK 歌单：每首歌直接指向对应的 B站视频，能搜曲名、歌手、合集。" />
   <meta name="robots" content="index, follow" />
 
   <!-- 站点图标（由 avatar.png 缩放生成） -->
@@ -15,9 +15,9 @@
   <!-- 分享卡片：QQ / 微信 / B站 / 微博 抓的就是这些 -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="tina的小窝" />
-  <meta property="og:title" content="关于我 · tina的小窝" />
-  <meta property="og:description" content="tina 是谁：喜欢 LLM（大语言模型）、TCG 卡牌和 galgame。" />
-  <meta property="og:url" content="https://tina-9yg.pages.dev/about" />
+  <meta property="og:title" content="卡拉OK · tina的小窝" />
+  <meta property="og:description" content="tina 的卡拉OK 歌单：每首歌直接指向对应的 B站视频，能搜曲名、歌手、合集。" />
+  <meta property="og:url" content="https://tina-9yg.pages.dev/karaoke" />
   <meta property="og:image" content="https://tina-9yg.pages.dev/og-image.jpg" />
   <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:image:width" content="1200" />
@@ -49,57 +49,42 @@
   </header>
 
   <!-- 左侧导航：桌面端就是全站的主导航（顶栏只在窄屏出现，见 style.css）
-       2026-09-24 起站点拆成分页，每个页面是独立文件，
-       所以「当前是哪一页」直接写死在 HTML 里（is-active + aria-current），不再靠滚动位置判断 -->
+       站点是分页的，每个页面是独立文件，所以「当前是哪一页」直接写死在 HTML 里
+       （is-active + aria-current），不靠 JS 判断 -->
   <nav class="side-index" id="sideIndex" aria-label="站点导航">
     <a class="side-index-logo" href="index.html">✦ <span>tina的小窝</span></a>
     <ul class="side-index-list">
       <li><a class="side-index-link" href="index.html">主页</a></li>
-      <li><a class="side-index-link is-active" href="about.html" aria-current="page">关于我</a></li>
+      <li><a class="side-index-link" href="about.html">关于我</a></li>
       <li><a class="side-index-link" href="gal.html">galgame</a></li>
       <li><a class="side-index-link" href="minigames.html">小游戏</a></li>
-      <li><a class="side-index-link" href="karaoke.html">卡拉OK</a></li>
+      <li><a class="side-index-link is-active" href="karaoke.html" aria-current="page">卡拉OK</a></li>
       <li><a class="side-index-link" href="contact.html">联系</a></li>
     </ul>
   </nav>
 
   <main>
-    <!-- 关于我（「兴趣」原来是独立一页，2026-09-24 按 tina 要求合并到本页，两块内容没动） -->
-    <section class="section" id="about">
+    <!-- 卡拉OK 歌单：数据手写在 karaoke.js 里，改那个文件即更新本页
+         （karaoke.js 必须排在 script.js 之前） -->
+    <section class="section" id="karaoke">
       <div class="container">
-        <h2 class="section-title">关于我 <span class="title-star">✦</span></h2>
-        <div class="about-grid card reveal">
-          <div class="avatar"><img src="avatar.png" alt="头像（截取自首页插画）" /></div>
-          <div class="about-text">
-            <p>大家好，这里是 <strong>tina</strong> 的个人主页。</p>
-            <ul class="tag-list">
-              <li class="tag"># LLM</li>
-              <li class="tag"># TCG卡牌</li>
-              <li class="tag"># galgame</li>
-            </ul>
+        <h2 class="section-title">卡拉OK <span class="title-star">✦</span></h2>
+        <p class="section-lead">想唱的歌都在这儿。每一条点开就是对应的 B站视频（新窗口），上面能搜曲名、歌手、出处、合集。</p>
+
+        <div class="kara-stats" id="karaStats"></div>
+
+        <div class="kara-controls">
+          <div class="kara-chip-row" id="karaCollectionChips" role="group" aria-label="按合集筛选"></div>
+          <div class="kara-toolbar">
+            <label class="kara-search">
+              <span class="sr-only">搜索歌曲</span>
+              <input type="search" id="karaSearch" placeholder="搜曲名 / 歌手 / 出处 / 合集 / 标签…" autocomplete="off" />
+            </label>
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- 兴趣 -->
-    <section class="section" id="interests">
-      <div class="container">
-        <h2 class="section-title">我的兴趣 <span class="title-star">✦</span></h2>
-        <div class="card-grid">
-          <article class="card reveal">
-            <h3>⭐ LLM</h3>
-            <p>喜欢研究LLM（大语言模型）的发展</p>
-          </article>
-          <article class="card reveal">
-            <h3>⭐ TCG卡牌</h3>
-            <p>平时喜欢玩玩游戏王等各类TCG卡牌</p>
-          </article>
-          <article class="card reveal">
-            <h3>⭐ galgame</h3>
-            <p>最厨的是卷心菜社的梅亚</p>
-          </article>
-        </div>
+        <div class="kara-list" id="karaList"></div>
+        <p class="kara-empty" id="karaEmpty" hidden></p>
       </div>
     </section>
   </main>
@@ -111,6 +96,7 @@
   </footer>
 
   <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9dbc39219d9144c998ec463622b964f8"}'></script><!-- End Cloudflare Web Analytics -->
+  <script src="karaoke.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

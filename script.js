@@ -341,3 +341,202 @@ if (copyBtn) {
 
   render();
 })();
+
+// 6. 卡拉OK 歌单（数据手写在 karaoke.js，改那个文件即更新本页）
+//    每条点开就是一条 B站链接；没填 url 的条目显示「待填链接」，不会变成死链
+(function initKaraokeList() {
+  const list = document.getElementById('karaList');
+  if (!list) return; // 只有 karaoke.html 有这块
+
+  const stats = document.getElementById('karaStats');
+  const empty = document.getElementById('karaEmpty');
+  const chipRow = document.getElementById('karaCollectionChips');
+  const search = document.getElementById('karaSearch');
+  const controls = document.querySelector('.kara-controls');
+
+  const all = (window.KARAOKE || []).filter((k) => k && k.title);
+  const state = { collection: null, q: '' };
+
+  // ---- 合集筛选按钮：预设排最前（按预设顺序），其余按条目数从多到少 ----
+  const presets = Array.isArray(window.KARAOKE_COLLECTION_PRESETS) ? window.KARAOKE_COLLECTION_PRESETS : [];
+  const chips = new Map();
+  let allChip = null;
+
+  function makeChip(text, onClick) {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'chip';
+    b.textContent = text;
+    b.setAttribute('aria-pressed', 'false');
+    b.addEventListener('click', onClick);
+    return b;
+  }
+
+  if (all.length && chipRow) {
+    const counts = new Map();
+    all.forEach((k) => {
+      const c = String(k.collection || '').trim();
+      if (c) counts.set(c, (counts.get(c) || 0) + 1);
+    });
+    // 预设置写但一条数据都没用到的，不生成按钮（免得出现永远筛出 0 条的空按钮）
+    const head = presets.filter((c) => counts.has(c));
+    const rest = [...counts.keys()]
+      .filter((c) => !presets.includes(c))
+      .sort((a, b) => counts.get(b) - counts.get(a) || String(a).localeCompare(String(b), 'ja'));
+
+    allChip = makeChip('全部合集', () => {
+      state.collection = null;
+      render();
+    });
+    chipRow.appendChild(allChip);
+
+    [...head, ...rest].forEach((c) => {
+      const chip = makeChip(c, () => {
+        state.collection = state.collection === c ? null : c;
+        render();
+      });
+      chips.set(c, chip);
+      chipRow.appendChild(chip);
+    });
+  }
+
+  // 一条数据都没有时，筛选条没必要显示
+  if (!all.length && controls) controls.hidden = true;
+
+  // ---- 单条 ----
+  function makeItem(k) {
+    const url = String(k.url || '').trim();
+    const item = document.createElement(url ? 'a' : 'div');
+    item.className = 'kara-item' + (url ? '' : ' is-todo');
+    if (url) {
+      item.href = url;
+      item.target = '_blank';
+      item.rel = 'noopener';
+      item.title = '打开 B站视频（新窗口）';
+      item.setAttribute('aria-label', '打开《' + k.title + '》的 B站视频（新窗口）');
+    }
+
+    const idx = document.createElement('span');
+    idx.className = 'kara-idx';
+    // 序号按整份歌单里的位置算，筛来筛去不会跳号
+    const no = all.indexOf(k) + 1;
+    idx.textContent = no < 10 ? '0' + no : String(no);
+    item.appendChild(idx);
+
+    const main = document.createElement('span');
+    main.className = 'kara-main';
+
+    const title = document.createElement('span');
+    title.className = 'kara-title';
+    title.textContent = k.title;
+    if (k.sample) {
+      const sp = document.createElement('span');
+      sp.className = 'kara-sample';
+      sp.textContent = '示例';
+      title.appendChild(sp);
+    }
+    main.appendChild(title);
+
+    const subText = [k.artist, k.source, k.collection].filter(Boolean).join(' · ');
+    if (subText) {
+      const sub = document.createElement('span');
+      sub.className = 'kara-sub';
+      sub.textContent = subText;
+      main.appendChild(sub);
+    }
+
+    if (k.tags && k.tags.length) {
+      const wrap = document.createElement('span');
+      wrap.className = 'kara-tags';
+      // 标签只是展示，不参与筛选（筛选是上面的合集按钮 + 搜索框）
+      k.tags.forEach((t) => {
+        const tag = document.createElement('span');
+        tag.className = 'kara-tag';
+        tag.textContent = t;
+        wrap.appendChild(tag);
+      });
+      main.appendChild(wrap);
+    }
+
+    if (k.note) {
+      const note = document.createElement('span');
+      note.className = 'kara-note';
+      note.textContent = k.note;
+      main.appendChild(note);
+    }
+    item.appendChild(main);
+
+    const go = document.createElement('span');
+    go.className = 'kara-go' + (url ? '' : ' is-todo');
+    go.textContent = url ? 'B站 ↗' : '待填链接';
+    item.appendChild(go);
+
+    return item;
+  }
+
+  function renderStats(shown) {
+    if (!stats) return;
+    if (!all.length) {
+      stats.innerHTML = '';
+      return;
+    }
+    const linked = all.filter((k) => String(k.url || '').trim()).length;
+    let html = '<span class="kara-stat"><b>' + all.length + '</b>首在册</span>';
+    html += '<span class="kara-stat">已填链接 <b>' + linked + '</b>首</span>';
+    if (shown !== all.length) html += '<span class="kara-stat">筛选出 <b>' + shown + '</b>首</span>';
+    stats.innerHTML = html;
+  }
+
+  function render() {
+    if (allChip) allChip.setAttribute('aria-pressed', String(state.collection === null));
+    chips.forEach((chip, c) => chip.setAttribute('aria-pressed', String(state.collection === c)));
+
+    const shown = all.filter((k) => {
+      if (state.collection && String(k.collection || '').trim() !== state.collection) return false;
+      if (state.q) {
+        const hay = [k.title, k.artist, k.source, k.collection, (k.tags || []).join(' ')]
+          .join(' ')
+          .toLowerCase();
+        if (hay.indexOf(state.q) === -1) return false;
+      }
+      return true;
+    });
+
+    list.innerHTML = '';
+    shown.forEach((k) => list.appendChild(makeItem(k)));
+
+    if (empty) {
+      if (shown.length) {
+        empty.hidden = true;
+      } else {
+        empty.hidden = false;
+        if (all.length) {
+          empty.innerHTML =
+            '没有符合条件的歌。<button type="button" class="chip" id="karaReset">清空筛选</button>';
+          const reset = document.getElementById('karaReset');
+          if (reset) {
+            reset.addEventListener('click', () => {
+              state.collection = null;
+              state.q = '';
+              if (search) search.value = '';
+              render();
+            });
+          }
+        } else {
+          empty.textContent = '歌单还是空的：打开 karaoke.js 往里加条目就行。';
+        }
+      }
+    }
+
+    renderStats(shown.length);
+  }
+
+  if (search) {
+    search.addEventListener('input', () => {
+      state.q = search.value.trim().toLowerCase();
+      render();
+    });
+  }
+
+  render();
+})();
