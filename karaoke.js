@@ -144,6 +144,31 @@ window.KARAOKE = [
     url: 'https://www.bilibili.com/video/BV1S1GnzxEz9/',
     tags: ['闪耀星骑士', '纯K投屏'],
   },
+  {
+    // tina 2026-09-24 给的地址。纯K投屏，放的是原唱 恋摘もなか 的版本（UP主「片桐sara酱」只是做投屏的人）。
+    // 作品《神様ちゅ～ず！ センセー女の子似合ってるよっ！》是 galgame（B站 标签里就写着 galgame / op / 神様ちゅ～ず！）。
+    // 品牌与歌手取自 Moepedia（moepedia.net/game/98450/）：ブランド = くまのみそふと（2025-05-30 发售），
+    // 「歌手」栏直接标着「恋摘もなか（神様の言う通り♡♥／Make a wish come true！）」。
+    // ⚠️ 厂牌「くまのみそふと」我**没有可靠的中文惯称**，先照写日文原名（像 きゃべつそふと → 卷心菜社 那种改法，tina 说了就改）。
+    title: '【纯k投屏】神様の言う通り♡♥(Make a wish come true！) 恋摘もなか',
+    artist: '恋摘もなか',
+    source: '神様ちゅ～ず！ OP（原唱：恋摘もなか）',
+    collection: 'galgame',
+    url: 'https://www.bilibili.com/video/BV1w27pzwErv/',
+    tags: ['神様ちゅ～ず！', 'くまのみそふと', '纯K投屏'],
+  },
+  {
+    // tina 2026-09-24 给的地址。这条标着「纯K自用」（自己用的 KTV 投屏），曲名 To Valhalla，
+    // 就是 VenusBlood VALKYRIE 的 OP（标题里自己写了 OP）。
+    // 品牌与歌手取自 Moepedia（moepedia.net/game/98421/）：ブランド = dualtail／デュアルテイル（2025-07-25 发售），
+    // 「歌手」栏标着「nao（To Valhalla）」；音乐是 solfa。厂牌同样没有可靠中文惯称，照写原名。
+    title: '(纯K自用) To Valhalla (VenusBlood Valkyrie OP)',
+    artist: 'nao',
+    source: 'VenusBlood VALKYRIE OP（原唱：nao）',
+    collection: 'galgame',
+    url: 'https://www.bilibili.com/video/BV1vth1zSEk3/',
+    tags: ['VenusBlood VALKYRIE', 'dualtail', '纯K投屏'],
+  },
 ];
 
 // 合集筛选栏里排在最前、且保持这里写的先后顺序（留空数组就按数据里的数量从多到少排）
