@@ -57,9 +57,37 @@ window.KARAOKE = [
     url: 'https://www.bilibili.com/video/BV1wzSuBHE2m/',
     tags: ['游戏王', '翻唱'],
   },
+  {
+    // tina 2026-09-24 给的地址。字段取自视频页面本身：标题、UP主「しらたまOfficial」，
+    // 简介原文是「生日纪念上尝试唱了宝石学院的OP『君とのミチシルベ』卷心菜社公式→cabbage-soft.com/products/jewelry/」
+    //（引号里那句是页面原文，页面写的是「宝石学院」；本站统一用中文名「宝石心学园」+ 厂商「卷心菜社」，
+    //  2026-09-24 按 tina 要求改的，别改回日文名「きゃべつそふと」）。
+    // 这是新分类「galgame」下的第一首：宝石心学园 = 卷心菜社（きゃべつそふと）的作品，
+    // 也就是本站 galgame 收藏里那部《霞流宝石心》。
+    title: '【しらたま】君とのミチシルベ',
+    artist: 'しらたまOfficial',    // UP主 本人就是唱的人（视频标题里的【しらたま】）
+    source: '宝石心学园 OP 翻唱（原曲：KyoKa「君とのミチシルベ」）',
+    collection: 'galgame',
+    url: 'https://www.bilibili.com/video/BV1B94y1p7pk/',
+    tags: ['宝石心学园', '卷心菜社', '翻唱'],
+  },
+  {
+    // tina 2026-09-24 给的地址。这条**不是翻唱**，是「纯K投屏」（带歌词字幕的 KTV 投屏视频），
+    // 放的是原唱 佐咲紗花 的版本；UP主「下俣愛裏」只是做投屏的人、不是歌手，
+    // 所以 artist 写歌手（字段定义本来就是「歌手 / 原唱」），没有照抄 UP主。
+    // 「Will of Adamant」是宝石心学园的 2nd OP —— 依据有两处：视频自己的标签里就写着
+    // ジュエリー・ハーツ・アカデミア / 宝石心学园（**页面自己用的就叫「宝石心学园」**，
+    // 跟 tina 2026-09-24 要求的写法一致），官方站 cabbage-soft.com/products/jewelry/ 也对得上。
+    title: '【纯K投屏】Will of Adamant - 佐咲紗花',
+    artist: '佐咲紗花',
+    source: '宝石心学园 2nd OP（原唱：佐咲紗花）',
+    collection: 'galgame',
+    url: 'https://www.bilibili.com/video/BV1fV4y1q7rZ/',
+    tags: ['宝石心学园', '卷心菜社', '纯K投屏'],
+  },
 ];
 
 // 合集筛选栏里排在最前、且保持这里写的先后顺序（留空数组就按数据里的数量从多到少排）
 // 这里写的合集名，只有在歌单里真有条目用它时才会生成按钮；
 // 没写进这里、但条目用到的合集，会自动排在后面。
-window.KARAOKE_COLLECTION_PRESETS = ['游戏王'];
+window.KARAOKE_COLLECTION_PRESETS = ['游戏王', 'galgame'];
