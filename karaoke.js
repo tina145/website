@@ -85,6 +85,39 @@ window.KARAOKE = [
     url: 'https://www.bilibili.com/video/BV1fV4y1q7rZ/',
     tags: ['宝石心学园', '卷心菜社', '纯K投屏'],
   },
+  {
+    // tina 2026-09-24 给的地址。同为「纯K投屏」，放的是原唱 uniy 的版本（UP主 只是做投屏的人）。
+    // 作品判定：视频自己的标签里写着 ジュエリー・ハーツ・アカデミア / 宝石心学园 / カラオケ。
+    // 「插入歌」这个身份不在视频页面里，是查官方站专辑曲目（cabbage-soft.com/products/jewelry/
+    // 里写作「Rising Fomalhaut／vocal：uniy」）和 ErogameScape（music=16317，标为挿入歌）得到的。
+    title: '【纯K投屏】Rising Fomalhaut - uniy',
+    artist: 'uniy',
+    source: '宝石心学园 插入歌（原唱：uniy）',
+    collection: 'galgame',
+    url: 'https://www.bilibili.com/video/BV1Kr4y1Z7pr/',
+    tags: ['宝石心学园', '卷心菜社', '纯K投屏'],
+  },
+  {
+    // tina 2026-09-24 给的地址。这条是**姐妹作** ジュエリー・ナイツ・アルカディア（不是宝石心学园）：
+    // 曲名后面的括号里视频自己就写着「OP1」，歌手 uniy。
+    // 中文名用「月映宝石乡」——本站 galgame 收藏里那部《月映宝石乡 -星沈碧落万物喑-》就是它。
+    // ⚠️ 视频标签里那个「宝石心学院」是 UP主 自己贴错了（那是宝石心学园的别译），别跟着抄。
+    title: '【纯k投屏】Addict of justice-uniy（ジュエリー・ナイツ・アルカディアOP1 ）',
+    artist: 'uniy',
+    source: '月映宝石乡 OP1（原唱：uniy）',
+    collection: 'galgame',
+    url: 'https://www.bilibili.com/video/BV1UmQ5YZEpF/',
+    tags: ['月映宝石乡', '卷心菜社', '纯K投屏'],
+  },
+  {
+    // tina 2026-09-24 给的地址。同上那条的 OP2（标题里自己写着），歌手 Ceui。
+    title: '【纯k投屏】Tragedy Night-Ceui（ジュエリー・ナイツ・アルカディアOP2）',
+    artist: 'Ceui',
+    source: '月映宝石乡 OP2（原唱：Ceui）',
+    collection: 'galgame',
+    url: 'https://www.bilibili.com/video/BV1j8RHYNEaK/',
+    tags: ['月映宝石乡', '卷心菜社', '纯K投屏'],
+  },
 ];
 
 // 合集筛选栏里排在最前、且保持这里写的先后顺序（留空数组就按数据里的数量从多到少排）
