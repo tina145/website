@@ -454,6 +454,53 @@ a.kara-item:hover .kara-go { text-shadow: 0 0 10px var(--accent-glow); }
   .kara-go { justify-self: start; margin-top: 0.35rem; }
 }
 
+/* ================= API KEY ================= */
+/* 左边是入口名，右边直接跳官网。就四条，写死在 apikey.html 里 ——
+   没有数据文件、没有 JS 渲染。
+   2026-09-24：① 每条下面原来还有一句说明文案，tina 要求删掉了（所以没有 .ak-sub）；
+   ② tina 说「每个太长了，缩减一半」→ 宽屏改成一行两条，每条占半个容器宽 */
+.ak-list {
+  display: grid;
+  /* auto-fit：宽内容列（960px）下正好两条一行、每条约 466px；
+     窗口收窄到放不下两条时自动回到一条一行，不用再写断点 */
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 0.55rem;
+}
+
+/* 整条就是一个链接（跟卡拉OK 那套一样：外层是 a，点行里哪儿都能开） */
+.ak-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center; gap: 0.2rem 0.9rem;
+  padding: 0.7rem 1rem;
+  background: var(--card-bg);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(111, 168, 255, 0.22);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  color: var(--text);
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+  animation: gal-in 0.3s ease both;
+}
+a.ak-item:hover {
+  transform: translateX(4px);
+  border-color: rgba(111, 168, 255, 0.5);
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.42), 0 0 18px var(--accent-glow);
+  text-shadow: none; /* 压掉 a:hover 的整行发光 */
+}
+a.ak-item:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.ak-title { font-size: 0.98rem; font-weight: 700; line-height: 1.45; }
+
+.ak-go { font-size: 0.85rem; font-weight: 600; color: var(--accent); white-space: nowrap; }
+a.ak-item:hover .ak-go { text-shadow: 0 0 10px var(--accent-glow); }
+
+@media (max-width: 640px) {
+  /* 窄屏把「打开 ↗」挪到下面一行，整行照样能点 */
+  .ak-item { grid-template-columns: minmax(0, 1fr); }
+  .ak-go { justify-self: start; margin-top: 0.35rem; }
+}
+
 /* ================= 小游戏 · 2048 ================= */
 .g2048 { max-width: 420px; margin: 0 auto; }
 

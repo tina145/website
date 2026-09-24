@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>galgame 收藏 · tina的小窝</title>
-  <meta name="description" content="tina 玩过的 galgame 作品收藏清单，可按厂商筛选、按名字搜索。" />
+  <title>API KEY · tina的小窝</title>
+  <meta name="description" content="想用 DeepSeek 的 API？这里只放官方入口：注册、充值、创建 API Key，都在官方平台上办。" />
   <meta name="robots" content="index, follow" />
 
   <!-- 站点图标（由 avatar.png 缩放生成） -->
@@ -15,9 +15,9 @@
   <!-- 分享卡片：QQ / 微信 / B站 / 微博 抓的就是这些 -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="tina的小窝" />
-  <meta property="og:title" content="galgame 收藏 · tina的小窝" />
-  <meta property="og:description" content="tina 玩过的 galgame 作品收藏清单，可按厂商筛选、按名字搜索。" />
-  <meta property="og:url" content="https://tina-9yg.pages.dev/gal" />
+  <meta property="og:title" content="API KEY · tina的小窝" />
+  <meta property="og:description" content="想用 DeepSeek 的 API？这里只放官方入口：注册、充值、创建 API Key，都在官方平台上办。" />
+  <meta property="og:url" content="https://tina-9yg.pages.dev/apikey" />
   <meta property="og:image" content="https://tina-9yg.pages.dev/og-image.jpg" />
   <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:image:width" content="1200" />
@@ -50,42 +50,48 @@
   </header>
 
   <!-- 左侧导航：桌面端就是全站的主导航（顶栏只在窄屏出现，见 style.css）
-       2026-09-24 起站点拆成分页，每个页面是独立文件，
-       所以「当前是哪一页」直接写死在 HTML 里（is-active + aria-current），不再靠滚动位置判断 -->
+       站点是分页的，每个页面是独立文件，所以「当前是哪一页」直接写死在 HTML 里
+       （is-active + aria-current），不靠 JS 判断 -->
   <nav class="side-index" id="sideIndex" aria-label="站点导航">
     <a class="side-index-logo" href="index.html">✦ <span>tina的小窝</span></a>
     <ul class="side-index-list">
       <li><a class="side-index-link" href="index.html">主页</a></li>
       <li><a class="side-index-link" href="about.html">关于我</a></li>
-      <li><a class="side-index-link is-active" href="gal.html" aria-current="page">galgame</a></li>
+      <li><a class="side-index-link" href="gal.html">galgame</a></li>
       <li><a class="side-index-link" href="minigames.html">小游戏</a></li>
       <li><a class="side-index-link" href="karaoke.html">卡拉OK</a></li>
-      <li><a class="side-index-link" href="apikey.html">API KEY</a></li>
+      <li><a class="side-index-link is-active" href="apikey.html" aria-current="page">API KEY</a></li>
       <li><a class="side-index-link" href="contact.html">联系</a></li>
     </ul>
   </nav>
 
   <main>
-    <!-- galgame 收藏：数据手写在 games.js 里，改那个文件即更新本页（games.js 必须排在 script.js 之前） -->
-    <section class="section" id="gal">
+    <!-- API KEY：只列官方入口，一行一个，点整行开新窗口。
+         链接写死在本页 HTML 里（就四条，没有数据文件、没有 JS 渲染），
+         改内容直接改下面这四段就行。
+         2026-09-24：原本每条下面还有一句说明文案，tina 要求删掉了，只留入口名 -->
+    <section class="section" id="apikey">
       <div class="container">
-        <h2 class="section-title">galgame 收藏 <span class="title-star">✦</span></h2>
-        <p class="section-lead">玩过的作品。点厂商可以筛选。</p>
+        <h2 class="section-title">API KEY <span class="title-star">✦</span></h2>
 
-        <div class="gal-stats" id="galStats"></div>
-
-        <div class="gal-controls">
-          <div class="gal-chip-row" id="galBrandChips" role="group" aria-label="按厂商筛选"></div>
-          <div class="gal-toolbar">
-            <label class="gal-search">
-              <span class="sr-only">搜索作品</span>
-              <input type="search" id="galSearch" placeholder="搜索作品名 / 品牌 / 标签…" autocomplete="off" />
-            </label>
-          </div>
+        <div class="ak-list">
+          <a class="ak-item" href="https://platform.deepseek.com/" target="_blank" rel="noopener">
+            <span class="ak-title">DeepSeek 开放平台</span>
+            <span class="ak-go">打开 ↗</span>
+          </a>
+          <a class="ak-item" href="https://platform.deepseek.com/api_keys" target="_blank" rel="noopener">
+            <span class="ak-title">创建 API Key</span>
+            <span class="ak-go">打开 ↗</span>
+          </a>
+          <a class="ak-item" href="https://api-docs.deepseek.com/zh-cn/quick_start/pricing/" target="_blank" rel="noopener">
+            <span class="ak-title">模型与价格</span>
+            <span class="ak-go">打开 ↗</span>
+          </a>
+          <a class="ak-item" href="https://api-docs.deepseek.com/zh-cn/" target="_blank" rel="noopener">
+            <span class="ak-title">API 文档</span>
+            <span class="ak-go">打开 ↗</span>
+          </a>
         </div>
-
-        <div class="gal-grid" id="galGrid"></div>
-        <p class="gal-empty" id="galEmpty" hidden></p>
       </div>
     </section>
   </main>
@@ -97,7 +103,6 @@
   </footer>
 
   <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9dbc39219d9144c998ec463622b964f8"}'></script><!-- End Cloudflare Web Analytics -->
-  <script src="games.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
