@@ -32,6 +32,27 @@ window.KARAOKE = [
     url: 'https://www.bilibili.com/video/BV1W1ec6cE8K/',
     tags: ['游戏王', '填词翻唱'],
   },
+  {
+    // tina 2026-09-24 给的地址。字段同样取自视频页面本身。
+    // 简介：填词/翻唱/视频都是 UP主 自己，内容基于直播时观众发的弹幕总结，
+    // 所以简介里那几句「本人没有玩过游戏王…没看过卡片效果」是 UP主 自己写的免责声明，照实留着。
+    title: '卡通通卡卡卡通',
+    artist: 'Luminous_J',
+    source: '游戏王 填词翻唱（原曲：葉月ゆら「シャイニング☆アブラカタブラ」）',
+    collection: '游戏王',
+    url: 'https://www.bilibili.com/video/BV1DMoxBwE9y/',
+    tags: ['游戏王', '填词翻唱'],
+  },
+  {
+    // tina 2026-09-24 给的地址。这首简介里只写了「翻唱」（没有填词），所以标签用「翻唱」；
+    // 卡图是用游戏王制卡器 LD 生成的，所以仍归「游戏王」合集。
+    title: 'ShaDdoll -噬 暗 影 依 团-',
+    artist: 'Luminous_J',
+    source: '游戏王 翻唱（原曲：清風明月「SoulStone -闇喰イサァカス団-」）',
+    collection: '游戏王',
+    url: 'https://www.bilibili.com/video/BV1wzSuBHE2m/',
+    tags: ['游戏王', '翻唱'],
+  },
 ];
 
 // 合集筛选栏里排在最前、且保持这里写的先后顺序（留空数组就按数据里的数量从多到少排）
