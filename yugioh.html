@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>联系 · tina的小窝</title>
-  <meta name="description" content="QQ、B站、GitHub —— 找到 tina 的三种方式。" />
+  <title>游戏王 · tina的小窝</title>
+  <meta name="description" content="tina 的游戏王分区：游戏王历史与 OCG 环境的记录，按年份排。" />
   <meta name="robots" content="index, follow" />
 
   <!-- 站点图标（由 avatar.png 缩放生成） -->
@@ -15,9 +15,9 @@
   <!-- 分享卡片：QQ / 微信 / B站 / 微博 抓的就是这些 -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="tina的小窝" />
-  <meta property="og:title" content="联系 · tina的小窝" />
-  <meta property="og:description" content="QQ、B站、GitHub —— 找到 tina 的三种方式。" />
-  <meta property="og:url" content="https://tina-9yg.pages.dev/contact" />
+  <meta property="og:title" content="游戏王 · tina的小窝" />
+  <meta property="og:description" content="tina 的游戏王分区：游戏王历史与 OCG 环境的记录，按年份排。" />
+  <meta property="og:url" content="https://tina-9yg.pages.dev/yugioh" />
   <meta property="og:image" content="https://tina-9yg.pages.dev/og-image.jpg" />
   <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:image:width" content="1200" />
@@ -59,26 +59,23 @@
       <li><a class="side-index-link" href="index.html">主页</a></li>
       <li><a class="side-index-link" href="about.html">关于我</a></li>
       <li><a class="side-index-link" href="gal.html">galgame</a></li>
-      <li><a class="side-index-link" href="yugioh.html">游戏王</a></li>
+      <li><a class="side-index-link is-active" href="yugioh.html" aria-current="page">游戏王</a></li>
       <li><a class="side-index-link" href="minigames.html">小游戏</a></li>
       <li><a class="side-index-link" href="karaoke.html">卡拉OK</a></li>
       <li><a class="side-index-link" href="apikey.html">API KEY</a></li>
-      <li><a class="side-index-link is-active" href="contact.html" aria-current="page">联系</a></li>
+      <li><a class="side-index-link" href="contact.html">联系</a></li>
     </ul>
   </nav>
 
   <main>
-    <!-- 联系 -->
-    <section class="section" id="contact">
+    <!-- 游戏王：两栏内容（游戏王历史 / OCG 环境）手写在 yugioh.js 里，改那个文件即更新本页。
+         标签栏和下面的内容都由 yugioh.js 生成，这里只留两个空容器。 -->
+    <section class="section" id="yugioh">
       <div class="container">
-        <h2 class="section-title">找到我 <span class="title-star">✦</span></h2>
-        <div class="card reveal contact-card">
-          <ul class="contact-list">
-            <li class="contact-item"><img class="icon" src="icon-qq.png" alt="QQ 图标" />QQ：<button class="copy-qq" type="button" data-copy="743709338" title="点击复制 QQ 号">743709338</button></li>
-            <li class="contact-item"><img class="icon" src="icon-bilibili.ico" alt="B站图标" />B站：<a href="https://space.bilibili.com/106756702" target="_blank" rel="noopener">ティナOfficial</a></li>
-            <li class="contact-item"><img class="icon icon-badge" src="icon-github.png" alt="GitHub 图标" />GitHub：<a href="https://github.com/tina145" target="_blank" rel="noopener">tina145</a></li>
-          </ul>
-        </div>
+        <h2 class="section-title">游戏王 <span class="title-star">✦</span></h2>
+
+        <div class="ygo-tabs" id="ygoTabs" role="tablist" aria-label="游戏王的子栏目"></div>
+        <div class="ygo-panels" id="ygoPanels"></div>
       </div>
     </section>
   </main>
@@ -89,10 +86,9 @@
     </div>
   </footer>
 
-  <!-- 复制成功提示（只有本页有「点击复制 QQ 号」） -->
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
-
   <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9dbc39219d9144c998ec463622b964f8"}'></script><!-- End Cloudflare Web Analytics -->
+  <script src="yugioh.js"></script>
   <script src="script.js"></script>
+  <script src="yugioh-render.js"></script>
 </body>
 </html>

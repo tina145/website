@@ -820,8 +820,8 @@ a.ak-item:hover .ak-go { text-shadow: 0 0 10px var(--accent-glow); }
     max-height: 0; overflow: hidden;
     transition: max-height 0.3s ease;
   }
-  /* 7 个菜单项，每项约 52px，留够高度别把最后一项裁掉 */
-  .nav-links.open { max-height: 420px; }
+  /* 8 个菜单项，每项约 57px，留够高度别把最后一项裁掉（加「游戏王」时由 420 调到 520） */
+  .nav-links.open { max-height: 520px; }
   .nav-links li { padding: 0.9rem 1.5rem; border-top: 1px solid rgba(111, 168, 255, 0.12); }
 
   /* 移动端：整页固定背景层的星空图会被放大裁切，把取景挪到偏右（角色在图的右侧） */
@@ -834,3 +834,61 @@ a.ak-item:hover .ak-go { text-shadow: 0 0 10px var(--accent-glow); }
   .gal-title { font-size: 0.9rem; }
   .gal-stats { gap: 1.1rem; }
 }
+
+/* ================= 游戏王 ================= */
+/* 一个分区页里再分子栏目：上面一排标签（.ygo-tabs），下面一块面板（.ygo-panels）。
+   标签按钮复用 .chip 的样子，但选中态走 aria-selected（筛选按钮那套是 aria-pressed） */
+.ygo-tabs { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 1.6rem; }
+.ygo-tab { cursor: pointer; }
+.ygo-tab[aria-selected="true"] {
+  background: rgba(111, 168, 255, 0.22);
+  border-color: var(--accent);
+  color: var(--text);
+  box-shadow: 0 0 14px var(--accent-glow);
+}
+.ygo-tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* 这句不能省：面板上有 tabindex，万一别的规则给了 display，hidden 会被盖掉 */
+.ygo-panel[hidden] { display: none; }
+.ygo-panel:focus { outline: none; }
+
+.ygo-lead { color: var(--text-dim); margin-bottom: 1.2rem; }
+
+/* 时间线：一条竖线 + 每条的圆点，年份在上、正文在下 */
+.ygo-timeline { list-style: none; position: relative; margin: 0; padding: 0 0 0 1.7rem; }
+.ygo-timeline::before {
+  content: ""; position: absolute; left: 4px; top: 0.55rem; bottom: 0.6rem; width: 1px;
+  background: linear-gradient(180deg, rgba(111, 168, 255, 0.55), rgba(111, 168, 255, 0.08));
+}
+.ygo-item { position: relative; padding-bottom: 1.6rem; }
+.ygo-item:last-child { padding-bottom: 0.2rem; }
+.ygo-item::before {
+  content: ""; position: absolute; left: -1.7rem; top: 0.5rem;
+  width: 9px; height: 9px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #bcd4ff, var(--accent));
+  box-shadow: 0 0 10px var(--accent-glow);
+}
+.ygo-item-year {
+  font-size: 0.82rem; font-weight: 700; letter-spacing: 0.08em;
+  color: var(--accent); text-shadow: 0 0 10px var(--accent-glow);
+}
+.ygo-item-year.is-todo { color: var(--text-dim); font-weight: 500; text-shadow: none; }
+.ygo-item-title { font-size: 1rem; margin: 0.15rem 0 0.3rem; }
+.ygo-item-text { color: var(--text-dim); font-size: 0.9rem; }
+.ygo-item-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; list-style: none; margin-top: 0.5rem; }
+
+/* 一栏还空着时的占位（不是假数据，就是明说「待填写」+ 一条模板） */
+.ygo-empty {
+  padding: 1.6rem 1.4rem; text-align: center;
+  border: 1px dashed rgba(111, 168, 255, 0.35);
+  border-radius: var(--radius);
+  background: rgba(111, 168, 255, 0.05);
+}
+.ygo-empty-title { font-weight: 700; color: var(--text); }
+.ygo-empty-hint { margin-top: 0.35rem; font-size: 0.86rem; color: var(--text-dim); }
+.ygo-empty-tpl {
+  margin-top: 0.8rem; font-size: 0.78rem; color: rgba(185, 189, 224, 0.75);
+  font-family: ui-monospace, Consolas, "Courier New", monospace;
+  word-break: break-all;
+}
+.ygo-empty-note { color: var(--text-dim); }
