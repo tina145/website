@@ -820,8 +820,8 @@ a.ak-item:hover .ak-go { text-shadow: 0 0 10px var(--accent-glow); }
     max-height: 0; overflow: hidden;
     transition: max-height 0.3s ease;
   }
-  /* 8 个菜单项，每项约 57px，留够高度别把最后一项裁掉（加「游戏王」时由 420 调到 520） */
-  .nav-links.open { max-height: 520px; }
+  /* 9 个菜单项，每项约 57px，留够高度别把最后一项裁掉（加「游戏王」时由 420 调到 520，加「AI视频」再调到 580） */
+  .nav-links.open { max-height: 580px; }
   .nav-links li { padding: 0.9rem 1.5rem; border-top: 1px solid rgba(111, 168, 255, 0.12); }
 
   /* 移动端：整页固定背景层的星空图会被放大裁切，把取景挪到偏右（角色在图的右侧） */
@@ -892,3 +892,15 @@ a.ak-item:hover .ak-go { text-shadow: 0 0 10px var(--accent-glow); }
   word-break: break-all;
 }
 .ygo-empty-note { color: var(--text-dim); }
+
+/* ================= AI视频 ================= */
+/* 这一页先只搭骨架：内容还没定，所以页面上只放一块「待填写」占位（静态 HTML，没有数据文件）。
+   观感跟游戏王那页的 .ygo-empty 一致，但那边是 JS 生成的，类名带 ygo- 前缀，这边用通用名以免混用 */
+.todo-box {
+  padding: 1.6rem 1.4rem; text-align: center;
+  border: 1px dashed rgba(111, 168, 255, 0.35);
+  border-radius: var(--radius);
+  background: rgba(111, 168, 255, 0.05);
+}
+.todo-title { font-weight: 700; color: var(--text); }
+.todo-hint { margin-top: 0.35rem; font-size: 0.86rem; color: var(--text-dim); }
