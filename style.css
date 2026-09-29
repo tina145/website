@@ -518,6 +518,11 @@ a.ak-item:hover .ak-go { text-shadow: 0 0 10px var(--accent-glow); }
 .g2048-score span { display: block; font-size: 0.7rem; color: var(--text-dim); letter-spacing: 0.08em; }
 .g2048-score b { font-size: 1.15rem; color: var(--accent); text-shadow: 0 0 12px var(--accent-glow); }
 .g2048-restart { padding: 0.5rem 1.1rem; font-size: 0.88rem; }
+/* 走错了可以退回上一步；没有可退的步子时按钮变灰（跟五子棋那个悔棋一个观感） */
+.g2048-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.g2048-undo { padding: 0.5rem 1.1rem; font-size: 0.88rem; }
+.g2048-undo:disabled { opacity: 0.45; cursor: not-allowed; }
+.g2048-undo:disabled:hover { background: none; transform: none; }
 
 /* 棋盘：格子大小由 game2048.js 量出宽度后写进 --g-cell / --g-gap */
 .g2048-board {

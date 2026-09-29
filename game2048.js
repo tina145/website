@@ -6,6 +6,9 @@
 //   tina2048.save  {"tiles":[{"v":2,"r":0,"c":0}, ...],"score":0}  —— 刷新后接着玩
 //   tina2048.best  最高分
 //
+// 悔棋：每次成功移动前存一份局面快照（最多 30 步，只在内存里），点「悔棋」退一步。
+//       刷新/换页/重新开始都会把历史清掉；「最高」是历史纪录，悔棋不会把它退回。
+//
 // 操作：点一下棋盘 → 方向键或 WASD；手机在棋盘上滑动。
 // 方向键只在棋盘获得焦点时才拦截，免得抢走整页的滚动。
 // ============================================================
@@ -29,6 +32,7 @@
   const againEl = document.getElementById('g2048Again');
   const keepEl = document.getElementById('g2048Keep');
   const restartEl = document.getElementById('g2048Restart');
+  const undoEl = document.getElementById('g2048Undo');
 
   if (!boardEl || !gridEl || !tilesEl) return;
 
@@ -43,6 +47,10 @@
   let finished = false; // 已经无处可动
   let won = false;      // 已经达成过 2048
   let flushTimer = 0;
+  // 悔棋用的历史：每次成功移动前存一份局面快照，点「悔棋」就退回去
+  // 只存在内存里（刷新页面就没了），最多留 HISTORY_MAX 步，免得一直玩下去占内存
+  let history = [];
+  const HISTORY_MAX = 30;
 
   /* ---------------- 存档 ---------------- */
 
@@ -59,12 +67,17 @@
     try { localStorage.setItem(BEST_KEY, String(best)); } catch (e) {}
   }
 
+  // 当前局面的一份快照（存档和悔棋共用同一份格式；不含已消失的方块）
+  function snapshot() {
+    return {
+      tiles: tiles.filter((t) => !t.dead).map((t) => ({ v: t.value, r: t.r, c: t.c })),
+      score: score,
+    };
+  }
+
   function save() {
     try {
-      localStorage.setItem(SAVE_KEY, JSON.stringify({
-        tiles: tiles.filter((t) => !t.dead).map((t) => ({ v: t.value, r: t.r, c: t.c })),
-        score: score,
-      }));
+      localStorage.setItem(SAVE_KEY, JSON.stringify(snapshot()));
     } catch (e) {}
   }
 
@@ -225,6 +238,9 @@
     if (!d || finished || !overlayEl.hidden) return false;
     flushDead();
 
+    // 先把「动之前」的局面记下来：这一手真的动了，才把它压进悔棋历史
+    const before = snapshot();
+
     let gained = 0;
     for (const t of tiles) {
       t.merged = false;
@@ -270,7 +286,10 @@
     for (const t of tiles) {
       if (t.dead || t.r !== t.prevR || t.c !== t.prevC) { changed = true; break; }
     }
-    if (!changed) return false; // 这一步什么也没动，不生成新方块也不计分
+    if (!changed) return false; // 这一步什么也没动，不生成新方块也不计分（也不进悔棋历史）
+
+    history.push(before);
+    if (history.length > HISTORY_MAX) history.shift(); // 只留最近几步
 
     score += gained;
     if (score > best) {
@@ -280,6 +299,7 @@
     spawn();
     paint();
     paintScore();
+    paintUndo();
     save();
     checkOver();
     return true;
@@ -310,6 +330,35 @@
     if (overlayEl) overlayEl.hidden = true;
   }
 
+  // 没有可退的步子时，悔棋按钮自动变灰
+  function paintUndo() {
+    if (undoEl) undoEl.disabled = !history.length;
+  }
+
+  // 悔棋：点一次退回上一步（可以连着点，最多退到 history 里留着的那些步）
+  // 分数一起退回去；「最高」是历史纪录，不退——退分不该把已经打出来的纪录抹掉
+  function undo() {
+    if (!history.length) return false;
+    const snap = history.pop();
+    flushDead();
+    tilesEl.innerHTML = '';
+    tiles = snap.tiles.map((t) => ({
+      id: nextId++,
+      value: t.v,
+      r: t.r, c: t.c, prevR: t.r, prevC: t.c,
+      merged: false, isNew: false, dead: false, el: null,
+    }));
+    score = snap.score;
+    finished = false;          // 退回上一步之后又能动了
+    won = maxValue() >= WIN;   // 如果退过了 2048，下次再合出来会重新提示
+    hideOverlay();
+    paint();
+    paintScore();
+    paintUndo();
+    save();
+    return true;
+  }
+
   function newGame() {
     flushDead();
     tilesEl.innerHTML = '';
@@ -317,11 +366,13 @@
     score = 0;
     finished = false;
     won = false;
+    history = [];   // 新开一局，之前的悔棋历史作废
     hideOverlay();
     spawn();
     spawn();
     paint();
     paintScore();
+    paintUndo();
     save();
   }
 
@@ -340,9 +391,11 @@
     score = data.score;
     won = maxValue() >= WIN;
     finished = false;
+    history = [];   // 刷新/换页进来，悔棋历史不跨页面保留
     hideOverlay();
     paint();
     paintScore();
+    paintUndo();
     if (!canMove()) {
       finished = true;
       showOverlay('没有可以移动的方向了，本局 ' + score + ' 分。', false);
@@ -406,6 +459,7 @@
 
   if (againEl) againEl.addEventListener('click', () => { newGame(); focusBoard(); });
   if (restartEl) restartEl.addEventListener('click', () => { newGame(); focusBoard(); });
+  if (undoEl) undoEl.addEventListener('click', () => { undo(); focusBoard(); });
   if (keepEl) keepEl.addEventListener('click', () => { hideOverlay(); focusBoard(); });
 
   /* ---------------- 起手 ---------------- */
