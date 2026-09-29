@@ -2,7 +2,7 @@
 // 小游戏：五子棋（人机对战）
 // 规则、AI、渲染、存档都在这个文件里；index.html 里只有一个空容器
 //
-// 玩法：15×15 的棋盘，你执黑先手，电脑执白。横、竖、斜任意方向连成五颗
+// 玩法：19×19 的棋盘，你执黑先手，电脑执白。横、竖、斜任意方向连成五颗
 //       （五颗以上也算）就赢，不带禁手规则，所有交叉点都能下。
 //
 // 操作：点棋盘落子。也可以用 Tab 把焦点挪到棋盘上，再用方向键选位置、回车落子。
@@ -24,7 +24,7 @@
   const root = document.getElementById('gameGomoku');
   if (!root) return;
 
-  const N = 15;                 // 15 路盘，跟真五子棋一样
+  const N = 19;                 // 19 路盘（跟围棋盘一样大，比常见的 15 路宽敞一圈）
   const EMPTY = 0, BLACK = 1, WHITE = 2; // 黑=你，白=电脑
   const SAVE_KEY = 'tinaGomoku.save';
   const WIN_KEY = 'tinaGomoku.wins';
@@ -71,7 +71,14 @@
   const at = (r, c) => (r < 0 || r >= N || c < 0 || c >= N) ? -1 : grid[r * N + c];
   const other = (p) => (p === BLACK ? WHITE : BLACK);
   const DIRS = [[0, 1], [1, 0], [1, 1], [1, -1]]; // 横、竖、撇、捺
-  const STARS = [[3, 3], [3, 11], [11, 3], [11, 11], [7, 7]]; // 真棋盘上的星位，纯装饰
+  const CENTER = (N - 1) / 2;   // 天元：正中央那一点（19 路是 9）
+  // 真棋盘上那九个小圆点：3 / 天元 / N-4 摆成九宫格（19 路就是 3、9、15），纯装饰
+  const STARS = (() => {
+    const lines = [3, CENTER, N - 4];
+    const out = [];
+    for (const r of lines) for (const c of lines) out.push([r, c]);
+    return out;
+  })();
 
   /* ---------------- 规则 ---------------- */
 
@@ -212,7 +219,7 @@
   }
 
   function chooseMove(p) {
-    if (!moves.length) return { r: 7, c: 7 }; // 空盘：下天元
+    if (!moves.length) return { r: CENTER, c: CENTER }; // 空盘：下天元
 
     const opp = other(p);
     const pool = neighbours(level === 'easy' ? 1 : 2);
@@ -688,7 +695,7 @@
     if (ARROWS[e.key]) {
       e.preventDefault(); // 焦点在棋盘里时方向键是走位，不滚页面
       const d = ARROWS[e.key];
-      const base = cursor || hover || { r: 7, c: 7 };
+      const base = cursor || hover || { r: CENTER, c: CENTER };
       const r = Math.min(N - 1, Math.max(0, base.r + d[0]));
       const c = Math.min(N - 1, Math.max(0, base.c + d[1]));
       cursor = { r: r, c: c };
