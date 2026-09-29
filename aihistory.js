@@ -16,7 +16,7 @@
 //   source 资料来源链接（可溯源用；留空就不显示）。填了页面上会有一个小的「来源 ↗」
 //
 // 想加节点就复制一段改字段；不想要哪条就整段删掉。
-// 时间线来自公开资料整理（2026-09-29 核查过每条来源链接），年份/日期以来源页为准。
+// 时间线来自公开资料整理（2026-09-30 核查过每条来源链接），年份/日期以来源页为准。
 // ============================================================
 
 window.AI_TIMELINE = [
@@ -445,6 +445,102 @@ window.AI_TIMELINE = [
     source: "https://x.ai/news/grok-4-5",
   },
   {
+    date: "2026-07-21",
+    title: "Gemini 3.6 Flash",
+    text: "Google 的 3.6 Flash 把输出价格下调、保持 100 万 token 上下文；官方同时确认旗舰 3.5 Pro 仍在测试，Gemini 4 已经开始预训练。",
+    tags: ["模型"],
+    url: '',
+    source: "https://chendahuang.com/ai-chronicle/events/gemini-3-6-flash/",
+  },
+  {
+    date: "2026-07-24",
+    title: "Claude Opus 5",
+    text: "Anthropic 发布 Claude Opus 5，定位接近前沿旗舰、价格与 Opus 4.8 持平，成为 Claude Max 的默认模型。",
+    tags: ["模型"],
+    url: '',
+    source: "https://chendahuang.com/ai-chronicle/events/claude-opus-5/",
+  },
+  {
+    date: "2026-07-31",
+    title: "DeepSeek-V4-Flash 正式版",
+    text: "DeepSeek 把 V4-Flash 升级为正式版：思考与非思考双模式、100 万 token 上下文、智能体能力增强；一周后公告上调 API 定价。",
+    tags: ["中国", "开源", "模型"],
+    url: '',
+    source: "https://chendahuang.com/ai-chronicle/events/deepseek-v4-flash-ga/",
+  },
+  {
+    date: "2026-08-03",
+    title: "Qwen3.8 与 Qwen3.8-Max",
+    text: "阿里发布 Qwen3.8 与旗舰 Qwen3.8-Max：2.4 万亿总参数的稀疏 MoE、原生多模态与 100 万 token 上下文，并宣布随后开放权重。",
+    tags: ["中国", "模型"],
+    url: '',
+    source: "https://help.aliyun.com/zh/model-studio/qwen3-8-max",
+  },
+  {
+    date: "2026-08-10",
+    title: "Meta 开源 Muse Glimmer",
+    text: "Meta 超级智能实验室开源约 300 亿参数的稠密多模态模型 Muse Glimmer，能在 24GB 显存的消费级显卡或 Mac 上本地跑，扎克伯格同日宣布 Meta 重返开源。",
+    tags: ["开源", "多模态"],
+    url: '',
+    source: "https://huggingface.co/meta-models/Muse-Glimmer-30B",
+  },
+  {
+    date: "2026-08-12",
+    title: "Grok 4.6",
+    text: "xAI 发布总参数约 1.5 万亿的 MoE 旗舰，重点强化长时间运行的智能体任务与视觉工作，API 定价明显低于同级竞品。",
+    tags: ["模型", "智能体"],
+    url: '',
+    source: "https://chendahuang.com/ai-chronicle/events/grok-4-6/",
+  },
+  {
+    date: "2026-08-13",
+    title: "DeepSeek-V4 Pro 正式版",
+    text: "DeepSeek 把 V4 Pro 更到 0813 正式版：1.6 万亿总参数、100 万 token 上下文，首次原生支持图像推理；同日开源智能体框架 DeepSeek Harness v0.1。",
+    tags: ["中国", "开源", "多模态"],
+    url: '',
+    source: "https://chendahuang.com/ai-chronicle/events/deepseek-v4-pro-ga/",
+  },
+  {
+    date: "2026-08-13",
+    title: "Gemini 3.7 Flash",
+    text: "距 3.6 Flash 只隔三周：官方称它是编程与智能体场景下最智能的主力模型，并给出限时五折定价。",
+    tags: ["模型"],
+    url: '',
+    source: "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-3-7-flash/",
+  },
+  {
+    date: "2026-08-14",
+    title: "GLM-5.3",
+    text: "智谱用极致的后训练强化学习把智能上界再拉高一档，编程能力较前代提升约 50%，主打智能体编程与防御性网络安全。",
+    tags: ["中国", "模型"],
+    url: '',
+    source: "https://chendahuang.com/ai-chronicle/events/glm-5-3/",
+  },
+  {
+    date: "2026-08-26",
+    title: "Qwen3.8-Flash 开源",
+    text: "125B 总参、每 token 激活 6B 的多模态 MoE，新「Next」架构把训练成本降到前代的约十分之一，被看作 Qwen4 的雏形。",
+    tags: ["中国", "开源"],
+    url: '',
+    source: "https://chendahuang.com/ai-chronicle/events/qwen-3-8-flash/",
+  },
+  {
+    date: "2026-08-26",
+    title: "GLM-5.3-Flash（Ox Alpha）",
+    text: "智谱「认领」此前以匿名身份上线的 Ox Alpha 就是 GLM-5.3-Flash：320B-A18B，GLM-5 系列首个原生多模态模型，以 MIT 协议开源。",
+    tags: ["中国", "开源", "多模态"],
+    url: '',
+    source: "https://chendahuang.com/ai-chronicle/events/glm-5-3-flash/",
+  },
+  {
+    date: "2026-08-28",
+    title: "腾讯混元 Hy4 preview 开源",
+    text: "腾讯开源 Hy4 preview：770B 总参、49B 激活的 MoE，上下文突破 100 万 token，Apache 2.0 协议，主打软件工程、办公分析与游戏开发。",
+    tags: ["中国", "开源"],
+    url: '',
+    source: "https://www.tencent.com/zh-cn/tencent-releases-and-open-sources-tencent-hy4-preview/",
+  },
+  {
     date: "2026-09-03",
     title: "GPT-6 Astra 发布",
     text: "OpenAI 发布 GPT-6 Astra，称其开启 AGI 时代，可像人一样操作电脑完成报税、购物等任务，是首个在超十万张 GPU 上预训练的模型，但因网络能力过强而分批放开。",
@@ -459,5 +555,29 @@ window.AI_TIMELINE = [
     tags: ["中国", "多模态"],
     url: '',
     source: "https://api-docs.deepseek.com/news/news260910",
+  },
+  {
+    date: "2026-09-22",
+    title: "Claude 5.5（Opus 5.5 / Sonnet 5.5）",
+    text: "Anthropic 再推 Claude 5.5：Opus 5.5 性能对标更强的旗舰、运行成本比 Opus 5 低约四成；Sonnet 5.5 速度再提三成，智能体编码反超 Opus 5.5。",
+    tags: ["模型", "智能体"],
+    url: '',
+    source: "https://www.anthropic.com/claude-sonnet-5-5",
+  },
+  {
+    date: "2026-09-22",
+    title: "GPT-6 Sol 与 Luna",
+    text: "OpenAI 给 GPT-6 家族加了两档：Sol 负责困难工作任务、Luna 主打低成本高吞吐，API 价格比 GPT-5.6 的促销价再降 50%。",
+    tags: ["模型"],
+    url: '',
+    source: "https://openai.com/index/introducing-gpt-6-sol-and-luna/",
+  },
+  {
+    date: "2026-09-23",
+    title: "小米开源 MiMo-V2.6",
+    text: "小米开源 MiMo-V2.6：100 万 token 上下文，并一同放出基于 2.5 万条轨迹的智能体强化学习系统。",
+    tags: ["中国", "开源", "智能体"],
+    url: '',
+    source: "https://www.readaitime.com/news/2026-09-23/19s34m9p",
   },
 ];
