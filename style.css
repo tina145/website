@@ -820,7 +820,7 @@ a.ak-item:hover .ak-go { text-shadow: 0 0 10px var(--accent-glow); }
     max-height: 0; overflow: hidden;
     transition: max-height 0.3s ease;
   }
-  /* 9 个菜单项，每项约 57px，留够高度别把最后一项裁掉（加「游戏王」时由 420 调到 520，加「AI视频」再调到 580） */
+  /* 9 个菜单项，每项约 57px，留够高度别把最后一项裁掉（加「游戏王」时由 420 调到 520，加「AI发展历程」再调到 580） */
   .nav-links.open { max-height: 580px; }
   .nav-links li { padding: 0.9rem 1.5rem; border-top: 1px solid rgba(111, 168, 255, 0.12); }
 
@@ -893,7 +893,7 @@ a.ak-item:hover .ak-go { text-shadow: 0 0 10px var(--accent-glow); }
 }
 .ygo-empty-note { color: var(--text-dim); }
 
-/* ================= AI视频 ================= */
+/* ================= AI发展历程 ================= */
 /* 这一页先只搭骨架：内容还没定，所以页面上只放一块「待填写」占位（静态 HTML，没有数据文件）。
    观感跟游戏王那页的 .ygo-empty 一致，但那边是 JS 生成的，类名带 ygo- 前缀，这边用通用名以免混用 */
 .todo-box {
@@ -905,50 +905,50 @@ a.ak-item:hover .ak-go { text-shadow: 0 0 10px var(--accent-glow); }
 .todo-title { font-weight: 700; color: var(--text); }
 .todo-hint { margin-top: 0.35rem; font-size: 0.86rem; color: var(--text-dim); }
 
-/* AI视频页的内容：一条 LLM 时间线（每个节点右侧可以挂视频）。观感跟游戏王那页的时间线一致 */
-.av-stats { display: flex; flex-wrap: wrap; gap: 1.6rem; margin-bottom: 1.2rem; }
-.av-stat { display: flex; align-items: baseline; gap: 0.4rem; color: var(--text-dim); font-size: 0.88rem; }
-.av-stat b { font-size: 1.3rem; color: var(--accent); text-shadow: 0 0 12px var(--accent-glow); }
+/* AI发展历程页的内容：一条 LLM 时间线（每个节点右侧可以挂视频）。观感跟游戏王那页的时间线一致 */
+.ai-stats { display: flex; flex-wrap: wrap; gap: 1.6rem; margin-bottom: 1.2rem; }
+.ai-stat { display: flex; align-items: baseline; gap: 0.4rem; color: var(--text-dim); font-size: 0.88rem; }
+.ai-stat b { font-size: 1.3rem; color: var(--accent); text-shadow: 0 0 12px var(--accent-glow); }
 
-.av-chip-row { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 1.6rem; }
+.ai-chip-row { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 1.6rem; }
 
-.av-timeline { list-style: none; position: relative; margin: 0; padding: 0 0 0 1.7rem; }
-.av-timeline::before {
+.ai-timeline { list-style: none; position: relative; margin: 0; padding: 0 0 0 1.7rem; }
+.ai-timeline::before {
   content: ""; position: absolute; left: 4px; top: 0.55rem; bottom: 0.6rem; width: 1px;
   background: linear-gradient(180deg, rgba(111, 168, 255, 0.55), rgba(111, 168, 255, 0.08));
 }
-.av-item { position: relative; padding-bottom: 1.7rem; }
-.av-item:last-child { padding-bottom: 0.2rem; }
-.av-item::before {
+.ai-item { position: relative; padding-bottom: 1.7rem; }
+.ai-item:last-child { padding-bottom: 0.2rem; }
+.ai-item::before {
   content: ""; position: absolute; left: -1.7rem; top: 0.55rem;
   width: 9px; height: 9px; border-radius: 50%;
   background: radial-gradient(circle at 35% 35%, #bcd4ff, var(--accent));
   box-shadow: 0 0 10px var(--accent-glow);
 }
-.av-item-head { display: flex; align-items: baseline; gap: 0.6rem; flex-wrap: wrap; }
-.av-item-date {
+.ai-item-head { display: flex; align-items: baseline; gap: 0.6rem; flex-wrap: wrap; }
+.ai-item-date {
   font-size: 0.8rem; font-weight: 700; letter-spacing: 0.06em;
   color: var(--accent); text-shadow: 0 0 10px var(--accent-glow);
   white-space: nowrap;
 }
-.av-item-date.is-todo { color: var(--text-dim); font-weight: 500; text-shadow: none; }
-.av-item-title { font-size: 1rem; }
-.av-item-text { margin-top: 0.3rem; color: var(--text-dim); font-size: 0.9rem; }
+.ai-item-date.is-todo { color: var(--text-dim); font-weight: 500; text-shadow: none; }
+.ai-item-title { font-size: 1rem; }
+.ai-item-text { margin-top: 0.3rem; color: var(--text-dim); font-size: 0.9rem; }
 
-.av-item-meta { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; margin-top: 0.5rem; }
-.av-item-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; }
-.av-tag {
+.ai-item-meta { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; margin-top: 0.5rem; }
+.ai-item-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.ai-tag {
   font-size: 0.7rem; line-height: 1.6;
   padding: 0.1rem 0.55rem; border-radius: 999px;
   background: rgba(111, 168, 255, 0.12);
   border: 1px solid rgba(111, 168, 255, 0.28);
   color: var(--accent);
 }
-.av-src { font-size: 0.78rem; color: var(--text-dim); }
-.av-src:hover { color: var(--accent); }
+.ai-src { font-size: 0.78rem; color: var(--text-dim); }
+.ai-src:hover { color: var(--accent); }
 /* 视频：填了 url 是链接，没填是灰字 */
-.av-go { margin-left: auto; font-size: 0.82rem; font-weight: 600; }
-.av-go.is-todo { color: rgba(185, 189, 224, 0.65); font-weight: 400; }
+.ai-go { margin-left: auto; font-size: 0.82rem; font-weight: 600; }
+.ai-go.is-todo { color: rgba(185, 189, 224, 0.65); font-weight: 400; }
 
-.av-empty { padding: 2.2rem 0; text-align: center; color: var(--text-dim); }
-.av-empty button { margin-top: 0.8rem; }
+.ai-empty { padding: 2.2rem 0; text-align: center; color: var(--text-dim); }
+.ai-empty button { margin-top: 0.8rem; }

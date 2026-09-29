@@ -1,7 +1,7 @@
 // ============================================================
-// AI视频页的渲染（只有 aivideo.html 加载它）
+// AI发展历程页的渲染（只有 aihistory.html 加载它）
 //
-// 数据在 aivideo.js 里：window.AIVIDEO_TIMELINE = [{ date, title, text, tags, url, source }, ...]
+// 数据在 aihistory.js 里：window.AI_TIMELINE = [{ date, title, text, tags, url, source }, ...]
 //
 // 页面的内容是「LLM 发展时间线」：每个节点一条，右侧可以挂一段视频。
 //   数据里填了 url  → 显示「看视频 ↗」（新窗口打开）
@@ -10,16 +10,16 @@
 // ============================================================
 
 (function initAivideoTimeline() {
-  const listEl = document.getElementById('avTimeline');
-  const chipsEl = document.getElementById('avYearChips');
-  const statsEl = document.getElementById('avStats');
-  const emptyEl = document.getElementById('avEmpty');
-  const fallbackEl = document.getElementById('avFallback');
-  if (!listEl) return; // 只有 aivideo.html 有这些容器
+  const listEl = document.getElementById('aiTimeline');
+  const chipsEl = document.getElementById('aiYearChips');
+  const statsEl = document.getElementById('aiStats');
+  const emptyEl = document.getElementById('aiEmpty');
+  const fallbackEl = document.getElementById('aiFallback');
+  if (!listEl) return; // 只有 aihistory.html 有这些容器
 
   const isLink = (v) => /^https?:\/\//i.test(String(v || '').trim()); // 不是 http 开头的一律当没填，免得出现死链
 
-  const all = (window.AIVIDEO_TIMELINE || []).filter((x) => x && String(x.title || '').trim());
+  const all = (window.AI_TIMELINE || []).filter((x) => x && String(x.title || '').trim());
 
   // 一条数据都没有：回到「待填写」占位（其余控件藏起来）
   if (!all.length) {
@@ -84,39 +84,39 @@
 
   function makeItem(it) {
     const li = document.createElement('li');
-    li.className = 'av-item';
+    li.className = 'ai-item';
 
     const head = document.createElement('div');
-    head.className = 'av-item-head';
+    head.className = 'ai-item-head';
 
     const date = document.createElement('span');
-    date.className = 'av-item-date';
+    date.className = 'ai-item-date';
     date.textContent = dateText(it.date) || '时间待填写';
     if (!String(it.date || '').trim()) date.classList.add('is-todo');
     head.appendChild(date);
 
     const h = document.createElement('h3');
-    h.className = 'av-item-title';
+    h.className = 'ai-item-title';
     h.textContent = String(it.title);
     head.appendChild(h);
     li.appendChild(head);
 
     if (it.text) {
       const p = document.createElement('p');
-      p.className = 'av-item-text';
+      p.className = 'ai-item-text';
       p.textContent = String(it.text);
       li.appendChild(p);
     }
 
     const meta = document.createElement('div');
-    meta.className = 'av-item-meta';
+    meta.className = 'ai-item-meta';
 
     if (it.tags && it.tags.length) {
       const wrap = document.createElement('span');
-      wrap.className = 'av-item-tags';
+      wrap.className = 'ai-item-tags';
       it.tags.forEach((t) => {
         const tag = document.createElement('span');
-        tag.className = 'av-tag';
+        tag.className = 'ai-tag';
         tag.textContent = t;
         wrap.appendChild(tag);
       });
@@ -125,7 +125,7 @@
 
     if (isLink(it.source)) {
       const src = document.createElement('a');
-      src.className = 'av-src';
+      src.className = 'ai-src';
       src.href = String(it.source).trim();
       src.target = '_blank';
       src.rel = 'noopener';
@@ -137,7 +137,7 @@
     // 视频：填了就是一个链接，没填就是灰字「待填视频」
     if (isLink(it.url)) {
       const go = document.createElement('a');
-      go.className = 'av-go';
+      go.className = 'ai-go';
       go.href = String(it.url).trim();
       go.target = '_blank';
       go.rel = 'noopener';
@@ -147,7 +147,7 @@
       meta.appendChild(go);
     } else {
       const todo = document.createElement('span');
-      todo.className = 'av-go is-todo';
+      todo.className = 'ai-go is-todo';
       todo.textContent = '待填视频';
       meta.appendChild(todo);
     }
@@ -170,17 +170,17 @@
         emptyEl.hidden = true;
       } else {
         emptyEl.hidden = false;
-        emptyEl.innerHTML = '这个年份还没有节点。<button type="button" class="chip" id="avReset">显示全部</button>';
-        const reset = document.getElementById('avReset');
+        emptyEl.innerHTML = '这个年份还没有节点。<button type="button" class="chip" id="aiReset">显示全部</button>';
+        const reset = document.getElementById('aiReset');
         if (reset) reset.addEventListener('click', () => { state.year = null; render(); });
       }
     }
 
     if (statsEl) {
       const linked = items.filter((it) => isLink(it.url)).length;
-      let html = '<span class="av-stat"><b>' + items.length + '</b>个节点</span>';
-      html += '<span class="av-stat">已配视频 <b>' + linked + '</b>个</span>';
-      if (shown.length !== items.length) html += '<span class="av-stat">筛选出 <b>' + shown.length + '</b>个</span>';
+      let html = '<span class="ai-stat"><b>' + items.length + '</b>个节点</span>';
+      html += '<span class="ai-stat">已配视频 <b>' + linked + '</b>个</span>';
+      if (shown.length !== items.length) html += '<span class="ai-stat">筛选出 <b>' + shown.length + '</b>个</span>';
       statsEl.innerHTML = html;
     }
   }

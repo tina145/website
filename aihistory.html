@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI视频 · tina的小窝</title>
-  <meta name="description" content="tina 的 AI视频分区：一条 LLM 发展时间线，从 2017 年的 Transformer 到各家旗舰模型，每个节点配一段视频。" />
+  <title>AI发展历程 · tina的小窝</title>
+  <meta name="description" content="tina 的 AI发展历程：一条 LLM 发展时间线，从 2017 年的 Transformer 到各家旗舰模型，每个节点配一段视频。" />
   <meta name="robots" content="index, follow" />
 
   <!-- 站点图标（由 avatar.png 缩放生成） -->
@@ -15,9 +15,9 @@
   <!-- 分享卡片：QQ / 微信 / B站 / 微博 抓的就是这些 -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="tina的小窝" />
-  <meta property="og:title" content="AI视频 · tina的小窝" />
-  <meta property="og:description" content="tina 的 AI视频分区：一条 LLM 发展时间线，从 2017 年的 Transformer 到各家旗舰模型，每个节点配一段视频。" />
-  <meta property="og:url" content="https://tina-9yg.pages.dev/aivideo" />
+  <meta property="og:title" content="AI发展历程 · tina的小窝" />
+  <meta property="og:description" content="tina 的 AI发展历程：一条 LLM 发展时间线，从 2017 年的 Transformer 到各家旗舰模型，每个节点配一段视频。" />
+  <meta property="og:url" content="https://tina-9yg.pages.dev/aihistory" />
   <meta property="og:image" content="https://tina-9yg.pages.dev/og-image.jpg" />
   <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:image:width" content="1200" />
@@ -45,7 +45,7 @@
         <li><a href="minigames.html">小游戏</a></li>
         <li><a href="karaoke.html">卡拉OK</a></li>
         <li><a href="apikey.html">API KEY</a></li>
-        <li><a href="aivideo.html">AI视频</a></li>
+        <li><a href="aihistory.html">AI发展历程</a></li>
         <li><a href="contact.html">联系</a></li>
       </ul>
     </nav>
@@ -64,27 +64,27 @@
       <li><a class="side-index-link" href="minigames.html">小游戏</a></li>
       <li><a class="side-index-link" href="karaoke.html">卡拉OK</a></li>
       <li><a class="side-index-link" href="apikey.html">API KEY</a></li>
-      <li><a class="side-index-link is-active" href="aivideo.html" aria-current="page">AI视频</a></li>
+      <li><a class="side-index-link is-active" href="aihistory.html" aria-current="page">AI发展历程</a></li>
       <li><a class="side-index-link" href="contact.html">联系</a></li>
     </ul>
   </nav>
 
   <main>
-    <!-- AI视频：一条 LLM 发展时间线，数据与说明都在 aivideo.js（改那个文件即更新本页），
-         渲染在 aivideo-render.js。每个节点右侧可以挂一段视频：填了 url 就是「看视频 ↗」，
+    <!-- AI发展历程：一条 LLM 发展时间线，数据与说明都在 aihistory.js（改那个文件即更新本页），
+         渲染在 aihistory-render.js。每个节点右侧可以挂一段视频：填了 url 就是「看视频 ↗」，
          没填就显示「待填视频」，不会出现死链。数据一条都没有时会露出下面那块「待填写」占位。 -->
-    <section class="section" id="aivideo">
+    <section class="section" id="aihistory">
       <div class="container">
-        <h2 class="section-title">AI视频 <span class="title-star">✦</span></h2>
+        <h2 class="section-title">AI发展历程 <span class="title-star">✦</span></h2>
 
-        <div class="av-stats" id="avStats"></div>
-        <div class="av-chip-row" id="avYearChips" role="group" aria-label="按年份筛选"></div>
-        <ol class="av-timeline" id="avTimeline"></ol>
-        <p class="av-empty" id="avEmpty" hidden></p>
+        <div class="ai-stats" id="aiStats"></div>
+        <div class="ai-chip-row" id="aiYearChips" role="group" aria-label="按年份筛选"></div>
+        <ol class="ai-timeline" id="aiTimeline"></ol>
+        <p class="ai-empty" id="aiEmpty" hidden></p>
 
-        <div class="todo-box" id="avFallback" hidden>
+        <div class="todo-box" id="aiFallback" hidden>
           <p class="todo-title">待填写</p>
-          <p class="todo-hint">时间线数据还没写：打开 aivideo.js 往 AIVIDEO_TIMELINE 里加节点。</p>
+          <p class="todo-hint">时间线数据还没写：打开 aihistory.js 往 AI_TIMELINE 里加节点。</p>
         </div>
       </div>
     </section>
@@ -97,8 +97,8 @@
   </footer>
 
   <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9dbc39219d9144c998ec463622b964f8"}'></script><!-- End Cloudflare Web Analytics -->
-  <script src="aivideo.js"></script>
+  <script src="aihistory.js"></script>
   <script src="script.js"></script>
-  <script src="aivideo-render.js"></script>
+  <script src="aihistory-render.js"></script>
 </body>
 </html>
