@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AI视频 · tina的小窝</title>
-  <meta name="description" content="tina 的 AI 视频分区，内容还在准备中。" />
+  <meta name="description" content="tina 的 AI视频分区：一条 LLM 发展时间线，从 2017 年的 Transformer 到各家旗舰模型，每个节点配一段视频。" />
   <meta name="robots" content="index, follow" />
 
   <!-- 站点图标（由 avatar.png 缩放生成） -->
@@ -16,7 +16,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="tina的小窝" />
   <meta property="og:title" content="AI视频 · tina的小窝" />
-  <meta property="og:description" content="tina 的 AI 视频分区，内容还在准备中。" />
+  <meta property="og:description" content="tina 的 AI视频分区：一条 LLM 发展时间线，从 2017 年的 Transformer 到各家旗舰模型，每个节点配一段视频。" />
   <meta property="og:url" content="https://tina-9yg.pages.dev/aivideo" />
   <meta property="og:image" content="https://tina-9yg.pages.dev/og-image.jpg" />
   <meta property="og:image:type" content="image/jpeg" />
@@ -70,14 +70,21 @@
   </nav>
 
   <main>
-    <!-- AI视频：这一页先只搭骨架，内容等想好了再加（要加数据文件 / 列表 / 卡片时告诉我） -->
+    <!-- AI视频：一条 LLM 发展时间线，数据与说明都在 aivideo.js（改那个文件即更新本页），
+         渲染在 aivideo-render.js。每个节点右侧可以挂一段视频：填了 url 就是「看视频 ↗」，
+         没填就显示「待填视频」，不会出现死链。数据一条都没有时会露出下面那块「待填写」占位。 -->
     <section class="section" id="aivideo">
       <div class="container">
         <h2 class="section-title">AI视频 <span class="title-star">✦</span></h2>
 
-        <div class="todo-box">
+        <div class="av-stats" id="avStats"></div>
+        <div class="av-chip-row" id="avYearChips" role="group" aria-label="按年份筛选"></div>
+        <ol class="av-timeline" id="avTimeline"></ol>
+        <p class="av-empty" id="avEmpty" hidden></p>
+
+        <div class="todo-box" id="avFallback" hidden>
           <p class="todo-title">待填写</p>
-          <p class="todo-hint">这一页还空着，内容之后慢慢填。</p>
+          <p class="todo-hint">时间线数据还没写：打开 aivideo.js 往 AIVIDEO_TIMELINE 里加节点。</p>
         </div>
       </div>
     </section>
@@ -90,6 +97,8 @@
   </footer>
 
   <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9dbc39219d9144c998ec463622b964f8"}'></script><!-- End Cloudflare Web Analytics -->
+  <script src="aivideo.js"></script>
   <script src="script.js"></script>
+  <script src="aivideo-render.js"></script>
 </body>
 </html>
