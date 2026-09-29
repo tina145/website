@@ -946,9 +946,9 @@ a.ak-item:hover .ak-go { text-shadow: 0 0 10px var(--accent-glow); }
 }
 .ai-src { font-size: 0.78rem; color: var(--text-dim); }
 .ai-src:hover { color: var(--accent); }
-/* 视频：填了 url 是链接，没填是灰字 */
+/* 视频：只有填了 url 才会渲染出这个链接（没填就不显示东西），
+   原来还有一条 .ai-go.is-todo 灰字占位样式，2026-09-29 按 tina 要求连同占位一起删了 */
 .ai-go { margin-left: auto; font-size: 0.82rem; font-weight: 600; }
-.ai-go.is-todo { color: rgba(185, 189, 224, 0.65); font-weight: 400; }
 
 .ai-empty { padding: 2.2rem 0; text-align: center; color: var(--text-dim); }
 .ai-empty button { margin-top: 0.8rem; }

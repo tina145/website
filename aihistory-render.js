@@ -5,7 +5,7 @@
 //
 // 页面的内容是「LLM 发展时间线」：每个节点一条，右侧可以挂一段视频。
 //   数据里填了 url  → 显示「看视频 ↗」（新窗口打开）
-//   没填 url        → 显示「待填视频」（灰的，不是死链）
+//   没填 url        → 这一条右侧什么都不显示（不留占位，2026-09-29 按 tina 要求把那行灰字删了）
 // 年份筛选按钮由数据里的日期自动生成，不用手写。
 // ============================================================
 
@@ -134,7 +134,8 @@
       meta.appendChild(src);
     }
 
-    // 视频：填了就是一个链接，没填就是灰字「待填视频」
+    // 视频：只在填了 url 的节点上渲染链接；没填就什么都不显示
+    // （原来没填时会显示一行灰字占位，2026-09-29 按 tina 要求删掉了）
     if (isLink(it.url)) {
       const go = document.createElement('a');
       go.className = 'ai-go';
@@ -145,11 +146,6 @@
       go.setAttribute('aria-label', '打开《' + it.title + '》对应的视频（新窗口）');
       go.textContent = '看视频 ↗';
       meta.appendChild(go);
-    } else {
-      const todo = document.createElement('span');
-      todo.className = 'ai-go is-todo';
-      todo.textContent = '待填视频';
-      meta.appendChild(todo);
     }
 
     li.appendChild(meta);
