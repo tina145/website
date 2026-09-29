@@ -123,7 +123,15 @@ a:hover { text-shadow: 0 0 10px var(--accent-glow); }
 .btn-glow { background: var(--accent); color: #101028; box-shadow: 0 0 18px var(--accent-glow); }
 .btn-glow:hover { transform: translateY(-2px); box-shadow: 0 0 28px var(--accent-glow); text-shadow: none; }
 .btn-ghost { border: 1.5px solid var(--accent); color: var(--text); }
-.btn-ghost:hover { background: rgba(111, 168, 255, 0.12); transform: translateY(-2px); }
+.btn-ghost:hover { background: rgba(111, 168, 255, 0.22); transform: translateY(-2px); }
+
+/* ⚠️ 真按钮必须显式给底色：<button> 不写 background 就会用浏览器默认的浅灰（#f0f0f0），
+   配上这里近乎白色的文字 = 白底白字（实测对比度 1.03，等于看不见 —— 三个小游戏的按钮
+   就这么白了好久）。<a> 默认背景透明，所以首页那个 ghost 链接一直看着正常，
+   这里用 button 选择器只修真按钮，首页那枚不动。
+   底色用深色玻璃而不是纯透明：按钮底下是背景照片、有几处挺亮，压深一层之后
+   白字对比度 ≈8~14、灰字（方向键上的「转 / 落」）≈4.9~8.4，全部过 WCAG AA 的 4.5 */
+button.btn-ghost { background: rgba(16, 16, 44, 0.5); }
 
 .hero-scroll-hint {
   position: absolute; bottom: 1.2rem; left: 50%; transform: translateX(-50%);
@@ -522,7 +530,7 @@ a.ak-item:hover .ak-go { text-shadow: 0 0 10px var(--accent-glow); }
 .g2048-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
 .g2048-undo { padding: 0.5rem 1.1rem; font-size: 0.88rem; }
 .g2048-undo:disabled { opacity: 0.45; cursor: not-allowed; }
-.g2048-undo:disabled:hover { background: none; transform: none; }
+.g2048-undo:disabled:hover { background: rgba(16, 16, 44, 0.5); transform: none; }
 
 /* 棋盘：格子大小由 game2048.js 量出宽度后写进 --g-cell / --g-gap */
 .g2048-board {
@@ -685,7 +693,7 @@ a.ak-item:hover .ak-go { text-shadow: 0 0 10px var(--accent-glow); }
 .gg-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
 .gg-btn { padding: 0.5rem 1rem; font-size: 0.88rem; }
 .gg-btn:disabled { opacity: 0.45; cursor: not-allowed; }
-.gg-btn:disabled:hover { background: none; transform: none; }
+.gg-btn:disabled:hover { background: rgba(16, 16, 44, 0.5); transform: none; }
 
 .gg-levels { display: flex; align-items: center; gap: 0.45rem; flex-wrap: wrap; margin-bottom: 0.9rem; }
 .gg-levels-label { font-size: 0.85rem; color: var(--text-dim); margin-right: 0.15rem; }
