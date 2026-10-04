@@ -16,6 +16,7 @@
 | `/karaoke` | `karaoke.html` | 卡拉OK 歌单，每条指向一条 B站视频 |
 | `/apikey` | `apikey.html` | 常用 AI 平台官方入口 |
 | `/aihistory` | `aihistory.html` | AI 发展历程时间线 |
+| `/learning` | `learning.html` | 学习视频卡片墙，点一张打开 B站 |
 | `/contact` | `contact.html` | 联系方式 |
 
 带 `.html` 的地址（例如 `/about.html`）由 Cloudflare Pages 用 308 跳到上表的干净地址。
@@ -30,7 +31,8 @@
   - `karaoke.js` → 卡拉OK 歌单
   - `yugioh.js` → 游戏王时间线
   - `aihistory.js` → AI 发展历程时间线
-- **渲染脚本**：`yugioh-render.js`、`aihistory-render.js`
+  - `learning.js` → 学习视频卡片墙
+- **渲染脚本**：`yugioh-render.js`、`aihistory-render.js`、`learning-render.js`
 - **游戏**：`game2048.js`、`gamegomoku.js`、`gametetris.js`（三个互相独立）
 - **素材**：`avatar.png`、`bg.webp` / `bg-mobile.webp`（整页固定背景，桌面 / 竖屏各一张）、`cover-*.webp`、`og-image.jpg`、favicon 与社交图标
 
@@ -43,6 +45,7 @@ gal.html        → games.js      → script.js
 karaoke.html    → karaoke.js    → script.js
 yugioh.html     → yugioh.js     → script.js → yugioh-render.js
 aihistory.html  → aihistory.js  → script.js → aihistory-render.js
+learning.html   → learning.js   → script.js → learning-render.js
 minigames.html  → script.js     → game2048.js → gamegomoku.js → gametetris.js
 ```
 

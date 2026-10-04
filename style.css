@@ -943,7 +943,8 @@ a.ak-item:hover .ak-go { text-shadow: 0 0 10px var(--accent-glow); }
     transition: max-height 0.3s ease;
   }
   /* 9 个菜单项，每项约 57px，留够高度别把最后一项裁掉（加「游戏王」时由 420 调到 520，加「AI发展历程」再调到 580） */
-  .nav-links.open { max-height: 580px; }
+  /* 10 项导航（2026-10-04 加了「学习视频」）需要 ~640px，9 项时是 580px */
+  .nav-links.open { max-height: 640px; }
   .nav-links li { padding: 0.9rem 1.5rem; border-top: 1px solid rgba(111, 168, 255, 0.12); }
 
   /* 移动端：整页固定背景层的星空图会被放大裁切，把取景挪到偏右（角色在图的右侧） */
@@ -1074,3 +1075,82 @@ a.ak-item:hover .ak-go { text-shadow: 0 0 10px var(--accent-glow); }
 
 .ai-empty { padding: 2.2rem 0; text-align: center; color: var(--text-dim); }
 .ai-empty button { margin-top: 0.8rem; }
+
+/* ================= 学习视频 ================= */
+/* 卡片墙：数据在 learning.js，渲染在 learning-render.js 的 initLearningWall()。
+   整张卡就是一个 B站 链接（没填 url 的卡不可点，右下角写「待填链接」）；
+   封面用 16:9（视频缩略图的比例，别照 galgame 的 3:4 裁）。 */
+.lv-stats { display: flex; flex-wrap: wrap; gap: 1.6rem; margin-bottom: 1.3rem; }
+.lv-stat { display: flex; align-items: baseline; gap: 0.4rem; color: var(--text-dim); font-size: 0.88rem; }
+.lv-stat b {
+  font-size: 1.3rem; color: var(--accent);
+  text-shadow: 0 0 12px var(--accent-glow);
+}
+
+.lv-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.1rem; }
+
+.lv-card {
+  display: flex; flex-direction: column; overflow: hidden;
+  background: var(--card-bg);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(111, 168, 255, 0.22);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  color: var(--text);
+  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+  animation: gal-in 0.35s ease both;
+}
+a.lv-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(111, 168, 255, 0.5);
+  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.45), 0 0 20px var(--accent-glow);
+  text-shadow: none; /* 压掉 a:hover 的整行发光，卡片里文字多 */
+}
+a.lv-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* 没填 url 的卡：不可点，稍微压暗一点 */
+.lv-card.is-todo { opacity: 0.82; }
+
+/* 封面：填了 cover 用图，没填走渐变色块 + 标题首字 */
+.lv-cover {
+  position: relative; aspect-ratio: 16 / 9;
+  display: flex; align-items: center; justify-content: center; overflow: hidden;
+}
+.lv-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.lv-cover-init {
+  font-size: 2.2rem; font-weight: 700; letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
+}
+/* 封面右上角的「示例」角标 */
+.lv-sample {
+  position: absolute; top: 0.5rem; right: 0.5rem;
+  padding: 0.12rem 0.6rem; border-radius: 999px;
+  font-size: 0.72rem; font-weight: 500; line-height: 1.7;
+  backdrop-filter: blur(6px); border: 1px solid; white-space: nowrap;
+  color: var(--text-dim); background: rgba(20, 20, 50, 0.7);
+  border-color: rgba(185, 189, 224, 0.4);
+}
+
+.lv-body { flex: 1; display: flex; flex-direction: column; gap: 0.35rem; padding: 0.85rem 0.9rem 1rem; }
+.lv-title { font-size: 0.98rem; font-weight: 700; line-height: 1.45; }
+.lv-meta { display: flex; align-items: baseline; gap: 0.5rem; font-size: 0.78rem; color: var(--text-dim); }
+.lv-up { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lv-go { margin-left: auto; flex-shrink: 0; font-size: 0.8rem; font-weight: 600; color: var(--accent); white-space: nowrap; }
+a.lv-card:hover .lv-go { text-shadow: 0 0 10px var(--accent-glow); }
+/* 没填 url 的那张卡：右边只写「待填链接」，不是链接样式 */
+.lv-go.is-todo { color: var(--text-dim); font-weight: 500; }
+
+.lv-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.15rem; }
+.lv-tag {
+  font-size: 0.7rem; line-height: 1.6;
+  padding: 0.1rem 0.55rem; border-radius: 999px;
+  background: rgba(111, 168, 255, 0.12);
+  border: 1px solid rgba(111, 168, 255, 0.28);
+  color: var(--accent);
+}
+
+.lv-note { margin-top: auto; padding-top: 0.5rem; font-size: 0.78rem; color: var(--text-dim); }
+
+@media (max-width: 640px) {
+  .lv-grid { grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 0.8rem; }
+}

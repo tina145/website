@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>游戏王 · tina的小窝</title>
-  <meta name="description" content="tina 的游戏王分区：游戏王历史与 OCG 环境的记录，按年份排。" />
+  <title>学习视频 · tina的小窝</title>
+  <meta name="description" content="tina 收藏的学习视频卡片墙，点一张就打开对应的 B站视频。" />
   <meta name="robots" content="index, follow" />
 
   <!-- 站点图标（由 avatar.png 缩放生成） -->
@@ -15,9 +15,9 @@
   <!-- 分享卡片：QQ / 微信 / B站 / 微博 抓的就是这些 -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="tina的小窝" />
-  <meta property="og:title" content="游戏王 · tina的小窝" />
-  <meta property="og:description" content="tina 的游戏王分区：游戏王历史与 OCG 环境的记录，按年份排。" />
-  <meta property="og:url" content="https://tina-9yg.pages.dev/yugioh" />
+  <meta property="og:title" content="学习视频 · tina的小窝" />
+  <meta property="og:description" content="tina 收藏的学习视频卡片墙，点一张就打开对应的 B站视频。" />
+  <meta property="og:url" content="https://tina-9yg.pages.dev/learning" />
   <meta property="og:image" content="https://tina-9yg.pages.dev/og-image.jpg" />
   <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:image:width" content="1200" />
@@ -61,25 +61,32 @@
       <li><a class="side-index-link" href="index.html">主页</a></li>
       <li><a class="side-index-link" href="about.html">关于我</a></li>
       <li><a class="side-index-link" href="gal.html">galgame</a></li>
-      <li><a class="side-index-link is-active" href="yugioh.html" aria-current="page">游戏王</a></li>
+      <li><a class="side-index-link" href="yugioh.html">游戏王</a></li>
       <li><a class="side-index-link" href="minigames.html">小游戏</a></li>
       <li><a class="side-index-link" href="karaoke.html">卡拉OK</a></li>
       <li><a class="side-index-link" href="apikey.html">API KEY</a></li>
       <li><a class="side-index-link" href="aihistory.html">AI发展历程</a></li>
-      <li><a class="side-index-link" href="learning.html">学习视频</a></li>
+      <li><a class="side-index-link is-active" href="learning.html" aria-current="page">学习视频</a></li>
       <li><a class="side-index-link" href="contact.html">联系</a></li>
     </ul>
   </nav>
 
   <main>
-    <!-- 游戏王：两栏内容（游戏王历史 / OCG 环境）手写在 yugioh.js 里，改那个文件即更新本页。
-         标签栏和下面的内容都由 yugioh.js 生成，这里只留两个空容器。 -->
-    <section class="section" id="yugioh">
+    <!-- 学习视频：卡片墙，数据手写在 learning.js 里，改那个文件即更新本页
+         （learning.js 必须排在 script.js 之前，渲染脚本 learning-render.js 排在 script.js 之后） -->
+    <section class="section" id="learning">
       <div class="container">
-        <h2 class="section-title">游戏王 <span class="title-star">✦</span></h2>
+        <h2 class="section-title">学习视频 <span class="title-star">✦</span></h2>
 
-        <div class="ygo-tabs" id="ygoTabs" role="tablist" aria-label="游戏王的子栏目"></div>
-        <div class="ygo-panels" id="ygoPanels"></div>
+        <div class="lv-stats" id="lvStats"></div>
+
+        <div class="lv-grid" id="lvGrid"></div>
+
+        <!-- 一条数据都没有时才露出来（有数据时由 learning-render.js 藏起来） -->
+        <div class="todo-box" id="lvTodo" hidden>
+          <p class="todo-title">待填写</p>
+          <p class="todo-hint">打开 learning.js 往里加视频条目就行。</p>
+        </div>
       </div>
     </section>
   </main>
@@ -91,8 +98,8 @@
   </footer>
 
   <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9dbc39219d9144c998ec463622b964f8"}'></script><!-- End Cloudflare Web Analytics -->
-  <script src="yugioh.js"></script>
+  <script src="learning.js"></script>
   <script src="script.js"></script>
-  <script src="yugioh-render.js"></script>
+  <script src="learning-render.js"></script>
 </body>
 </html>
