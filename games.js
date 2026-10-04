@@ -16,10 +16,12 @@
 //   tags    标签数组，随便写，只作为卡片上的展示标签（筛选栏按厂商，不按标签）
 //   cover   封面图片路径，留空 "" 会自动生成色块封面。
 //             仓库根目录的 cover-*.webp 是这些作品的封面图，**版权归原厂商所有**
-//             （きゃべつそふと / まどそふと / CRYSTALiA / ωstar），此处仅作个人收藏展示用。
-//             规格：3:4 竖图（480×640，源图偏小的那一张不放大），WebP。
+//             （きゃべつそふと / まどそふと / CRYSTALiA / ωstar / くまのみそふと），此处仅作个人收藏展示用。
+//             规格：3:4 竖图（480×640，源图偏小的那两张不放大），WebP。
 //             美少女万华镜那 7 张取自 VNDB 的官方盒绘（v8038 / v11071 / v14240 /
 //             v14365 / v19182 / v27057 / v44184），源图都是竖版，居中裁成 3:4。
+//             くまのみそふと 那 2 张：第 1 部用官方站的竖版「発売中」海报（905×1280），
+//             第 2 部官方站只有横版主视觉，用的是 VNDB 那张 1000×857，居中裁成 3:4。
 //   site    官网链接。填了，卡片上「厂商 · 年份」右边就会出现一个「官网 ↗」并可点击；
 //             留空 "" 就完全不显示这个链接。注意月映宝石乡那部填的是域名根
 //             （cabbage-soft.com），因为厂商把根路径给了当时的主推作品，以后出新作可能会被换掉。
@@ -144,6 +146,31 @@ window.GALGAMES = [
     tags: [],
     cover: "cover-mangekyou-ibun.webp",
     site: "https://www.omega-star.jp/ibun/index.html",
+    note: "",
+  },
+
+  // ---- くまのみそふと（KUMANOMI SOFTWARE，AMUSECRAFT 旗下，2026-10-04 加入）----
+  // 按 tina 的选择只收已发售的 2 部。第 3 部《転性魔王さまは勇者に勝てない！２》
+  // 官方站写着 2026-11-20 发售、目前还没有封面图，等发售后再补。
+  // 中文名取 VNDB 的 zh-Hans 标题（这两部都有官方中文版，对应 release r136102 / r136749）。
+  {
+    title: "性转魔王敌不过勇者",
+    brand: "くまのみそふと",
+    year: 2024,
+    score: null,
+    tags: [],
+    cover: "cover-tenmao.webp",
+    site: "https://kumanomi-soft.amusecraft.com/tenmao/index.html",
+    note: "",
+  },
+  {
+    title: "神明的选择！老师超适合当女孩子！",
+    brand: "くまのみそふと",
+    year: 2025,
+    score: null,
+    tags: [],
+    cover: "cover-kamichu.webp",
+    site: "https://kumanomi-soft.amusecraft.com/kamichu/index.html",
     note: "",
   },
 ];
