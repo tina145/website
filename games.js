@@ -15,8 +15,11 @@
 //             "dropped"  弃了
 //   tags    标签数组，随便写，只作为卡片上的展示标签（筛选栏按厂商，不按标签）
 //   cover   封面图片路径，留空 "" 会自动生成色块封面。
-//             仓库根目录的 cover-*.webp 是这四部作品的官方封面图，**版权归原厂商所有**
-//             （きゃべつそふと / まどそふと / CRYSTALiA），此处仅作个人收藏展示用。
+//             仓库根目录的 cover-*.webp 是这些作品的封面图，**版权归原厂商所有**
+//             （きゃべつそふと / まどそふと / CRYSTALiA / ωstar），此处仅作个人收藏展示用。
+//             规格：3:4 竖图（480×640，源图偏小的那一张不放大），WebP。
+//             美少女万华镜那 7 张取自 VNDB 的官方盒绘（v8038 / v11071 / v14240 /
+//             v14365 / v19182 / v27057 / v44184），源图都是竖版，居中裁成 3:4。
 //   site    官网链接。填了，卡片上「厂商 · 年份」右边就会出现一个「官网 ↗」并可点击；
 //             留空 "" 就完全不显示这个链接。注意月映宝石乡那部填的是域名根
 //             （cabbage-soft.com），因为厂商把根路径给了当时的主推作品，以后出新作可能会被换掉。
@@ -67,6 +70,80 @@ window.GALGAMES = [
     tags: [],
     cover: "cover-totsu-lovers.webp",
     site: "https://crystalia.amusecraft.com/totsulover/",
+    note: "",
+  },
+
+  // ---- 美少女万华镜系列（ωstar，2026-10-04 加入整套 7 部，按发售顺序排）----
+  // 中文名取自 VNDB 的 zh-Hans 标题（v14365 / v27057 / v44184 标 official，其余为社区译名）。
+  // 第 3 条《かつて少女だった君へ》是 2.5 的番外篇，官方站已没有它的产品页，site 留空。
+  {
+    title: "美少女万华镜 -被诅咒之传说少女-",
+    brand: "ωstar",
+    year: 2011,
+    score: null,
+    tags: [],
+    cover: "cover-mangekyou-1.webp",
+    site: "https://www.omega-star.jp/bimanhtml/index.html",
+    note: "",
+  },
+  {
+    title: "美少女万华镜 -勿忘草与永远的少女-",
+    brand: "ωstar",
+    year: 2012,
+    score: null,
+    tags: [],
+    cover: "cover-mangekyou-2.webp",
+    site: "https://www.omega-star.jp/biman2html/index.html",
+    note: "",
+  },
+  {
+    title: "美少女万华镜 外传 -献给曾经是少女的你-",
+    brand: "ωstar",
+    year: 2014,
+    score: null,
+    tags: [],
+    cover: "cover-mangekyou-2_5.webp",
+    site: "",
+    note: "",
+  },
+  {
+    title: "美少女万华镜 -神明所创造的少女们-",
+    brand: "ωstar",
+    year: 2015,
+    score: null,
+    tags: [],
+    cover: "cover-mangekyou-3.webp",
+    site: "https://www.omega-star.jp/biman3html/index.html",
+    note: "",
+  },
+  {
+    title: "美少女万华镜 -罪与罚的少女-",
+    brand: "ωstar",
+    year: 2017,
+    score: null,
+    tags: [],
+    cover: "cover-mangekyou-4.webp",
+    site: "https://www.omega-star.jp/biman4html/index.html",
+    note: "",
+  },
+  {
+    title: "美少女万华镜 -理与迷宫的少女-",
+    brand: "ωstar",
+    year: 2020,
+    score: null,
+    tags: [],
+    cover: "cover-mangekyou-5.webp",
+    site: "https://www.omega-star.jp/biman5html/open.html",
+    note: "",
+  },
+  {
+    title: "美少女万华镜异闻 雪女",
+    brand: "ωstar",
+    year: 2024,
+    score: null,
+    tags: [],
+    cover: "cover-mangekyou-ibun.webp",
+    site: "https://www.omega-star.jp/ibun/index.html",
     note: "",
   },
 ];
