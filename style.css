@@ -1078,7 +1078,8 @@ a.ak-item:hover .ak-go { text-shadow: 0 0 10px var(--accent-glow); }
 
 /* ================= 学习视频 ================= */
 /* 卡片墙：数据在 learning.js，渲染在 learning-render.js 的 initLearningWall()。
-   整张卡就是一个 B站 链接（没填 url 的卡不可点，右下角写「待填链接」）；
+   整张卡点开就是那条 B站 视频（2026-10-06 起改成「覆盖链接 .lv-card-hit」实现，因为卡里还要放
+   「官网 ↗」——链接不能套链接）；没填 url 的卡不可点，右下角写「待填链接」。
    封面用 16:9（视频缩略图的比例，别照 galgame 的 3:4 裁）。 */
 .lv-stats { display: flex; flex-wrap: wrap; gap: 1.6rem; margin-bottom: 1.3rem; }
 .lv-stat { display: flex; align-items: baseline; gap: 0.4rem; color: var(--text-dim); font-size: 0.88rem; }
@@ -1090,6 +1091,7 @@ a.ak-item:hover .ak-go { text-shadow: 0 0 10px var(--accent-glow); }
 .lv-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.1rem; }
 
 .lv-card {
+  position: relative; /* 卡片里的「覆盖链接」.lv-card-hit 靠它定位 */
   display: flex; flex-direction: column; overflow: hidden;
   background: var(--card-bg);
   backdrop-filter: blur(14px);
@@ -1100,13 +1102,17 @@ a.ak-item:hover .ak-go { text-shadow: 0 0 10px var(--accent-glow); }
   transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
   animation: gal-in 0.35s ease both;
 }
-a.lv-card:hover {
+.lv-card:hover {
   transform: translateY(-4px);
   border-color: rgba(111, 168, 255, 0.5);
   box-shadow: 0 10px 36px rgba(0, 0, 0, 0.45), 0 0 20px var(--accent-glow);
   text-shadow: none; /* 压掉 a:hover 的整行发光，卡片里文字多 */
 }
-a.lv-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* 铺满整张卡的覆盖链接：点卡片任意空白处都开 B站（z-index 1，压在正文之上）。
+   2026-10-06 加：卡里还要放「官网 ↗」这种第二个链接，而链接不能套链接（HTML 不允许），
+   所以卡本身是 <article>，整卡可点靠这张覆盖链接提供，卡里的真链接抬到 z-index 2。 */
+.lv-card-hit { position: absolute; inset: 0; z-index: 1; border-radius: inherit; }
+.lv-card-hit:focus-visible { outline: 2px solid var(--accent); outline-offset: -3px; }
 /* 没填 url 的卡：不可点，稍微压暗一点 */
 .lv-card.is-todo { opacity: 0.82; }
 
@@ -1135,8 +1141,12 @@ a.lv-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px;
 .lv-title { font-size: 0.98rem; font-weight: 700; line-height: 1.45; }
 .lv-meta { display: flex; align-items: baseline; gap: 0.5rem; font-size: 0.78rem; color: var(--text-dim); }
 .lv-up { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.lv-go { margin-left: auto; flex-shrink: 0; font-size: 0.8rem; font-weight: 600; color: var(--accent); white-space: nowrap; }
-a.lv-card:hover .lv-go { text-shadow: 0 0 10px var(--accent-glow); }
+/* 右边那排链接：抬到覆盖链接之上（z-index 2）才点得到；点卡片别处依旧是开 B站 */
+.lv-links { margin-left: auto; display: flex; align-items: baseline; gap: 0.55rem; flex-shrink: 0; position: relative; z-index: 2; }
+.lv-go, .lv-site { font-size: 0.8rem; font-weight: 600; color: var(--accent); white-space: nowrap; text-decoration: none; transition: text-shadow 0.2s; }
+.lv-card:hover .lv-go, .lv-card:hover .lv-site, .lv-go:hover, .lv-site:hover { text-shadow: 0 0 10px var(--accent-glow); }
+.lv-go:focus-visible, .lv-site:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+.lv-go.is-todo { color: var(--text-dim); font-weight: 500; }
 /* 没填 url 的那张卡：右边只写「待填链接」，不是链接样式 */
 .lv-go.is-todo { color: var(--text-dim); font-weight: 500; }
 
@@ -1157,7 +1167,8 @@ a.lv-card:hover .lv-go { text-shadow: 0 0 10px var(--accent-glow); }
 
 /* ================= AI生成视频 ================= */
 /* 卡片墙：数据在 aigenvideo.js，渲染在 aigenvideo-render.js 的 initAiGenVideoWall()。
-   这页与「学习视频」是同一套卡片墙做法（整张卡就是一个 B站 链接、没 url 就不可点、
+   这页与「学习视频」是同一套卡片墙做法（整张卡点开就是 B站 视频，2026-10-06 起改成
+   「覆盖链接 .agv-card-hit」实现，好让卡里还能放「官网 ↗」；没 url 就不可点、
    没 cover 就渐变色块 + 首字），类名前缀换成 agv-。
    ⚠️ 改这里时顺手看一眼上面的 .lv-* 一段，两边是刻意保持一致的两份代码。 */
 .agv-stats { display: flex; flex-wrap: wrap; gap: 1.6rem; margin-bottom: 1.3rem; }
@@ -1170,6 +1181,7 @@ a.lv-card:hover .lv-go { text-shadow: 0 0 10px var(--accent-glow); }
 .agv-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.1rem; }
 
 .agv-card {
+  position: relative; /* 卡片里的「覆盖链接」.agv-card-hit 靠它定位 */
   display: flex; flex-direction: column; overflow: hidden;
   background: var(--card-bg);
   backdrop-filter: blur(14px);
@@ -1180,13 +1192,17 @@ a.lv-card:hover .lv-go { text-shadow: 0 0 10px var(--accent-glow); }
   transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
   animation: gal-in 0.35s ease both;
 }
-a.agv-card:hover {
+.agv-card:hover {
   transform: translateY(-4px);
   border-color: rgba(111, 168, 255, 0.5);
   box-shadow: 0 10px 36px rgba(0, 0, 0, 0.45), 0 0 20px var(--accent-glow);
   text-shadow: none; /* 压掉 a:hover 的整行发光，卡片里文字多 */
 }
-a.agv-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* 铺满整张卡的覆盖链接：点卡片任意空白处都开 B站（z-index 1，压在正文之上）。
+   2026-10-06 加：卡里还要放「官网 ↗」这种第二个链接，而链接不能套链接（HTML 不允许），
+   所以卡本身是 <article>，整卡可点靠这张覆盖链接提供，卡里的真链接抬到 z-index 2。 */
+.agv-card-hit { position: absolute; inset: 0; z-index: 1; border-radius: inherit; }
+.agv-card-hit:focus-visible { outline: 2px solid var(--accent); outline-offset: -3px; }
 /* 没填 url 的卡：不可点，稍微压暗一点 */
 .agv-card.is-todo { opacity: 0.82; }
 
@@ -1215,8 +1231,12 @@ a.agv-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px
 .agv-title { font-size: 0.98rem; font-weight: 700; line-height: 1.45; }
 .agv-meta { display: flex; align-items: baseline; gap: 0.5rem; font-size: 0.78rem; color: var(--text-dim); }
 .agv-up { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.agv-go { margin-left: auto; flex-shrink: 0; font-size: 0.8rem; font-weight: 600; color: var(--accent); white-space: nowrap; }
-a.agv-card:hover .agv-go { text-shadow: 0 0 10px var(--accent-glow); }
+/* 右边那排链接：抬到覆盖链接之上（z-index 2）才点得到；点卡片别处依旧是开 B站 */
+.agv-links { margin-left: auto; display: flex; align-items: baseline; gap: 0.55rem; flex-shrink: 0; position: relative; z-index: 2; }
+.agv-go, .agv-site { font-size: 0.8rem; font-weight: 600; color: var(--accent); white-space: nowrap; text-decoration: none; transition: text-shadow 0.2s; }
+.agv-card:hover .agv-go, .agv-card:hover .agv-site, .agv-go:hover, .agv-site:hover { text-shadow: 0 0 10px var(--accent-glow); }
+.agv-go:focus-visible, .agv-site:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+.agv-go.is-todo { color: var(--text-dim); font-weight: 500; }
 /* 没填 url 的那张卡：右边只写「待填链接」，不是链接样式 */
 .agv-go.is-todo { color: var(--text-dim); font-weight: 500; }
 

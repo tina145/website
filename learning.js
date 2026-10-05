@@ -13,6 +13,8 @@
 //   url         B站视频地址               —— 可选，填了整张卡就能点开（新窗口）；
 //                                            留空则整张卡不可点、右下角显示「待填链接」，不会变死链
 //   cover       封面图（仓库根目录文件名）—— 可选，留空按标题哈希生成渐变色块 + 首字
+//   site        官网地址                  —— 可选，2026-10-06 加：填了卡片右下角多一个「官网 ↗」（新窗口）；
+//                                            点卡片别处依旧是开 B站 视频，两个链接互不干扰
 //   tags        标签数组                  —— 可选
 //   note        备注                      —— 可选
 //   sample      写 true 会挂一个「示例」角标 —— 填自己的内容时把这一行删掉
@@ -34,6 +36,9 @@ window.LEARNING = [
     date: '2026-01-01',            // 页面 pubdate
     url: 'https://www.bilibili.com/video/BV1bkvQBEEUz/',
     cover: 'cover-cs50x-2026.webp',
+    // 官网：CS50x 课程主页。2026-10-06 抓过，HTTP 200、页面 <title> 就是「CS50x 2026」，
+    // 与视频标题里的「CS50x 2026」对得上（/x/2026/ 会 302 回 /x/，所以写这个短地址）。
+    site: 'https://cs50.harvard.edu/x/',
     // 标签取自视频页面自己的 tags 数组。**2026-10-06 按 tina 要求删掉了其中的 B站 活动标签「公开课上B站」**，
     // 剩下这 7 个原顺序照抄（规则见 aigenvideo.js：bgm 自动配乐删、topic 里的 B站 活动删、old_channel 留）。
     tags: ['课程', '哈佛大学', '学习', '编程', '公开课', 'CS50x', '计算机科学'],
@@ -49,6 +54,11 @@ window.LEARNING = [
     date: '2026-03-05',            // 页面 pubdate（UTC 2026-03-05T04:25:18Z，B站 显示北京时间 2026-03-05 12:25）
     url: 'https://www.bilibili.com/video/BV1J5PkzmEo4/',
     cover: 'cover-harvard-ai-intro.webp',
+    // 官网：CS50's Introduction to Artificial Intelligence with Python。2026-10-06 抓过，HTTP 200，
+    // 页面标题就是这个课名；这本课没有年份路径（/ai/2026/、/ai/2025/ 都是 404），所以用 /ai/。
+    // 视频的 8 个分P（Search / Knowledge / Uncertainty / Optimization / Learning / Neural Networks / Language）
+    // 正是这门课的 Lecture 0-6，能对上。
+    site: 'https://cs50.harvard.edu/ai/',
     // 它自己的 tags 数组共 10 条，**全部是 old_channel 普通标签**（没有 bgm 自动配乐标签、也没有 B站 活动话题），
     // 所以一条没删，原顺序照抄。取标签的办法见 aigenvideo.js 里的说明：读 __INITIAL_STATE__ 的 tags 数组，别照抄 keywords meta。
     tags: ['哈佛大学', '学习', 'AI', '神经网络', '人工智能', '教程', '机器学习', '深度学习', 'Python', 'PyTorch'],
