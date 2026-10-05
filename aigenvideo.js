@@ -28,7 +28,8 @@ window.AI_GEN_VIDEOS = [
     // tina 2026-10-04 给的地址：https://www.bilibili.com/video/BV12kae6WEPT/
     // 标题照抄页面 <title>（去掉结尾的「_哔哩哔哩_bilibili」）。
     title: 'Opus5.5一句话核爆考研408统考 动画MV',
-    up: 'Bemly_',                  // 视频 owner（页面 __INITIAL_STATE__ 里的 owner.name）
+    // up（B站 UP主）2026-10-06 按 tina 要求**整条删掉**，卡片上不再显示 UP主名字（原本是「Bemly_」）。
+    // 字段本身仍然有效（文件顶部有说明），想显示回来随时写一行 up。
     collection: 'MV',              // 取自视频页面自己的标签（页面 tag 里有「MV」）
     date: '2026-09-28',            // 页面 pubdate（UTC 2026-09-27T16:24:09Z，B站 显示的北京时间是 09-28 00:24）
     url: 'https://www.bilibili.com/video/BV12kae6WEPT/',
@@ -52,7 +53,7 @@ window.AI_GEN_VIDEOS = [
   {
     // tina 2026-10-04 给的地址：https://www.bilibili.com/video/BV1H8av6HEYs/
     title: '震惊瘫坐！Opus 5.5生成-从现在看过去-AI简史',
-    up: '铼夏LAYccc',              // 页面 videoData.owner.name
+    // up 同上：2026-10-06 按 tina 要求删掉（原本是「铼夏LAYccc」）。
     collection: '动画',            // 取自它自己的标签里的「动画」
     date: '2026-09-28',            // 页面 pubdate（UTC 2026-09-27T23:14:21Z，B站 显示北京时间 2026-09-28 07:14）
     url: 'https://www.bilibili.com/video/BV1H8av6HEYs/',
@@ -63,7 +64,7 @@ window.AI_GEN_VIDEOS = [
   {
     // tina 2026-10-04 给的地址：https://www.bilibili.com/video/BV18ta86EEHb/
     title: '吓哭了Opus5.5 AGI概念MV',
-    up: '白雪仅当雪白',            // 页面 videoData.owner.name
+    // up 同上：2026-10-06 按 tina 要求删掉（原本是「白雪仅当雪白」）。
     collection: 'MV',              // 取自它自己的标签里的「MV」
     date: '2026-09-27',            // 页面 pubdate（UTC 2026-09-27T09:47:56Z，B站 显示北京时间 2026-09-27 17:47）
     url: 'https://www.bilibili.com/video/BV18ta86EEHb/',

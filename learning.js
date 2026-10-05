@@ -28,19 +28,36 @@ window.LEARNING = [
     // tina 2026-10-04 给的地址：https://www.bilibili.com/video/BV1bkvQBEEUz/
     // 标题照抄页面 <title>（去掉结尾的「_哔哩哔哩_bilibili」），竖线后面的「附原版CC字幕」也是标题自带。
     title: '哈佛大学CS50x 2026 哈佛大学计算机科学导论课程 2026版 双语字幕 4K HDR | 附原版CC字幕',
-    up: 'Digital_Life',            // 视频 owner（页面 __INITIAL_STATE__ 里的 owner.name）
+    // up（B站 UP主）2026-10-06 按 tina 要求**整条删掉**，卡片上不再显示 UP主名字。
+    // 字段本身仍然有效（文件顶部有说明、AI生成视频那页也还在用），想显示回来就照 aigenvideo.js 那样写一行 up。
     collection: '计算机科学',       // 取自视频页面自己的标签（页面 tag 里有「计算机科学」）
     date: '2026-01-01',            // 页面 pubdate
     url: 'https://www.bilibili.com/video/BV1bkvQBEEUz/',
     cover: 'cover-cs50x-2026.webp',
-    // 标签全部照抄视频页面自己的标签，一个没加也一个没减（原顺序）
-    tags: ['公开课上B站', '课程', '哈佛大学', '学习', '编程', '公开课', 'CS50x', '计算机科学'],
-    // 下面这句里的三条信息都来自页面本身：meta description 说「共计26条视频」，
-    // 简介第一行写着 cs50.harvard.edu/x 与「录制于2025秋」，末行写着课程的 CC BY-NC-SA 4.0 许可。
-    note: '共 26 个分P，录制于 2025 秋；简介里写着课程主页 cs50.harvard.edu/x，课程素材是 CC BY-NC-SA 4.0 许可。',
+    // 标签取自视频页面自己的 tags 数组。**2026-10-06 按 tina 要求删掉了其中的 B站 活动标签「公开课上B站」**，
+    // 剩下这 7 个原顺序照抄（规则见 aigenvideo.js：bgm 自动配乐删、topic 里的 B站 活动删、old_channel 留）。
+    tags: ['课程', '哈佛大学', '学习', '编程', '公开课', 'CS50x', '计算机科学'],
+    // 备注（note）2026-10-06 也按 tina 要求整条删掉了（原本写的是「共 26 个分P，录制于 2025 秋；简介里写着
+    // 课程主页 cs50.harvard.edu/x，课程素材是 CC BY-NC-SA 4.0 许可」）。字段本身仍然有效，想写回来随时加。
+  },
+
+  {
+    // tina 2026-10-04 给的地址：https://www.bilibili.com/video/BV1J5PkzmEo4/
+    title: '【2026·4K 双语】哈佛大学公开课《人工智能导论》with Python！入门深度学习的必修课！！ -机器学习/神经网络/新手小白',
+    // up 同上：2026-10-06 按 tina 要求删掉，卡片上不显示 UP主（原本是「小微带你学AI」）。
+    collection: '人工智能',         // 取自它自己的标签里的「人工智能」
+    date: '2026-03-05',            // 页面 pubdate（UTC 2026-03-05T04:25:18Z，B站 显示北京时间 2026-03-05 12:25）
+    url: 'https://www.bilibili.com/video/BV1J5PkzmEo4/',
+    cover: 'cover-harvard-ai-intro.webp',
+    // 它自己的 tags 数组共 10 条，**全部是 old_channel 普通标签**（没有 bgm 自动配乐标签、也没有 B站 活动话题），
+    // 所以一条没删，原顺序照抄。取标签的办法见 aigenvideo.js 里的说明：读 __INITIAL_STATE__ 的 tags 数组，别照抄 keywords meta。
+    tags: ['哈佛大学', '学习', 'AI', '神经网络', '人工智能', '教程', '机器学习', '深度学习', 'Python', 'PyTorch'],
+    // 这条按 tina 2026-10-04 的口径**没有写 note**（她当时让把 AI生成视频 那条的备注整条删掉）。
+    // 页面本身能凑出的信息：共 **8 个分P**、时长合计 **45671 秒（约 12 小时 41 分）**、简介是公众号引流（gong.粽.号）。
+    // 想给这条补一句备注，照上面第一条那样写 note 即可。
   },
 ];
 
-// 以后要按分类筛（现在只有一条，所以页面还没做筛选栏）时，在这里预设置分类顺序，
+// 以后要按分类筛（现在只有两条，所以页面还没做筛选栏）时，在这里预设置分类顺序，
 // 写法照 karaoke.js 的 KARAOKE_COLLECTION_PRESETS。
-// window.LEARNING_COLLECTION_PRESETS = ['计算机科学', '编程'];
+// window.LEARNING_COLLECTION_PRESETS = ['计算机科学', '人工智能'];
