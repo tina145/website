@@ -47,6 +47,25 @@ window.LEARNING = [
   },
 
   {
+    // tina 2026-10-06 给的地址：https://www.bilibili.com/video/BV1GWLb65Erd/
+    // 她指定「插在 CS50x 之后」，所以这一条排在**第 2 张卡**（数组下标 1），不是追加到最后。
+    // 字段来源同下面那条北大离散数学：B站 对视频页整条路径风控 412，所以走接口
+    // （x/web-interface/wbi/view + x/tag/archive/tags，都是 HTTP 200），响应原文缓存进
+    // ~/web-verify/cache/BV1GWLb65Erd.json / .tags.json，自检逐字段核对。
+    title: '【中英字幕】Harvard CS50P Python 编程入门课程 2022',
+    collection: '计算机编程',          // 取自它自己的标签里的「计算机编程」
+    date: '2026-05-21',               // 接口里的 pubdate 1779365116 → 北京时间 2026-05-21 20:05
+    url: 'https://www.bilibili.com/video/BV1GWLb65Erd/',
+    cover: 'cover-cs50p-python.webp', // 源图 1920×1080 **正好 16:9**，直接缩到 640×360（不用裁）
+    // 它自己的标签一共 8 条，**全是正常话题、没有 B站 活动标签，所以一个都没删**：
+    // 编程语言 / 计算机编程 / 中英字幕 / 公开课 / 入门课程 / 哈佛 / Python / cs50
+    // 视频本体（都出自上面那份接口响应，但这页按规矩**不写备注**）：共 11 个分P、时长合计 57239 秒
+    // ≈ 15 小时 54 分；UP主 JK19999；简介是「Harvard CS50P Python 编程入门课程 2022 自制中英字幕」。
+    // 官网**暂时没挂**：候选 https://cs50.harvard.edu/python/ 已经验过（200，标题「CS50's Introduction to
+    // Programming with Python」；/python/2022/ 会 302 回 /python/），tina 这一轮没发话，所以留着等她一句话。
+    tags: ['编程语言', '计算机编程', '中英字幕', '公开课', '入门课程', '哈佛', 'Python', 'cs50'],
+  },
+  {
     // tina 2026-10-04 给的地址：https://www.bilibili.com/video/BV1J5PkzmEo4/
     title: '【2026·4K 双语】哈佛大学公开课《人工智能导论》with Python！入门深度学习的必修课！！ -机器学习/神经网络/新手小白',
     // up 同上：2026-10-06 按 tina 要求删掉，卡片上不显示 UP主（原本是「小微带你学AI」）。
@@ -87,7 +106,9 @@ window.LEARNING = [
     // Gitee 镜像 gitee.com/chbpku/dmath，tina 让挂 GitHub，所以就用 GitHub 这条）。
     site: 'https://github.com/chbpku/dmath',
     // 它自己的标签一共只有 4 条：知识分享官 / 北京大学 / 学习 / 离散数学。
-    // 「知识分享官」是 B站 的知识类活动标签，按既有规矩（不收 B站 活动标签）**删掉**，已在回复里点名让 tina 定夺。
+    // 「知识分享官」是 B站 的知识类活动标签，按既有规矩（不收 B站 活动标签）**删掉**。
+    // tina 2026-10-06 已明确答复「不加」，所以这条就永久不收（自检脚本里也把它列进了禁止标签）。
+    // 以后别再问、也别手滑加回来。
     // 顺便记一下这条视频本身的信息（都出自上面那份接口响应，但这页按规矩**不写备注**）：
     // 共 128 个分P、时长合计 131294 秒 ≈ 36 小时 28 分；简介是课程说明（面向非计算机专业理工科学生，
     // 讲数理逻辑/集合论/图论/抽象代数/形式语言与自动机）+ 课程资料地址 github.com/chbpku/dmath；播放 4.9 万。
