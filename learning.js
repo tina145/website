@@ -61,8 +61,11 @@ window.LEARNING = [
     // 编程语言 / 计算机编程 / 中英字幕 / 公开课 / 入门课程 / 哈佛 / Python / cs50
     // 视频本体（都出自上面那份接口响应，但这页按规矩**不写备注**）：共 11 个分P、时长合计 57239 秒
     // ≈ 15 小时 54 分；UP主 JK19999；简介是「Harvard CS50P Python 编程入门课程 2022 自制中英字幕」。
-    // 官网**暂时没挂**：候选 https://cs50.harvard.edu/python/ 已经验过（200，标题「CS50's Introduction to
-    // Programming with Python」；/python/2022/ 会 302 回 /python/），tina 这一轮没发话，所以留着等她一句话。
+    // 官网：CS50P 官方课程站。2026-10-06 抓过两次，HTTP 200，标题「CS50's Introduction to Programming with
+    // Python」；带年份的 /python/2022/ 会 302 回 /python/（这门课没有分年份的路径），所以用不带年份的。
+    // ⚠️ 这个地址**不是视频简介里的**（简介只有一句「Harvard CS50P Python 编程入门课程 2022 自制中英字幕」），
+    // 是官方课程站，所以数据自检里按普通官网登记（不做 fromVideo 校验），但会实抓复验 HTTP 200 + 标题。
+    site: 'https://cs50.harvard.edu/python/',
     tags: ['编程语言', '计算机编程', '中英字幕', '公开课', '入门课程', '哈佛', 'Python', 'cs50'],
   },
   {
