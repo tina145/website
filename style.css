@@ -368,6 +368,42 @@ button.btn-ghost { background: rgba(16, 16, 44, 0.5); }
 .gal-empty { margin-top: 0.5rem; padding: 2.2rem 0; text-align: center; color: var(--text-dim); }
 .gal-empty button { margin-top: 0.8rem; }
 
+/* galgame 页的左右两栏（2026-10-17 加）：
+   左 = 「玩过的作品」收藏（原来那一整块），右 = 「自建galgame（未完成）」。
+   容器本身是 .container（min(960px, 92%)），所以左栏分到约 640px，
+   网格 auto-fill minmax(190px,1fr) 那边会从 4 列变成 3 列。
+   窄屏放到下面 999px 的媒体查询里叠成上下两块：左栏在上、右栏在下。 */
+.gal-layout { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 2rem; align-items: start; }
+/* 左栏是网格子项：min-width:0 才不会让里面的搜索框 / 卡片把格子顶宽、把右栏挤出去 */
+.gal-col-main { min-width: 0; }
+
+/* 右栏：自己做的 galgame。按 tina 要求里面只做「一行文字链接」，没有卡片、没有封面 */
+.gal-mine {
+  background: var(--card-bg);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(111, 168, 255, 0.22);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.2rem 1.1rem 1.3rem;
+}
+/* 标题就是她的原话「自建galgame（未完成）」，括号那半截压暗一点，
+   跟左边的 .section-title（1.7rem）比小一号，免得抢主标题 */
+.gal-mine-title { font-size: 1.05rem; line-height: 1.5; margin-bottom: 0.9rem; text-shadow: 0 0 12px var(--accent-glow); }
+.gal-mine-mark { font-size: 0.76rem; font-weight: 400; color: var(--text-dim); }
+
+.gal-mine-list { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+.gal-mine-item { font-size: 0.95rem; }
+/* 一行文字链接：颜色走全站 a 的 --accent，悬停发光也是 a:hover 自带的 */
+.gal-mine-link { display: inline-flex; align-items: baseline; gap: 0.4rem; }
+.gal-mine-name { font-weight: 700; }
+.gal-mine-go { font-size: 0.85em; }
+.gal-mine-empty { font-size: 0.85rem; color: var(--text-dim); }
+
+/* 容器（min(960px,92%)）窄到左栏放不下 3 列卡片时，两栏叠成上下两块 */
+@media (max-width: 999px) {
+  .gal-layout { grid-template-columns: 1fr; gap: 1.4rem; }
+}
+
 /* ================= 卡拉OK 歌单 ================= */
 /* 一行一首：左边序号、中间曲名与信息、右边跳 B站。
    数据在 karaoke.js，渲染在 script.js 的 initKaraokeList() */

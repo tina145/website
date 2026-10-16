@@ -10,7 +10,7 @@
 | --- | --- | --- |
 | `/` | `index.html` | 首页：Hero + 分区概览卡片 |
 | `/about` | `about.html` | 关于我 + 兴趣 |
-| `/gal` | `gal.html` | galgame 收藏 |
+| `/gal` | `gal.html` | galgame 收藏（左）+ 自建galgame（未完成）（右） |
 | `/yugioh` | `yugioh.html` | 游戏王：历史 / OCG 环境 |
 | `/minigames` | `minigames.html` | 小游戏：2048 / 五子棋 / 俄罗斯方块 |
 | `/karaoke` | `karaoke.html` | 卡拉OK 歌单，每条指向一条 B站视频 |
@@ -29,7 +29,7 @@
 
 - **样式与通用脚本**：`style.css`、`script.js`（汉堡菜单 + 滚动淡入）
 - **数据源**——改内容只改这些，不用碰 HTML：
-  - `games.js` → galgame 列表
+  - `games.js` → galgame 收藏列表（`window.GALGAMES`）+ 自建 galgame 列表（`window.MY_GALGAMES`，页右栏）
   - `karaoke.js` → 卡拉OK 歌单
   - `yugioh.js` → 游戏王时间线
   - `aihistory.js` → AI 发展历程时间线

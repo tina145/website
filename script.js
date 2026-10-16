@@ -342,6 +342,57 @@ if (copyBtn) {
   render();
 })();
 
+// 5. 自建 galgame 一栏（galgame 页右边那一栏，数据手写在 games.js 的 window.MY_GALGAMES）
+//    按 tina 要求只做「一行文字链接」，没有卡片、没有封面；没填 url 的条目只显示名字、点不动
+(function initMyGalgameList() {
+  const list = document.getElementById('galMineList');
+  if (!list) return; // 只有 gal.html 有这一栏
+
+  const empty = document.getElementById('galMineEmpty');
+  const all = (window.MY_GALGAMES || []).filter((g) => g && g.title);
+
+  if (!all.length) {
+    if (empty) empty.hidden = false;
+    return;
+  }
+
+  all.forEach((g) => {
+    const url = String(g.url || '').trim();
+
+    const li = document.createElement('li');
+    li.className = 'gal-mine-item';
+
+    const name = document.createElement('span');
+    name.className = 'gal-mine-name';
+    name.textContent = g.title;
+
+    // 没填 url：只摆名字，不做成链接（免得出现死链）
+    if (!url) {
+      li.appendChild(name);
+      list.appendChild(li);
+      return;
+    }
+
+    const a = document.createElement('a');
+    a.className = 'gal-mine-link';
+    a.href = url;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    // note 不占页面位置，只挂在悬停提示里（这一栏只做「一行文字链接」）
+    a.title = g.note ? g.note : '打开《' + g.title + '》（新窗口）';
+    a.setAttribute('aria-label', '打开《' + g.title + '》（新窗口）');
+    a.appendChild(name);
+
+    const go = document.createElement('span');
+    go.className = 'gal-mine-go';
+    go.textContent = '↗';
+    a.appendChild(go);
+
+    li.appendChild(a);
+    list.appendChild(li);
+  });
+})();
+
 // 6. 卡拉OK 歌单（数据手写在 karaoke.js，改那个文件即更新本页）
 //    每条点开就是一条 B站链接；没填 url 的条目显示「待填链接」，不会变成死链
 (function initKaraokeList() {
