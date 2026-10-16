@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>工具 · tina的小窝</title>
+  <meta name="description" content="常用工具入口：ClashCloud 用户中心、Ollama 官网。" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- 站点图标（由 avatar.png 缩放生成） -->
+  <link rel="icon" href="favicon.ico" sizes="16x16 32x32 48x48" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+
+  <!-- 分享卡片：QQ / 微信 / B站 / 微博 抓的就是这些 -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="tina的小窝" />
+  <meta property="og:title" content="工具 · tina的小窝" />
+  <meta property="og:description" content="常用工具入口：ClashCloud 用户中心、Ollama 官网。" />
+  <meta property="og:url" content="https://tina-9yg.pages.dev/tools" />
+  <meta property="og:image" content="https://tina-9yg.pages.dev/og-image.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="星空下的兽耳娘插画" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- 顶栏：只在窄屏出现（宽屏由左侧导航接管），窄屏保留汉堡菜单 -->
+  <header class="site-header">
+    <nav class="nav container">
+      <a class="nav-logo" href="index.html">✦ <span>tina的小窝</span></a>
+      <button class="nav-toggle" id="navToggle" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">首页</a></li>
+        <li><a href="about.html">关于我</a></li>
+        <li><a href="gal.html">galgame</a></li>
+        <li><a href="yugioh.html">游戏王</a></li>
+        <li><a href="minigames.html">小游戏</a></li>
+        <li><a href="karaoke.html">卡拉OK</a></li>
+        <li><a href="apikey.html">API KEY</a></li>
+        <li><a href="aihistory.html">AI发展历程</a></li>
+        <li><a href="learning.html">学习视频</a></li>
+        <li><a href="aigenvideo.html">AI生成视频</a></li>
+        <li><a href="tools.html">工具</a></li>
+        <li><a href="contact.html">联系</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- 左侧导航：桌面端就是全站的主导航（顶栏只在窄屏出现，见 style.css）
+       站点是分页的，每个页面是独立文件，所以「当前是哪一页」直接写死在 HTML 里
+       （is-active + aria-current），不靠 JS 判断 -->
+  <nav class="side-index" id="sideIndex" aria-label="站点导航">
+    <a class="side-index-logo" href="index.html">✦ <span>tina的小窝</span></a>
+    <ul class="side-index-list">
+      <li><a class="side-index-link" href="index.html">主页</a></li>
+      <li><a class="side-index-link" href="about.html">关于我</a></li>
+      <li><a class="side-index-link" href="gal.html">galgame</a></li>
+      <li><a class="side-index-link" href="yugioh.html">游戏王</a></li>
+      <li><a class="side-index-link" href="minigames.html">小游戏</a></li>
+      <li><a class="side-index-link" href="karaoke.html">卡拉OK</a></li>
+      <li><a class="side-index-link" href="apikey.html">API KEY</a></li>
+      <li><a class="side-index-link" href="aihistory.html">AI发展历程</a></li>
+      <li><a class="side-index-link" href="learning.html">学习视频</a></li>
+      <li><a class="side-index-link" href="aigenvideo.html">AI生成视频</a></li>
+      <li><a class="side-index-link is-active" href="tools.html" aria-current="page">工具</a></li>
+      <li><a class="side-index-link" href="contact.html">联系</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <!-- 工具：跟 API KEY 同一套写法（.ak-list / .ak-item，一行两条），
+         只列入口、点整行开新窗口；两条链接写死在本页 HTML 里，没有数据文件、没有 JS 渲染。
+         2026-10-16 新增：tina 要求左侧导航加一项「工具」并填上这两个地址 -->
+    <section class="section" id="tools">
+      <div class="container">
+        <h2 class="section-title">工具 <span class="title-star">✦</span></h2>
+
+        <div class="ak-list">
+          <a class="ak-item" href="https://clashcloud.org/user" target="_blank" rel="noopener">
+            <span class="ak-title">ClashCloud 用户中心</span>
+            <span class="ak-go">打开 ↗</span>
+          </a>
+          <a class="ak-item" href="https://ollama.com/" target="_blank" rel="noopener">
+            <span class="ak-title">Ollama 官网</span>
+            <span class="ak-go">打开 ↗</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 tina · Made with ✦ under a starry night</p>
+    </div>
+  </footer>
+
+  <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9dbc39219d9144c998ec463622b964f8"}'></script><!-- End Cloudflare Web Analytics -->
+  <script src="script.js"></script>
+</body>
+</html>

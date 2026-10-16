@@ -18,6 +18,7 @@
 | `/aihistory` | `aihistory.html` | AI 发展历程时间线 |
 | `/learning` | `learning.html` | 学习视频卡片墙，点一张打开 B站 |
 | `/aigenvideo` | `aigenvideo.html` | AI 生成视频卡片墙，点一张打开 B站 |
+| `/tools` | `tools.html` | 工具入口：ClashCloud 用户中心 / Ollama 官网 |
 | `/contact` | `contact.html` | 联系方式 |
 
 带 `.html` 的地址（例如 `/about.html`）由 Cloudflare Pages 用 308 跳到上表的干净地址。
@@ -35,6 +36,7 @@
   - `learning.js` → 学习视频卡片墙
   - `aigenvideo.js` → AI 生成视频卡片墙
 - **渲染脚本**：`yugioh-render.js`、`aihistory-render.js`、`learning-render.js`、`aigenvideo-render.js`
+- **`apikey.html` 与 `tools.html` 没有数据文件**：外链数量少（4 条 / 2 条），链接直接写在页面 HTML 里，共用 `style.css` 里的 `.ak-list` / `.ak-item`
 - **游戏**：`game2048.js`、`gamegomoku.js`、`gametetris.js`（三个互相独立）
 - **素材**：`avatar.png`、`bg.webp` / `bg-mobile.webp`（整页固定背景，桌面 / 竖屏各一张）、`cover-*.webp`、`og-image.jpg`、favicon 与社交图标
 

@@ -462,11 +462,12 @@ a.kara-item:hover .kara-go { text-shadow: 0 0 10px var(--accent-glow); }
   .kara-go { justify-self: start; margin-top: 0.35rem; }
 }
 
-/* ================= API KEY ================= */
-/* 左边是入口名，右边直接跳官网。就四条，写死在 apikey.html 里 ——
+/* ================= API KEY / 工具 ================= */
+/* 左边是入口名，右边直接跳官网。两条 / 四条都写死在各自页面里 ——
    没有数据文件、没有 JS 渲染。
    2026-09-24：① 每条下面原来还有一句说明文案，tina 要求删掉了（所以没有 .ak-sub）；
-   ② tina 说「每个太长了，缩减一半」→ 宽屏改成一行两条，每条占半个容器宽 */
+   ② tina 说「每个太长了，缩减一半」→ 宽屏改成一行两条，每条占半个容器宽。
+   2026-10-16：「工具」页（tools.html）是同一个版式，直接复用 .ak-* 这一套，没有另起前缀 */
 .ak-list {
   display: grid;
   /* auto-fit：宽内容列（960px）下正好两条一行、每条约 466px；
@@ -942,9 +943,8 @@ a.ak-item:hover .ak-go { text-shadow: 0 0 10px var(--accent-glow); }
     max-height: 0; overflow: hidden;
     transition: max-height 0.3s ease;
   }
-  /* 9 个菜单项，每项约 57px，留够高度别把最后一项裁掉（加「游戏王」时由 420 调到 520，加「AI发展历程」再调到 580） */
-  /* 11 项导航（2026-10-04 又加了「AI生成视频」）需要 ~700px；历次：7 项 420 / 8 项 520 / 9 项 580 / 10 项 640 / 11 项 700 */
-  .nav-links.open { max-height: 700px; }
+  /* 12 项导航（2026-10-16 又加了「工具」）需要 ~760px；历次：7 项 420 / 8 项 520 / 9 项 580 / 10 项 640 / 11 项 700 / 12 项 760 */
+  .nav-links.open { max-height: 760px; }
   .nav-links li { padding: 0.9rem 1.5rem; border-top: 1px solid rgba(111, 168, 255, 0.12); }
 
   /* 移动端：整页固定背景层的星空图会被放大裁切，把取景挪到偏右（角色在图的右侧） */
